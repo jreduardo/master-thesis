@@ -6,30 +6,35 @@
 \checkandfixthelayout
 
 % Definindo página A4 no pdf, com margens corretas
-\usepackage[a4paper,twoside,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+\usepackage[top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 
 % Indentação na primeira linha dos parágrafos
 \setlength{\parindent}{1.5cm}
 % Fazer isso também nos parágrafos que iniciam capítulos
 \usepackage{indentfirst}
 
-% Fontes 
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{xunicode}
-\usepackage{xltxtra}
-% Caso pretenda usar fontes do sistema, remova os comentários das
-% linhas abaixo, e indique o nome das fontes desejadas.
-% OBS: o arquivo só irá compilar se as fontes estiverem instaladas!
-%\defaultfontfeatures{Mapping=tex-text}
-%\setromanfont{GaramondNo8} % versão livre da Garamond
-%\setsansfont{Calibri}
-%\setmonofont{Inconsolata}
-
+% Fontes
+\usepackage{lmodern}
+\usepackage{inconsolata}
 
 % Hyperlinks
 \usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  bookmarksdepth=4
+}
+
+% Inclusão de referências bibliográficas usando o BibTex
+\usepackage[sectionbib]{natbib}
+\usepackage{chapterbib}
 
 % Hifenação e acentuação
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[english, brazil]{babel}
 
 % Macro para remover Heads, que estão presentes por default na classe memoir
@@ -135,17 +140,13 @@
 \captiondelim{. }
 \captionnamefont{\bfseries}
 
-% Inclusão de referências bibliográficas usando o BibTex
-\usepackage{natbib}
-
 %% Para remover a inclusão automática da palavra "Resumo" ou
-%% "Abstract" 
+%% "Abstract"
 \addto\captionsbrazil{\renewcommand*\abstractname{}}
 
 %%% Espaço entre itens no Sumário
 \setlength{\cftbeforebookskip}{0em \@plus\p@}
 \setlength{\cftbeforepartskip}{0em \@plus\p@}
 \setlength{\cftbeforechapterskip}{0.1em \@plus\p@}
-
 
 \makeatother
