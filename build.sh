@@ -26,16 +26,17 @@ xelatex $1
 echo "------------------------------------------------------------"
 echo "Bibtex compilation"
 echo "------------------------------------------------------------"
-for i in ${@:2}
-do bibtex $i
+CHAPTERS=$(sed -n 's/\\include{\(.*\)}/\1/p' $1)
+for i in $CHAPTERS; do
+    bibtex $i
 done
 
 # Compile twice. For update auxiliary files and create correct PDF
 echo "------------------------------------------------------------"
 echo "Compile xelatex twice. For create final PDF"
 echo "------------------------------------------------------------"
-for i in 1 2
-do xelatex $1
+for i in 1 2; do
+    xelatex $1
 done
 
 # Files in final (final state)
