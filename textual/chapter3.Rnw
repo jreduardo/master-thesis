@@ -1,0 +1,54 @@
+\chapter{Modelos lineares generalizados duplos para dados de contagem}
+
+\vspace{0.5cm}
+
+\begin{center}
+  {\bfseries \sffamily \fontsize{12}{12} RESUMO}
+\end{center}
+\vspace*{-1.5cm}
+
+\begin{abstract}
+  \lipsum[1]
+  \noindent {Palavras-chave}: Words
+\end{abstract}
+
+\vspace{1cm}
+
+\begin{center}
+  {\bfseries \sffamily \fontsize{12}{12} ABSTRACT
+    Regression models for count data
+  }
+\end{center}
+\vspace*{-1.5cm}
+
+\begin{abstract}
+  \lipsum[1]
+  \noindent {Key-words}: Words
+\end{abstract}
+
+\newpage
+
+\section{Introdução}
+
+\lipsum[1-8]
+
+\section{Modelos lineares generalizados duplos}
+
+\section{Estimação e inferência}
+
+\section{Estudos de caso}
+
+\lipsum[1-2]
+
+<<fig.cap="Densidade empírica de volcano.">>=
+
+plot(density(volcano))
+
+@
+
+\lipsum[1-6]
+
+\cite{Bonat2017} \cite{Hinde1998}
+
+\bibliography{references}
+\clearpage

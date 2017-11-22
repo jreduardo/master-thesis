@@ -1,0 +1,76 @@
+%-----------------------------------------------------------------------
+% Inicia apêndices
+%-----------------------------------------------------------------------
+\chapter*{Apêndices}
+\addcontentsline{toc}{chapter}{Apêndices}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\renewcommand{\thefigure}{A.\arabic{figure}}
+\renewcommand{\thetable}{A.\arabic{table}}
+
+%=======================================================================
+% Apêndice A
+%=======================================================================
+\section*{Apêndice I}
+
+Nulla condimentum vulputate porttitor. Nulla sollicitudin ante vel
+orci fringilla suscipit. Sed dolor diam, vulputate eu iaculis non,
+lobortis vel neque. Vivamus sit amet lectus mauris. Sed odio libero,
+finibus sed iaculis nec, fermentum a mauris. Vivamus ac arcu mauris.
+Donec molestie accumsan pulvinar. Sed feugiat in tortor vel porta.
+Donec sed sem posuere, suscipit nunc a, posuere diam.
+
+<<eval=FALSE, echo=TRUE>>=
+
+# Framework for fit count models (using bbmle::mle2 function)
+fitcm <- function(formula, data, start = NULL,
+                  model = c("CP", "CP2"), ...) {
+    dots <- list(...)
+    model <- match.arg(model)
+    ##-------------------------------------------
+    frame <- model.frame(formula, data)
+    terms <- attr(frame, "terms")
+    y <- model.response(frame)
+    X <- model.matrix(terms, frame)
+    off <- model.offset(frame)
+    if (is.null(start)) {
+        m0 <- glm.fit(x = X, y = y, offset = off, family = poisson())
+        start <- c(0, m0$coefficients)
+    }
+    ##-------------------------------------------
+    if (model == "CP") {
+        names(start)[1] <- "phi"
+        bbmle::parnames(llcmp) <- names(start)
+        sumto <- dots$sumto
+        dots$sumto <- NULL
+        args <- append(
+            list(minuslog = llcmp, start = start,
+                 data = list(y = y, X = X, offset = off,
+                             sumto = sumto, model = model),
+                 vecpar = TRUE), dots)
+        fit <- suppressWarnings(
+            do.call(what = bbmle::mle2, args = args))
+    }
+    if (model == "CP2") {
+        names(start)[1] <- "phi2"
+        bbmle::parnames(llcmp2) <- names(start)
+        sumto <- dots$sumto
+        dots$sumto <- NULL
+        args <- append(
+            list(minuslog = llcmp2, start = start,
+                 data = list(y = y, X = X, offset = off,
+                             sumto = sumto, model = model),
+                 vecpar = TRUE), dots)
+        fit <- suppressWarnings(
+            do.call(what = bbmle::mle2, args = args))
+    }
+    slot(fit, "call.orig") <- match.call()
+    return(fit)
+}
+
+@
+
+\section*{Apêndice II}
+
+Vivamus sit amet lectus mauris. Sed odio libero, finibus sed iaculis
+nec.

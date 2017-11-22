@@ -1,0 +1,133 @@
+% =====================================================================
+% Teses e dissertações em Rnw - ESALQ USP
+%                                                        Eduardo Junior
+%                                                    edujrrib@gmail.com
+%                                                            2017-11-20
+% =====================================================================
+
+% Classe do documento
+\documentclass[book, A4paper, 10pt, twoside, oldfontcommands]{memoir}
+\usepackage{lipsum}
+\usepackage{./template-esalq}
+
+%-------------------------------------------
+% Cria os arquivos de cada capítulo (exigência para bom funcionamento do
+% pacote `chapterbib`)
+
+%-------------------------------------------
+% Capítulo 1
+\begin{filecontents}{chapter1.tex}
+\bibliographystyle{plainnat}
+<<cap01, child = "textual/chapter1.Rnw">>=
+@
+\end{filecontents}
+
+%-------------------------------------------
+% Capítulo 2
+\begin{filecontents}{chapter2.tex}
+\bibliographystyle{plainnat}
+<<cap02, child = "textual/chapter2.Rnw">>=
+@
+\end{filecontents}
+
+%-------------------------------------------
+% Capítulo 3
+\begin{filecontents}{chapter3.tex}
+\bibliographystyle{plainnat}
+<<cap02, child = "textual/chapter3.Rnw">>=
+@
+\end{filecontents}
+
+%-------------------------------------------
+% Capítulo 4
+\begin{filecontents}{chapter4.tex}
+\bibliographystyle{plainnat}
+<<cap02, child = "textual/chapter4.Rnw">>=
+@
+\end{filecontents}
+
+%-------------------------------------------
+% Inicia o documento
+\begin{document}
+
+\pagestyle{fnsizeheadings}
+
+%=======================================================================
+% Elementos pré-textuais
+%=======================================================================
+
+% Define as informações do documento
+\input{./pre-textual/informations.tex}
+
+% Elementos pré-textuais obrigatórios
+\input{./pre-textual/cover.tex}
+\input{./pre-textual/record.tex}
+
+\openany
+\rmfamily
+
+% Elementos pré-textuais opcionais
+\input{./pre-textual/dedication.tex}
+\clearpage
+
+\input{./pre-textual/acknowledge.tex}
+\clearpage
+
+\input{./pre-textual/biography.tex}
+\clearpage
+
+\input{./pre-textual/epigraph.tex}
+\clearpage
+
+% Sumário Geral
+\setupshorttoc
+\setupparasubsecs
+\setupmaintoc
+\tableofcontents*
+\setlength{\unitlength}{1pt}
+\clearpage
+
+% Resumo geral (português)
+\input{./pre-textual/abstract-pt.tex}
+\clearpage
+
+% Resumo geral (inglês)
+\input{./pre-textual/abstract-en.tex}
+\clearpage
+
+% Lista de figuras
+\listoffigures
+\clearpage
+
+% Lista de tabelas
+\listoftables
+\clearpage
+
+%=======================================================================
+% Elementos textuais
+%=======================================================================
+\openright
+
+% Modificações na exibição das referências
+\renewcommand{\bibname}{Referências}
+\renewcommand{\bibsection}{%
+\section*{\bibname}
+\addcontentsline{toc}{section}{\hspace*{2.3em}\bibname}
+\prebibhook}
+
+% Inclui os capítulos
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+
+%=======================================================================
+% Elementos pós-textuais
+%=======================================================================
+
+% Apêndices (opcionais). Edite da forma desejada.
+<<cap0I, child = "pos-textual/appendix.Rnw">>=
+@
+
+\end{document}
+%-------------------------------------------
