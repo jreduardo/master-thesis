@@ -1,0 +1,356 @@
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Projeto de pesquisa em conformidade com
+% ABNT NBR 15287:2011 Informação e documentação - Projeto de pesquisa -
+% Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+%-------------------------------------------
+% Consigurações da classe do documento
+\documentclass[
+    11pt,
+    openright,
+    oneside,
+    a4paper,
+    english,
+    brazil
+]{abntex2}
+\usepackage[margin=2cm]{geometry}
+\usepackage{bookman}
+
+%-------------------------------------------
+% Pacotes para uso geral
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{amsmath, amssymb, amstext}
+\usepackage{setspace}
+
+%-------------------------------------------
+% Pacotes para elaboração do cronograma
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage{pgfgantt}
+\usetikzlibrary{backgrounds}
+\definecolor{done}{RGB}{120, 180, 120}
+\definecolor{do}{RGB}{180, 120, 120}
+\newcommand{\AfterMySpacing}{%
+  \vskip\dp\strutbox
+  \prevdepth\dp\strutbox}
+\newenvironment{MySpacing}[1]
+{\par\nointerlineskip
+  \vskip\baselineskip
+  \def\baselinestretch{#1}\@currsize
+  \vskip-\arraystretch\ht\strutbox\relax
+}
+{\par\nointerlineskip
+  \vskip-\arraystretch\dp\strutbox\relax
+  \ignorespacesafterend\aftergroup\AfterMySpacing}
+
+\makeatother
+
+
+%-------------------------------------------
+% Pacotes de citações
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+  \ifcase #1 %
+  Nenhuma citação no texto.%
+  \or
+  Citado na página #2.%
+  \else
+  Citado #1 vezes nas páginas #2.%
+  \fi}%
+
+%-------------------------------------------
+% Informações de dados para CAPA e FOLHA DE ROSTO
+\titulo{Modelos Flexíveis para Análise de Dados de Contagem}
+\autor{Eduardo Elias Ribeiro Junior}
+\local{PIRACICABA \\ Estado de São Paulo -- Brasil}
+\data{Fevereiro / 2002}
+\instituicao{
+  Universidade de São Paulo \par
+  Escola Superior de Agricultura ``Luiz de Queiroz'' \par
+  Departamento de Ciências Exatas
+}
+\orientador[Orientadora:]{
+  Profa. Dra. Clarice Garcia Borges Demétrio}
+\tipotrabalho{Projeto de Pesquisa}
+\preambulo{Plano de pesquisa apresentado ao serviço de pós-graduação da
+  ESALQ/USP em conformidade com as normas do programa de pós-graduação
+  em Estatística e Experimentação Agronômica.}
+
+%-------------------------------------------
+% Configurações de aparência do PDF final
+% Alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+  pdftitle={\@title},
+  pdfauthor={\@author},
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  filecolor=magenta,
+  urlcolor=blue,
+  bookmarksdepth=4
+}
+\addto\captionsbrazil{
+  \renewcommand{\bibname}{REFER\^ENCIAS}
+}
+\makeatother
+
+%-------------------------------------------
+% Espaçamentos entre linhas e entre parágrafos parágrafos
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+\renewcommand{\baselinestretch}{1}
+
+% Compila o índice
+\makeindex
+
+%-------------------------------------------
+% Início do documento
+\begin{document}
+\selectlanguage{brazil}
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%-------------------------------------------
+% Capa
+
+\begin{titlingpage}
+\centering
+UNIVERSIDADE DE SÃO PAULO\\
+ESCOLA SUPERIOR DE AGRICULTURA ``LUIZ DE QUEIROZ''\\
+PLANO DE DISSERTAÇÃO
+
+\vspace{3.2cm}
+
+PROGRAMA DE PÓS GRADUAÇÃO EM\\
+``ESTATÍSTICA E EXPERIMENTAÇÃO AGRONÔMICA'' \\[0.3CM]
+CURSO DE MESTRADO
+
+\vspace{2cm}
+
+EDUARDO ELIAS RIBEIRO JUNIOR\\[0.3cm]
+ORIENTADORA: CLARICE GARCIA BORGES DEMÉTRIO
+
+\vspace{4cm}
+
+``MODELOS FLEXÍVEIS PARA ANÁLISE DE DADOS DE CONTAGEM''
+
+\par\vspace*{\fill}
+
+PIRACICABA\\
+ESTADO DE SÃO PAULO -- BRASIL\\
+OUTUBRO / 2002
+\end{titlingpage}
+
+
+\imprimirfolhaderosto
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+<<>>=
+
+@
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\chapter{Introdução}
+\label{cha:introducao}
+
+% ----------------------------------------------------------
+% Objetivos
+% ----------------------------------------------------------
+\chapter{Objetivos}
+\label{cha:objetivos}
+
+\section{Objetivos Gerais}
+\label{sec:objetivosgerais}
+
+\section{Objetivos Específicos}
+\label{sec:objetivosespecificos}
+
+% ----------------------------------------------------------
+% Revisão de literatura
+% ----------------------------------------------------------
+\chapter{Revisão de literatura}
+\label{cha:revisaodeliteratura}
+
+% ----------------------------------------------------------
+% Materiais e Métodos
+% ----------------------------------------------------------
+\chapter{Materiais e Métodos}
+\label{cha:materiaisemetodos}
+
+\section{Materiais}
+\label{sec:materiais}
+
+\section{Métodos}
+\label{sec:metodos}
+
+\section{Recursos Computacionais}
+\label{sec:recursoscomputacionais}
+
+% ----------------------------------------------------------
+% Cronograma
+% ----------------------------------------------------------
+\begin{landscape}
+  \chapter{Cronograma de Atividades}
+  \label{cha:cronograma}
+
+  % -------------------------------------------
+  % Cronograma
+  \renewcommand{\baselinestretch}{0.025}
+  \begin{center}
+    % \begin{SingleSpacing}
+      \hspace{-1.5cm}
+      % \resizebox{1\textwidth}{0.7\textheight}{
+      \begin{tikzpicture}[thick,
+        scale=0.92,
+        every node/.style={scale=0.92}]
+        \begin{ganttchart}[
+          canvas/.append style={fill=none},
+          y unit title=0.5cm, % Altura da linha dos meses
+          y unit chart=0.7cm, % Altura das linhas das atividades
+          x unit= 5.8mm,     % Largura das colunas
+          vgrid={*1{black!50, dotted}}, % grid cinza vertical
+          hgrid={*1{black!50, dotted}}, % grid cinza horizontal
+          title height=1, % Size dos dias
+          % Estilo dos grupos
+          group progress label node/.append style={above=0pt},
+          group label font=\bfseries\scriptsize\color{black},
+          group left peak width=0.2,
+          group right peak width=0.2,
+          group left peak height=0.15,
+          group right peak height=0.15,
+          group left shift=.1,
+          group right shift=-.1,
+          group incomplete/.append style={draw=black,fill=none},
+          % Estilo das barras (atividades)
+          bar/.style={fill=gray!40, draw=black},
+          bar incomplete/.append style={fill=gray!10, draw=black},
+          bar label node/.append style={align=right},
+          bar label font=\scriptsize\color{black!65},          group/.append style={draw=black,fill=blue},
+          bar height=0.6, % size das barras de tarefas
+          bar left shift=.2,
+          bar right shift=-.2,
+          bar top shift=.1,
+          bar height=.8,
+          link/.style={-to, line width=0.7pt, black!50},
+          link type=dr,
+          progress label text ={\pgfmathprintnumber[precision=0,
+            verbatim]{#1}\% realizado}
+          ]{1}{40} %
+          %-------------------------------------------
+          % Define os meses (com 4 semanas)
+          \gantttitle{Março}{4}
+          \gantttitle{Abril}{4}
+          \gantttitle{Maio}{4}
+          \gantttitle{Junho}{4}
+          \gantttitle{Julho}{4}
+          \gantttitle{Agosto}{4}
+          \gantttitle{Setembro}{4}
+          \gantttitle{Outubro}{4}
+          \gantttitle{Novembro}{4}
+          \gantttitle{Dezembro}{4}\\
+          % \gantttitle{}{40}\\
+          \ganttnewline
+          %-------------------------------------------
+          % Primeiro artigo
+          \ganttgroup[group label node/.append style={align=right},
+          progress=100]{Artigo 1}{1}{2} \\
+          %-------------------------------------------
+          % Segundo artigo
+          \ganttgroup[group label node/.append style={align=right},
+          progress=40]{Artigo 2}{1}{10} \\
+          \ganttbar[progress=20]{
+            Revisão de \ganttalignnewline literatura}{1}{5} \\
+          \ganttbar[progress=0, progress label text=]{
+            Implementação \ganttalignnewline computacional}{3}{5} \\
+          \ganttbar[progress=0, progress label text=]{
+            Análise \ganttalignnewline de dados}{5}{8} \\
+          \ganttbar[progress=0, progress label text=]{
+            Redação do \ganttalignnewline artigo}{6}{10} \\
+          %-------------------------------------------
+          % Terceiro artigo
+          \ganttgroup[group label node/.append style={align=right},
+          progress=100]{Artigo 3}{10}{22} \\
+          \ganttbar[progress=0, progress label text=]{
+            Revisão de \ganttalignnewline literatura}{10}{14} \\
+          \ganttbar[progress=0, progress label text=]{
+            Implementação \ganttalignnewline computacional}{13}{17} \\
+          \ganttbar[progress=0, progress label text=]{
+            Análise \ganttalignnewline de dados}{16}{19} \\
+          \ganttbar[progress=0, progress label text=]{
+            Redação do \ganttalignnewline artigo}{18}{22} \\
+          % -------------------------------------------
+          % Quarto artigo
+          \ganttgroup[group label node/.append style={align=right},
+          progress=100]{Artigo 4}{22}{36} \\
+          \ganttbar[progress=0, progress label text=]{
+            Revisão de \ganttalignnewline literatura}{22}{29} \\
+          \ganttbar[progress=0, progress label text=]{
+            Implementação \ganttalignnewline computacional}{25}{30} \\
+          \ganttbar[progress=0, progress label text=]{
+            Análise \ganttalignnewline de dados}{28}{32} \\
+          \ganttbar[progress=0, progress label text=]{
+            Redação do \ganttalignnewline artigo}{31}{36} \\
+          % -------------------------------------------
+          % Dissertação
+          \ganttgroup[group label node/.append style={align=right},
+          progress=100]{Dissertação}{1}{40} \\
+          \ganttbar[progress=0, progress label text=]{
+            Redação da \ganttalignnewline dissertação}{11}{12}
+          \ganttbar{}{23}{24}
+          \ganttbar{}{37}{38}\\
+          \ganttbar[progress=0, progress label text=]{
+            Revisão e \ganttalignnewline adequaão}{37}{40}
+        \end{ganttchart}
+      \end{tikzpicture}
+    % \end{SingleSpacing}
+  \end{center}
+\end{landscape}
+
+\phantompart
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{../bibliography}
+
+\end{document}
