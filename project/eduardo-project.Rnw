@@ -30,6 +30,7 @@
 \usepackage{microtype}
 \usepackage{amsmath, amssymb, amstext}
 \usepackage{setspace}
+\usepackage{enumitem}
 
 %-------------------------------------------
 % Pacotes para elaboração do cronograma
@@ -54,7 +55,6 @@
 
 \makeatother
 
-
 %-------------------------------------------
 % Pacotes de citações
 \usepackage[brazilian,hyperpageref]{backref}
@@ -75,7 +75,7 @@
 % Informações de dados para CAPA e FOLHA DE ROSTO
 \titulo{Modelos Flexíveis para Análise de Dados de Contagem}
 \autor{Eduardo Elias Ribeiro Junior}
-\local{PIRACICABA \\ Estado de São Paulo -- Brasil}
+\local{Piracicaba \\ Estado de São Paulo -- Brasil}
 \data{Fevereiro / 2002}
 \instituicao{
   Universidade de São Paulo \par
@@ -160,7 +160,6 @@ ESTADO DE SÃO PAULO -- BRASIL\\
 OUTUBRO / 2002
 \end{titlingpage}
 
-
 \imprimirfolhaderosto
 % ---
 
@@ -172,7 +171,33 @@ OUTUBRO / 2002
 \cleardoublepage
 % ---
 
-<<>>=
+<<include=FALSE>>=
+
+library(knitr)
+library(xtable)
+options(digits = 3, OutDec = ",",
+        xtable.caption.placement = "top",
+        xtable.booktabs = TRUE,
+        xtable.sanitize.text.function = identity)
+
+opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    echo = FALSE,
+    results = "hide",
+    ## dev = "tikz",
+    fig.width = 7,
+    fig.height = 5,
+    out.width = "\\textwidth",
+    fig.align = "center",
+    fig.pos = "!htb",
+    dev.args = list(family = "Palatino"))
+
+# thm = knit_theme$get("dusk")
+# knit_theme$set(thm)
+# opts_chunk$set(size = "footnotesize")
+
+source("config.R")
 
 @
 
@@ -188,17 +213,204 @@ OUTUBRO / 2002
 \chapter{Introdução}
 \label{cha:introducao}
 
+A classe dos modelos lineares generalizados (GLM) foi introduzida por
+\citeonline{Nelder1972} como um framework geral que contempla modelos
+para análise de dados normais e não normais. \citeonline{Wedderburn1974}
+generalizou essa classe para os modelos de quase-verossimilhança, em que
+faz-se apenas a suposição de primeiro e segundo momentos, ou seja,
+descreve apenas a relação entre a média e variância da variável
+resposta. Embora a classe extendida para quase-verossimilhança seja mais
+flexível do que os GLM's, na maioria das situações não é possível
+recuperar a distribuição da variável resposta \cite{Paula2013}.
+
+O ajuste dos modelos lineares generalizados é realizado por um eficiente
+algoritmo de Newthon scoring e há muitos softwares estatísticos que
+implementam facilidades para ajuste dos MLG's. Além disso, há excelentes
+contribuições na literatura da área como \citeonline{McCullagh1989,
+  Venables2002} e \citeonline{Dobson2008}. Assim os modelos lineares
+generalizados se tornaram métodos proemimentes em estatística aplicada.
+
+Apesar da flexibilidade dos modelos lineares generalizados, a relação
+média-variância, determinada pela função de variância, pode ser bastante
+restritiva principalmente nos casos de dados binomiais, de contagens e
+de tempo até o evento \cite{Molenberghs2010}. Para dados de contagens,
+por exemplo, a função de variância $V(\mu_i) = \mu_i$ leva ao GLM
+Poisson e determina que a esperança e a variância da distribuição são
+iguais para a $i$-ésima observação, característica conhecida como
+equidispersão. Porém, na prática, os dados podem apresentar a
+característica de superdispersão (média $<$ variância) e subdispersão
+(média $>$ variância), que tornam o modelo Poisson inadequado. Nesses
+casos, os coeficientes ainda pode ser estimados consistentemente, porém
+os erros padrões das estimativas são incorretos \cite{Winkelmann1994,
+  Hinde1998}. Em particular, superdispersão e subdispersão levam à sub e
+superestimação dos erros padrões, respectivamente.
+
+O caso mais comum de fuga da suposição de equidispersão e,
+consequentemente com um maior número de abordagens possíveis, é a
+superdispersão. \citeonline{Hinde1998} discutem diversas razões que
+podem levar a variabilidade extra Poisson, dentre elas citam-se
+amostragem por clusters, heterogeneidade das unidades amostras, dados em
+nível agregado e correlação entre observações. Os processos que reduzem
+a variabilidade das contagens, abaixo do estabelecido pela Poisson, não
+são tão conhecidos quanto os que produzem variabilidade extra. Pela
+mesma razão, são poucas as abordagens descritas na literatura capazes de
+tratar subdispersão. Uma das causas da subdispersão pode ser a violação
+do processo Poisson, em que o tempo entre eventos não é exponencialmente
+distribuído, esse processo motiva a classe dos modelos de dependência de
+duração \cite{Winkelmann1995}. Outra possível causa da subdispersão está
+relacionada à obtenção de estatísticas de ordem da variável resposta,
+por exemplo tomar o máximo das contagens observadas
+\cite{Steutel1989}.
+
+Na \autoref{fig:processo-pontual} são apresentados diferentes tipos de
+processos pontuais para ilustrar o processo Poisson em um espaço
+bidimensional. Cada ponto representa a ocorrência de um evento e cada
+parcela, delimitada pelas linhas pontilhadas, representa a unidade (ou
+domínio) na qual conta-se o número de eventos (como variável
+aleatória). O painel da esquerda representa a situação de dados de
+contagem equidispersos.  Nesse cenário as ocorrências dos eventos se
+dispõem aleatoriamente. No painel central o padrão já se altera, tem-se
+a representação do caso de superdispersão. Nesse cenário formam-se
+aglomerados que deixam parcelas com contagens muito elevadas e parcelas
+com contagens baixas. Uma possível causa desse padrão se dá pelo
+processo de contágio (e.g. contagem de casos de uma doença contagiosa,
+contagem de frutos apodrecidos). No terceiro e último painel ilustra-se
+o caso de subdispersão, em que as ocorrências se dispõem uniformemente
+no espaço. Agora as contagens de ocorrências nas parcelas variam bem
+pouco. Ao contrário do caso superdisperso uma causa observável seria o
+oposto de contágio, a repulsa, ou seja, uma ocorrência causa a repulsa
+de outras ocorrências em seu redor (e.g. contagem de árvores, contagem
+de animais territoriais ou que disputam por território).
+
+<<processo-pontual, fig.width=8, fig.height=3.5, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
+
+mygrid <- expand.grid(xc = 1:3, yc = 1:3)
+mygrid <- data.frame(mygrid)
+sp::coordinates(mygrid) <- ~xc + yc
+
+set.seed(20124689)
+equi <- sp::spsample(mygrid, n = 100, type = "random")
+over <- sp::spsample(mygrid, n = 100, type = "clustered", nclusters = 20)
+## unde <- sp::spsample(mygrid, n = 100, type = "aligned")
+unde <- sp::spsample(mygrid, n = 100, type = "stratified")
+
+coords <- sapply(list("equi" = equi, "over" = over, "unde" = unde),
+                 function(x) {
+                     colnames(x@coords) <- c("x", "y")
+                     x@coords
+                 })
+da <- plyr::ldply(coords, .id="caso")
+
+col <- "gray50"
+xyplot(y ~ x | caso, data = da,
+       layout = c(NA, 1),
+       as.table = TRUE,
+       pch = 19,
+       scales = list(draw = FALSE),
+       xlab = "",
+       ylab = "",
+       strip = strip.custom(
+           factor.levels = c("Equidispersão",
+                             "Superdispersão",
+                             "Subdispersão")),
+       sub = "Fonte: Elaborado pelo autor.",
+       panel = function(x, y, subscripts, ...) {
+           l <- seq(min(x), max(x), length.out = 10)
+           panel.abline(h = l, v = l, col = col, lty = 2)
+           panel.xyplot(x, y, ...)
+       })
+
+@
+
+As alternativas paramétricas para análise de dados de contagem não
+equidipersos estão, geralmente, relacionadas as causas da não
+equidispersão. Para superdispersão, destacam-se os modelos mistos, que
+incluem efeitos aleatórios em nível de observação, considerando a
+heterogeneidade não observada. Um exemplo bem conhecido dessa prática é
+o modelo Poisson com efeitos aleatórios gama, que resulta no modelo
+binomial negativo. Porém, outras escolhas para a distribuição dos
+efeitos aleatórios podem ser tomadas como, por exemplo, o modelo
+Poisson-Tweedie \cite{Bonat2017} e seus casos particulares
+Poisson-inverse-Gaussiano (PIG) e Neyman-Type A assumem que os efeitos
+aleatórios são Tweedie, inverse Gaussiano e Poisson distribupidos,
+respectivamente.
+
+Além dos modelos mistos, alguns modelos alternativos que contemplam
+desde sub a superdispersão têm ganhado atenção da comunidade
+estatística. Desses modelos destacam-se: o modelo gamma-count
+\cite{Winkelmann1995, Zeviani2014}, que considera-se o tempo entre
+eventos gamma distribuído; o modelo COM-Poisson \cite{Shmueli2005,
+  Sellers2010}, cujo a razão de recorrência das probabilidades é não
+linear por meio da adicção de um parâmetro de dispersão; e o modelo
+Poisson generalizado \cite{Consul1992, Zamani2012}, uma generalização
+biparamétrica do modelo Poisson.
+
+Embora as distribuição citadas sejam flexíveis para lidar com diferentes
+níveis de dispersão, há situações em que o delineamento do experimento
+sugere uma estrutura de covariância entre observações induzidas por um
+processo hierárquico de casualização ou amostragem, e portanto, devem
+ser consideradas no modelo. São casos assim os experimentos em parcelas
+subdivididas e experimentos com medidas repetidas ou longitudinais.
+Tais estruturas estabelecem modelos com efeitos não observáveis e isso
+pode ser incorporado no modelo de regressão com a inclusão de efeitos
+aleatórios a nível de grupos experimentais, tais modelos são denominados
+modelos lineares generalizados mistos (GLMM) \cite{Molenberghs2005}.
+
+Para dados de contagem hierárquicos, o modelo GLMM Poisson assume que as
+contagens são condicionalmente Poisson distribuídas e que os efeitos
+aleatórios são normalmente distribuídos. Embora este modelo se adeque a
+diversas situações, casos em que as contagens condicionais não são
+equidispersas são pouco explorados na
+literatura. \citeonline{Molenberghs2007} e \citeonline{Molenberghs2010}
+apresentam uma nova família de modelos que consideram efeitos aleatórios
+normais, para contemplar a estrutura hierárquica e conjugados, para
+adequar-se a contagens condicionalmente superdispersas. No entanto,
+modelos hierárquicos mais flexíveis, capazes de lidar com diferentes
+níveis de dispersão das contagens condicionais aos efeitos aleatórios,
+não são consolidadas na literatura e são escassas suas aplicações.
+
 % ----------------------------------------------------------
 % Objetivos
 % ----------------------------------------------------------
 \chapter{Objetivos}
 \label{cha:objetivos}
 
-\section{Objetivos Gerais}
+\section{Objetivo Geral}
 \label{sec:objetivosgerais}
+
+Contruir para a área de análise de dados de contagem, explorando
+distribuições probabilísticas que podem ser adotadas na estrutura
+aleatória de modelos de regressão extendidos para análise de dados
+hierárquicos e heterogêneos.
 
 \section{Objetivos Específicos}
 \label{sec:objetivosespecificos}
+
+Têm-se como principal objetivo específico a elaboração e publicação de
+artigos científicos a fim de contribuir para o desenvolvimento da área
+de análise de dados de contagem. Abaixo listam-se, os artigos e seus
+conteúdos pretendidos:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Artigo 1:} Propor uma nova reparametrização para o
+    modelo COM-Poisson, avaliar a flexibilidade do modelo, as
+    propriedades dos estimadores e apresentar aplicações;
+  \item \textbf{Artigo 2:} Revisar distribuições capazes de lidar com
+    diferentes níveis de dispersão, destacando suas diferenças através
+    de estudos de caso e de dados simulação;
+  \item \textbf{Artigo 3:} Propor e avaliar as propriedades de um modelo
+    linear generalizado duplo, em que o parâmetro de dispersão das
+    distribuições para dados de contagem também é modelado com
+    covariáveis; e
+  \item \textbf{Artigo 4:} Propor e avaliar as propriedades de um modelo
+    linear generalizado misto, em que a distribuição para a variável
+    aleatória de contagem, condicional aos efeitos aleatórios, é
+    flexível para lidar com diferentes níveis de dispersão.
+\end{enumerate}
+
+Para todos os artigos almejado, pretende-se disponibilizar os conjuntos
+de dados e as implementações computacional, para que toda a pesquisa
+seja facilmente reproduzível.
 
 % ----------------------------------------------------------
 % Revisão de literatura
