@@ -11,7 +11,7 @@
 \documentclass[
     11pt,
     openright,
-    oneside,
+    twoside,
     a4paper,
     english,
     brazil
@@ -29,8 +29,17 @@
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{amsmath, amssymb, amstext}
+\usepackage{bm}
 \usepackage{setspace}
 \usepackage{enumitem}
+
+\usepackage{caption}
+\captionsetup{
+  justification=raggedright,
+  singlelinecheck=false,
+  font=small,
+  labelfont={bf}
+}
 
 %-------------------------------------------
 % Pacotes para elaboração do cronograma
@@ -131,8 +140,7 @@
 
 %-------------------------------------------
 % Capa
-
-\begin{titlingpage}
+\begin{capa}
 \centering
 UNIVERSIDADE DE SÃO PAULO\\
 ESCOLA SUPERIOR DE AGRICULTURA ``LUIZ DE QUEIROZ''\\
@@ -151,16 +159,20 @@ ORIENTADORA: CLARICE GARCIA BORGES DEMÉTRIO
 
 \vspace{4cm}
 
-``MODELOS FLEXÍVEIS PARA ANÁLISE DE DADOS DE CONTAGEM''
+\textbf{``MODELOS FLEXÍVEIS PARA ANÁLISE DE DADOS DE CONTAGEM''}
 
 \par\vspace*{\fill}
 
 PIRACICABA\\
 ESTADO DE SÃO PAULO -- BRASIL\\
 OUTUBRO / 2002
-\end{titlingpage}
+\end{capa}
+% \setcounter{page}{2}
+
+% \imprimircapa
 
 \imprimirfolhaderosto
+
 % ---
 
 % ---
@@ -197,6 +209,12 @@ opts_chunk$set(
 # knit_theme$set(thm)
 # opts_chunk$set(size = "footnotesize")
 
+library(readr)
+library(dplyr)
+library(tidyr)
+library(forcats)
+library(lattice)
+library(latticeExtra)
 source("config.R")
 
 @
@@ -219,7 +237,7 @@ para análise de dados normais e não normais. \citeonline{Wedderburn1974}
 generalizou essa classe para os modelos de quase-verossimilhança, em que
 faz-se apenas a suposição de primeiro e segundo momentos, ou seja,
 descreve apenas a relação entre a média e variância da variável
-resposta. Embora a classe extendida para quase-verossimilhança seja mais
+resposta. Embora a classe estendida para quase-verossimilhança seja mais
 flexível do que os GLM's, na maioria das situações não é possível
 recuperar a distribuição da variável resposta \cite{Paula2013}.
 
@@ -313,7 +331,6 @@ xyplot(y ~ x | caso, data = da,
            factor.levels = c("Equidispersão",
                              "Superdispersão",
                              "Subdispersão")),
-       sub = "Fonte: Elaborado pelo autor.",
        panel = function(x, y, subscripts, ...) {
            l <- seq(min(x), max(x), length.out = 10)
            panel.abline(h = l, v = l, col = col, lty = 2)
@@ -380,7 +397,7 @@ não são consolidadas na literatura e são escassas suas aplicações.
 
 Contruir para a área de análise de dados de contagem, explorando
 distribuições probabilísticas que podem ser adotadas na estrutura
-aleatória de modelos de regressão extendidos para análise de dados
+aleatória de modelos de regressão estendidos para análise de dados
 hierárquicos e heterogêneos.
 
 \section{Objetivos Específicos}
@@ -413,25 +430,385 @@ de dados e as implementações computacional, para que toda a pesquisa
 seja facilmente reproduzível.
 
 % ----------------------------------------------------------
-% Revisão de literatura
-% ----------------------------------------------------------
-\chapter{Revisão de literatura}
-\label{cha:revisaodeliteratura}
-
-% ----------------------------------------------------------
 % Materiais e Métodos
 % ----------------------------------------------------------
-\chapter{Materiais e Métodos}
-\label{cha:materiaisemetodos}
+\chapter{Estudos de caso}
+\label{cha:estudosdecaso}
 
-\section{Materiais}
-\label{sec:materiais}
+Nesse capítulo são apresentados quatro estudos de caso, em que a
+variável resposta se apresenta como contagem e, portanto, podem ilustrar
+aplicações dos modelos propostos.
 
-\section{Métodos}
-\label{sec:metodos}
+\section{Desfolha artificial em capulhos de algodão}
+\label{sec:cotton}
 
-\section{Recursos Computacionais}
-\label{sec:recursoscomputacionais}
+No cultivo de plantas de algodão, algumas pragas e doenças,
+fitotoxicidade por substâncias químicas, granizo e certas injúrias
+mecânicas são os principais agentes de desfolha, causando prejuízos na
+produtividade. A fim de explorar os efeitos da redução da área foliar na
+cultura do algodão \textit{Gossypium hirsutum}, \citeonline{Silva2012}
+conduziu um experimento fatorial $5$ (níveis de desfolha) $\times 5$
+(estágios fenológicos) sob delineamento inteiramente casualizados com
+cinco repetições e condições controladas em uma casa de vegetação. A
+variável de interesse foi o número de capulhos de algodão em cada
+unidade experimental. Na \autoref{fig:desc-cotton} são apresentados os
+número de capulhos observados em cada combinação entre estágio
+fenológico e nível de desfolha.
+
+<<desc-cotton, fig.width=8.5, fig.height=3.3, fig.cap="Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta. As linhas contínuas são curvas suaves estimadas pelo algoritmo \\textit{lowess}.">>=
+
+# Load data
+cotton <- read_delim("cotton.txt", delim = "\t") %>%
+    mutate(est = fct_inorder(factor(est)))
+cotton
+
+# Visualize plots
+xyplot(ncap ~ des | est,
+       data = cotton,
+       layout = c(NA, 1),
+       as.table = TRUE,
+       type = c("p", "smooth", "g"),
+       xlab = "Níveis de desfolha artificial",
+       ylab = "Número de capulhos",
+       spread = 0.05,
+       panel = cmpreg::panel.beeswarm)
+
+@
+
+Diversas alternativas já foram propostas para análise desse conjunto de
+dados. \citeonline{Zeviani2014} utilizou o modelo gamma-count,
+\citeonline{Huang2017} e \citeonline{RibeiroJr2018} utilizaram
+reparametrizações do modelo COM-Poisson e \citeonline{Bonat2017}
+apresentou os resultados da aplicação do modelo Poisson-Tweedie
+estentido. A notável relevância desse conjunto de dados é a
+característica de subdispersão em uma estrutura fatorial.
+
+\section{Dose potássica e umidade do solo na produtividade de soja}
+\label{sec:soybean}
+
+Os solos tropicais, normalmente pobres em potássio (K), quando
+cultivados com soja (\textit{Glycine max L.}) demandam adubação
+potássica para obtenção de produtividades satisfatórias. Em um
+experimento fatorial $(5 \times 3)$ conduzido em casa de vegetação sob
+um delineamento de blocos casualizados, \citeonline{Serafim2012} avaliou
+a influência de doses de potássio ($0, 30, 60, 120$ e $180$ mg
+dm$^{-3}$) combinadas com diferentes níveis de umidade do solo
+($37,5, 50$ e $62,5$ \% do volume total de poros) no número de grãos e
+de vagens viáveis. Na \autoref{fig:desc-soybean} são apresentados os
+valores contabilizados de cada variável de interesse, grãos de soja e
+vagens viáveis, para cada um dos tratamentos, combinação entre umidade
+do solo e adubação com potássio.
+
+<<desc-soybean, fig.width=8, fig.height=3.8, fig.cap="Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta. As linhas contínuas ligam os pontos médios de cada tratamento.">>=
+
+# Load data
+soybean <- read_delim("soybean.txt", delim = "\t") %>%
+    mutate(umid = factor(umid)) %>%
+    slice(-74)
+soybean
+
+fvls <- paste0("Umidade : ", levels(soybean$umid), "%")
+xyplot(ngra + nvag ~ K | umid,
+       data = soybean,
+       xlab = "Nível de adubação potássica",
+       ylab = "Contagem",
+       type = c("p", "g", "a"),
+       jitter.x = TRUE,
+       key = list(
+           type = "b",
+           divide = 1,
+           lines = list(pch = pchs[1:2], lty = ltys[1:2]),
+           text = list(c("Nº de grãos",
+                         "Nº de vagens viáveis"))),
+       layout = c(NA, 1),
+       strip = strip.custom(factor.levels = fvls))
+
+@
+
+\citeonline{RibeiroJr2018} analisou o número de grãos por parcela com
+sua proposta de reparametrização do modelo COM-Poisson. A característica
+interessante desse conjunto é que há diferentes níveis de dispersão em
+cada contagem mensura. Para o número de grão por parcela, por exemplo,
+\citeonline{RibeiroJr2018} mostra que há uma variabilidade extra
+Poisson. Outra característica ainda não contemplada na análise desses
+dados é o comportamento não linear das contagens, em particular, modelos
+lineares platô apresentam-se como bastante adequados, uma vez que
+espera-se haver um particular nível, a partir do qual não se tem mais
+influência de adubação nas contagens.
+
+\section{Ensaio clínico em pacientes epilépticos}
+\label{sec:epilepsy}
+
+Epilepsia é uma doença que se manifesta por crises de perda da
+consciência, acompanhadas de convulsões, que ocorrem em intervalos
+irregulares de tempo. A manipulação de drogas para diminuir as
+convulsões epilépticas é um campo de interesse em
+medicina. \citeonline{Faught1996} apresenta um estudo aleatorizado,
+multicêntrico e duplo-cego para avaliação de uma nova droga
+anti-epiléptica (AED) topiramate em comparação com um falso placebo,
+combinação de uma ou duas outras AEDs. A aleatorização dos pacientes
+ocorreu após um período de 12 semanas de estabilização dos
+pacientes. Após a aleatorização, 45 pacientes medicados periodicamente
+com o placebo e 44 com o tratamento AED topiramate. Os pacientes foram
+acompanhados semanalmente, registrando-se o número de convulsões da
+respectiva semana. Na \autoref{fig:desc-epilepsy} são apresentados os
+perfis do número de convulsões epilépticas para cada paciente, bem como
+os perfis médio e meadiano. Como destacam \citeonline{Molenberghs2007},
+é interessante notar a forte assimetria à direita na distribuição do
+número de convulsões, a presença de valoes extremos e a redução no
+número de pacientes acompanhados no decorrer do estudo.
+
+<<desc-epilepsy, fig.width=9, fig.height=4, fig.cap="Perfis do número de convulções de cada paciente dos grupos tratamento e placebo. As linhas em preto representam os perfis médio (linha contínua) e mediano (linha pontilhada).">>=
+
+# Load data set
+epilepsy <- read_delim("epilepsy.csv", delim = ";") %>%
+    mutate(trt = factor(trt, labels = c("Placebo", "Tratamento")),
+           sex = factor(sex),
+           race = factor(race),
+           date0 = lubridate::dmy(date0)) %>%
+    rename("week" = studyweek)
+
+# Visualize profiles
+epilepsy_summary <- epilepsy %>% group_by(trt, week) %>%
+    summarise(ave = mean(nseizw), med = median(nseizw))
+
+xyplot(nseizw ~ week | trt,
+       groups = id,
+       lty = 1,
+       col = "gray70",
+       type = c("l", "g"),
+       scales = list(x = "free"),
+       xlab = "Tempo (semanas)",
+       ylab = "Número de convulsões",
+       # key = list(columns = 2,
+       #            text = list(paste(c("Average", "Median"),
+       #                               "profile")),
+       #            lines = list(lty = c(1, 2), lwd = 2)),
+       data = epilepsy) +
+    xyplot(ave + med ~ week | trt,
+           type = c("l", "g"),
+           lwd = 2,
+           scales = list(x = "free"),
+           data = epilepsy_summary)
+
+@
+
+Esse conjunto de dados é interessante, pois traz observações
+multivariadas para cada indivíduo, isto é, para cada $i$-ésimo
+indivíduos registra-se $n_i$ observações ($n_i$, número de semanas em
+que o $i$-ésimo indivíduo foi acompanhado). Isto traz desafios para
+análise, que são frequentemente superados pela inclusão de efeitos
+aleatórios a fim de induzir correlação entre observações de um mesmo
+indivíduo. \citeonline{Molenberghs2005} utiliza esse conjunto de dados
+como exemplo para a aplicação dos modelos lineares generalizados Poisson
+pela abordagem condicional (efeitos aleatórios) e marginal (equações de
+estimação generalizadas). \citeonline{Molenberghs2007} e
+\citeonline{Molenberghs2010} também utilizam esses dados como exemplo de
+aplicação de um modelo Poisson misto, porém os autores propõem a
+inclusão de duas fontes de efeitos aleatórios, para ajustar a
+superdispersão inerente à variável de contagem e para incorporar a
+estrutura longitudinal do estudo. Para análise desse conjunto de dados,
+pretende adotar uma distribuição mais flexível para o número de
+convulsões de cada indivíduo ao invés de incluir efeitos aleatórios em
+nível de observação.
+
+\section{Substratos alternativos para crescimento de bromélias}
+\label{sec:bromelia}
+
+Xaxim é um substrato utilizado no cultivo de bromélias e orquídeas, que
+foi proibido desde 2001. Desde então, há pesquisas em botânica para propor
+substratos alternativos ao Xaxim no cultivo de bromélias, orquídeas e
+outras epífitas. Esse conjunto de dados provém de um experimento
+aleatorizado em 4 blocos, cujo objetivo foi avaliar 5 diferentes
+recipientes de substratos alternativos para bromélias. Todos os
+tratamentos continham turfa e perlita e se diferenciavam no terceiro
+componente: casca de Pinus, casca de Eucaliptos, Coxim, fibra de coco e
+Xaxim. A variável de interesse foi o número de folhas por unidade
+experimental (pote com inicialmente 8 plantas), que foi registrado
+diariamente durante 6 dias após a plantação.
+
+<<desc-bromelia, fig.width=9, fig.height=4, fig.cap="(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala log, calculadas sobre os blocos em cada tempo e tratamento, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
+
+# Load data set
+comps <- c("Casca de Pinus", "Casca de Eucaliptos", "Coxim",
+           "Fibra de Coco", "Xaxim")
+bromelia <- read_delim("bromelia.txt", delim = "\t") %>%
+    mutate(time  = factor(c(rep(c(1:6), each = 20))),
+           tim   = rep(c(4, 173, 229, 285, 341, 435), each = 20),
+           treat = factor(rep(c(1:5), each = 4, times = 6)),
+           block = factor(rep(c(1:4), times = 30)),
+           ybar  = y / n) %>%
+    mutate(treat = factor(treat, labels = comps))
+
+# Visualize profiles
+bromelia_summary <- bromelia %>% group_by(treat, time) %>%
+    summarise(ave = mean(ybar), var = var(ybar))
+
+xy1 <- xyplot(ybar ~ time | treat,
+              groups = block,
+              type = c("g", "l"),
+              xlab = "Tempo (dias)",
+              ylab = "Número de folhas",
+              as.table = TRUE,
+              layout = c(3, 2),
+              col = "gray60",
+              lty = 1,
+              sub = "(a)",
+              # key = list(columns = 1,
+              #            text = list("Perfil médio"),
+              #            lines = list(lty = 1, lwd = 2)),
+              data = bromelia) +
+    xyplot(ave ~ time | treat,
+           type = c("l", "g"),
+           lwd = 2,
+           data = bromelia_summary)
+
+lim <- extendrange(unlist(log(bromelia_summary[, c("ave", "var")])))
+xy2 <- xyplot(log(var) ~ log(ave),
+              xlim = lim,
+              ylim = lim,
+              type = c("g", "p", "r"),
+              sub = "(b)",
+              xlab = expression("Logaritmo da média"~"amostral"~(log(bar(y)))),
+              ylab = expression("Logaritmo da variância"~"amostral"~(log(s^2))),
+              data = bromelia_summary,
+              par.settings = list(
+                  layout.heights = list(bottom.padding = 4),
+                  par.sub.text = list(
+                      just = "left",
+                      y = grid::unit(-6.6, "mm"))),
+              panel = function(...) {
+                  panel.xyplot(...)
+                  panel.abline(a = 0, b = 1, lty = 2)
+              })
+
+print(xy1, position = c(0, 0, 0.6, 1), more = TRUE)
+print(xy2, position = c(0.6, 0, 1, 0.95), more = FALSE)
+
+@
+
+Na \autoref{fig:desc-bromelia}(a) são apresentados os perfis individuais
+do número de folhas para cada bloco em cada tratamento e seus
+respectivos perfis médios. Nota-se um comportamento não linear
+(sigmoidal) dos perfis em cada tratamento e uma pouca variabilidade
+entre blocos em um mesmo tempo e tratamento. Essa última característica
+é destacada na \autoref{fig:desc-bromelia}(b), onde os logaritmos das
+médias e variâncias são apresentados em um gráfico de dispersos. Para
+todas as combinações de tempo e tratamento, as variâncias do número de
+folhas obtidas dos quatro blocos bastante menores que as respectivas
+médias. Com isso esse conjunto de dados apresenta alguns desafios para
+análise, pois não encontramos literatura exemplos de análise de dados
+com as características de subdispersão em estudos longitudinais.
+
+\section{Infestação de mosca-branca em cultura de soja}
+
+A mosca-branca \textit{Bemisia tabaci} é praga de diversas culturas
+sendo capaz de se alimentar de mais de 500 espécies de vegetais. Na
+cultura de soja, a mosca-branca \textit{Bemisia tabaci} era pouco citada
+até a primeira década de 2000. Porém, períodos de seca e o uso intensivo
+de inseticidas e de fungicidas não selecionados afetaram seus inimigos
+naturais e consequentemente contribuíram com o aumento da importância
+econômica dessa praga.
+
+<<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala log, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
+
+# Load data set
+whitefly <- read_delim("whitefly.txt", delim = "\t") %>%
+    filter(grepl("BRS", x = cult)) %>%
+    mutate(cult  = fct_inorder(factor(cult)),
+           bloco = fct_inorder(factor(bloco)))
+
+# Visualize profiles
+whitefly_summary <- whitefly %>% group_by(cult, dias) %>%
+    summarise(ave_nsup = mean(nsup), var_nsup = var(nsup),
+              ave_nmed = mean(nmed), var_nmed = var(nmed),
+              ave_ninf = mean(ninf), var_ninf = var(ninf))
+
+flvs <- paste("Terço", c("inferior", "médio", "superior"))
+xy1 <- useOuterStrips(
+    xyplot(ninf + nmed + nsup ~ dias | cult,
+           outer = TRUE,
+           groups = bloco,
+           type = c("g", "l"),
+           xlab = "Tempo de infestação (dias)",
+           ylab = "Número de ninfas de mosca-branca",
+           sub = "(a)",
+           col = "gray50",
+           lty = 1,
+           data = whitefly) +
+    xyplot(ave_ninf + ave_nmed + ave_nsup ~ dias | cult,
+           outer = TRUE,
+           type = c("l", "g"),
+           lwd = 2,
+           data = whitefly_summary),
+    strip.left = strip.custom(factor.levels = flvs)
+)
+
+aux <- whitefly_summary %>%
+    gather(key = posa, value = ave, ave_nsup, ave_nmed, ave_ninf) %>%
+    gather(key = posb, value = var, var_nsup, var_nmed, var_ninf) %>%
+    mutate(lave = log(ave), lvar = log(var)) %>%
+    ungroup()
+index <- apply(aux[, 7:8], 1L, function(x) any(is.infinite(x)))
+
+lim <- extendrange(unlist(aux[!index, c("lave", "lvar")]))
+xy2 <- xyplot(lvar ~ lave | posa,
+              data = aux[!index, ],
+              type = c("g", "p", "r"),
+              # xlab = expression(log(bar(y))),
+              # ylab.right = expression(log(s^2)),
+              xlab = list("média", col = "white"),
+              ylab = "",
+              sub = "(b)",
+              layout = c(NA, 3),
+              strip = FALSE,
+              ylim = lim,
+              xlim = lim,
+              strip.left = strip.custom(
+                  factor.levels = flvs,
+                  bg = "gray75"),
+              panel = function(x, y, ...) {
+                  panel.xyplot(x, y, ...)
+                  panel.abline(0, 1, lty = 2)
+              })
+
+print(xy1, position = c(0, 0, 0.77, 1), more = TRUE)
+print(xy2, position = c(0.75, 0, 1, 0.95), more = FALSE)
+
+@
+
+Sob essa motivação, \citeonline{Suekane2013} conduziu um experimento sob
+delinamento de blocos para avaliar o número de ninfas de mosca-branca em
+dez diferentes cultivares de soja. As plantas das diferentes cultivares
+de soja foram cultivadas em vasos contendo duas plantas. No ínicio do
+experimento houve infestação artificial de adultos de mosca-branca na
+casa de vegetação. Unidades amostrais, contendo dois vasos, foram
+avaliadas antes da infestação e nos dias 8, 13, 22, 31 e 38 onde
+mensurou-se o número de ninfas da mosca-branca em um folíolo do terço
+superior, médio e inferior da planta. Nessa pesquisa, pretende-se
+utilizar somente 4 dos 10 cultivares experimentados. Na
+\autoref{fig:desc-whitefly}(a) são apresentados os perfis das três
+contagens realizadas em cada bloco ao longo dos dias de infestação para
+cada cultivar e seus respectivos perfis médios. O comportamento dos
+perfis se mostra não linear, com um pico no número de ninfas ocorrendo
+entre 10 e 20 dias de infestação. Além disso, ressalta-se que a
+variabilidade das contagens é muito superior nos primeiros dias de
+infestação. Na \autoref{fig:desc-whitefly}(b) apresentam-se as relações
+média e variância observadas em escala log para cada variável de
+interesse. Há uma forte evidência de superdispersão. Para análise desses
+dados, modelos flexíveis para dados de contagens como Poisson-Tweedie,
+COM-Poisson, gamma-count e Poisson-generalizado, com a inclusão de
+efeitos para modelar a estrutura longitudinal, são alternativas bastante
+relevantes que ainda não são bem consolidadas na literatura. Em adição,
+ressalta-se a possibilidade de modelar o parâmetro de dispersão dessas
+distribuição com covariáveis, uma vez que observou-se que a
+variabilidade tem comportamento tempo-dependente.
+
+% ----------------------------------------------------------
+% Revisão de literatura
+% ----------------------------------------------------------
+\chapter{Metodologia}
+\label{cha:revisaodeliteratura}
 
 % ----------------------------------------------------------
 % Cronograma
@@ -439,7 +816,6 @@ seja facilmente reproduzível.
 \begin{landscape}
   \chapter{Cronograma de Atividades}
   \label{cha:cronograma}
-
   % -------------------------------------------
   % Cronograma
   \renewcommand{\baselinestretch}{0.025}
