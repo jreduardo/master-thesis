@@ -37,8 +37,7 @@
 \captionsetup{
   justification=raggedright,
   singlelinecheck=false,
-  font=small,
-  labelfont={bf}
+  font=small
 }
 
 %-------------------------------------------
@@ -241,27 +240,29 @@ resposta. Embora a classe estendida para quase-verossimilhança seja mais
 flexível do que os GLM's, na maioria das situações não é possível
 recuperar a distribuição da variável resposta \cite{Paula2013}.
 
-O ajuste dos modelos lineares generalizados é realizado por um eficiente
-algoritmo de Newthon scoring e há muitos softwares estatísticos que
-implementam facilidades para ajuste dos MLG's. Além disso, há excelentes
+O modelos lineares generalizados podem ser ajustados por um eficiente
+algoritmo de Newton scoring e há muitos softwares estatísticos que
+implementam facilidades para isso. Além disso, há excelentes
 contribuições na literatura da área como \citeonline{McCullagh1989,
   Venables2002} e \citeonline{Dobson2008}. Assim os modelos lineares
-generalizados se tornaram métodos proemimentes em estatística aplicada.
+generalizados se tornaram métodos proeminentes na análise de dados em
+estatística aplicada.
 
 Apesar da flexibilidade dos modelos lineares generalizados, a relação
-média-variância, determinada pela função de variância, pode ser bastante
-restritiva principalmente nos casos de dados binomiais, de contagens e
-de tempo até o evento \cite{Molenberghs2010}. Para dados de contagens,
-por exemplo, a função de variância $V(\mu_i) = \mu_i$ leva ao GLM
-Poisson e determina que a esperança e a variância da distribuição são
-iguais para a $i$-ésima observação, característica conhecida como
-equidispersão. Porém, na prática, os dados podem apresentar a
-característica de superdispersão (média $<$ variância) e subdispersão
+média-variância, determinada pela função de variância $V(\mu_i)$, pode
+ser bastante restritiva, principalmente nos casos de dados binomiais, de
+contagens e de tempo até o evento \cite{Molenberghs2010}. Para dados de
+contagens, por exemplo, a função de variância $V(\mu_i) = \mu_i$ leva ao
+GLM Poisson e determina que a esperança e a variância da distribuição
+são iguais para a $i$-ésima observação, característica conhecida como
+equidispersão. Porém, na prática, os dados podem apresentar
+características de superdispersão (média $<$ variância) e subdispersão
 (média $>$ variância), que tornam o modelo Poisson inadequado. Nesses
 casos, os coeficientes ainda pode ser estimados consistentemente, porém
 os erros padrões das estimativas são incorretos \cite{Winkelmann1994,
-  Hinde1998}. Em particular, superdispersão e subdispersão levam à sub e
-superestimação dos erros padrões, respectivamente.
+  Hinde1998}. Em particular, um modelo Poisson ajustado a contagens
+superdispersas leva à subestimação dos erros padrão das estimativas; e
+para contagens subdispersas os erros padrão são superestimados.
 
 O caso mais comum de fuga da suposição de equidispersão e,
 consequentemente com um maior número de abordagens possíveis, é a
@@ -273,11 +274,11 @@ a variabilidade das contagens, abaixo do estabelecido pela Poisson, não
 são tão conhecidos quanto os que produzem variabilidade extra. Pela
 mesma razão, são poucas as abordagens descritas na literatura capazes de
 tratar subdispersão. Uma das causas da subdispersão pode ser a violação
-do processo Poisson, em que o tempo entre eventos não é exponencialmente
-distribuído, esse processo motiva a classe dos modelos de dependência de
-duração \cite{Winkelmann1995}. Outra possível causa da subdispersão está
-relacionada à obtenção de estatísticas de ordem da variável resposta,
-por exemplo tomar o máximo das contagens observadas
+do processo Poisson, em que o tempo entre eventos pode não ser mais
+exponencialmente distribuído, esse processo motiva a classe dos modelos
+de dependência de duração \cite{Winkelmann1995}. Outra possível causa da
+subdispersão está relacionada à obtenção de estatísticas de ordem da
+variável resposta, por exemplo tomar o máximo das contagens observadas
 \cite{Steutel1989}.
 
 Na \autoref{fig:processo-pontual} são apresentados diferentes tipos de
@@ -294,13 +295,13 @@ com contagens baixas. Uma possível causa desse padrão se dá pelo
 processo de contágio (e.g. contagem de casos de uma doença contagiosa,
 contagem de frutos apodrecidos). No terceiro e último painel ilustra-se
 o caso de subdispersão, em que as ocorrências se dispõem uniformemente
-no espaço. Agora as contagens de ocorrências nas parcelas variam bem
-pouco. Ao contrário do caso superdisperso uma causa observável seria o
+no espaço. Agora, as contagens de ocorrências nas parcelas variam bem
+pouco. Ao contrário do caso superdisperso, uma causa interpretável seria o
 oposto de contágio, a repulsa, ou seja, uma ocorrência causa a repulsa
 de outras ocorrências em seu redor (e.g. contagem de árvores, contagem
 de animais territoriais ou que disputam por território).
 
-<<processo-pontual, fig.width=8, fig.height=3.5, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
+<<processo-pontual, fig.width=8, fig.height=3.3, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
 
 mygrid <- expand.grid(xc = 1:3, yc = 1:3)
 mygrid <- data.frame(mygrid)
@@ -349,7 +350,7 @@ binomial negativo. Porém, outras escolhas para a distribuição dos
 efeitos aleatórios podem ser tomadas como, por exemplo, o modelo
 Poisson-Tweedie \cite{Bonat2017} e seus casos particulares
 Poisson-inverse-Gaussiano (PIG) e Neyman-Type A assumem que os efeitos
-aleatórios são Tweedie, inverse Gaussiano e Poisson distribupidos,
+aleatórios são Tweedie, inverse Gaussiano e Poisson distribuídos,
 respectivamente.
 
 Além dos modelos mistos, alguns modelos alternativos que contemplam
@@ -358,13 +359,13 @@ estatística. Desses modelos destacam-se: o modelo gamma-count
 \cite{Winkelmann1995, Zeviani2014}, que considera-se o tempo entre
 eventos gamma distribuído; o modelo COM-Poisson \cite{Shmueli2005,
   Sellers2010}, cujo a razão de recorrência das probabilidades é não
-linear por meio da adicção de um parâmetro de dispersão; e o modelo
+linear por meio da adição de um parâmetro de dispersão; e o modelo
 Poisson generalizado \cite{Consul1992, Zamani2012}, uma generalização
 biparamétrica do modelo Poisson.
 
 Embora as distribuição citadas sejam flexíveis para lidar com diferentes
 níveis de dispersão, há situações em que o delineamento do experimento
-sugere uma estrutura de covariância entre observações induzidas por um
+sugere uma estrutura de covariância entre observações induzida por um
 processo hierárquico de casualização ou amostragem, e portanto, devem
 ser consideradas no modelo. São casos assim os experimentos em parcelas
 subdivididas e experimentos com medidas repetidas ou longitudinais.
@@ -395,7 +396,7 @@ não são consolidadas na literatura e são escassas suas aplicações.
 \section{Objetivo Geral}
 \label{sec:objetivosgerais}
 
-Contruir para a área de análise de dados de contagem, explorando
+Contribuir para a área de análise de dados de contagem, explorando
 distribuições probabilísticas que podem ser adotadas na estrutura
 aleatória de modelos de regressão estendidos para análise de dados
 hierárquicos e heterogêneos.
@@ -425,8 +426,8 @@ conteúdos pretendidos:
     flexível para lidar com diferentes níveis de dispersão.
 \end{enumerate}
 
-Para todos os artigos almejado, pretende-se disponibilizar os conjuntos
-de dados e as implementações computacional, para que toda a pesquisa
+Para todos os artigos almejados, pretende-se disponibilizar os conjuntos
+de dados e as implementações computacionais, para que toda a pesquisa
 seja facilmente reproduzível.
 
 % ----------------------------------------------------------
@@ -435,25 +436,26 @@ seja facilmente reproduzível.
 \chapter{Estudos de caso}
 \label{cha:estudosdecaso}
 
-Nesse capítulo são apresentados quatro estudos de caso, em que a
-variável resposta se apresenta como contagem e, portanto, podem ilustrar
+Nesse capítulo são apresentados cinco estudos de caso, em que a variável
+resposta se apresenta como contagem e, portanto, podem ilustrar
 aplicações dos modelos propostos.
 
 \section{Desfolha artificial em capulhos de algodão}
 \label{sec:cotton}
 
-No cultivo de plantas de algodão, algumas pragas e doenças,
+No cultivo de plantas de algodão, algumas pragas, doenças,
 fitotoxicidade por substâncias químicas, granizo e certas injúrias
 mecânicas são os principais agentes de desfolha, causando prejuízos na
 produtividade. A fim de explorar os efeitos da redução da área foliar na
 cultura do algodão \textit{Gossypium hirsutum}, \citeonline{Silva2012}
-conduziu um experimento fatorial $5$ (níveis de desfolha) $\times 5$
+conduziu um experimento fatorial $5$ (níveis de desfolha) $\times $ 5
 (estágios fenológicos) sob delineamento inteiramente casualizados com
 cinco repetições e condições controladas em uma casa de vegetação. A
 variável de interesse foi o número de capulhos de algodão em cada
-unidade experimental. Na \autoref{fig:desc-cotton} são apresentados os
-número de capulhos observados em cada combinação entre estágio
-fenológico e nível de desfolha.
+unidade experimental (vaso com duas plantas). Na
+\autoref{fig:desc-cotton} são apresentados os número de capulhos
+observados em cada combinação entre estágio fenológico e nível de
+desfolha.
 
 <<desc-cotton, fig.width=8.5, fig.height=3.3, fig.cap="Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta. As linhas contínuas são curvas suaves estimadas pelo algoritmo \\textit{lowess}.">>=
 
@@ -480,7 +482,7 @@ dados. \citeonline{Zeviani2014} utilizou o modelo gamma-count,
 \citeonline{Huang2017} e \citeonline{RibeiroJr2018} utilizaram
 reparametrizações do modelo COM-Poisson e \citeonline{Bonat2017}
 apresentou os resultados da aplicação do modelo Poisson-Tweedie
-estentido. A notável relevância desse conjunto de dados é a
+estendido. A notável relevância desse conjunto de dados é a
 característica de subdispersão em uma estrutura fatorial.
 
 \section{Dose potássica e umidade do solo na produtividade de soja}
@@ -528,13 +530,13 @@ xyplot(ngra + nvag ~ K | umid,
 \citeonline{RibeiroJr2018} analisou o número de grãos por parcela com
 sua proposta de reparametrização do modelo COM-Poisson. A característica
 interessante desse conjunto é que há diferentes níveis de dispersão em
-cada contagem mensura. Para o número de grão por parcela, por exemplo,
+cada contagem mensurada. Para o número de grão por parcela, por exemplo,
 \citeonline{RibeiroJr2018} mostra que há uma variabilidade extra
 Poisson. Outra característica ainda não contemplada na análise desses
 dados é o comportamento não linear das contagens, em particular, modelos
 lineares platô apresentam-se como bastante adequados, uma vez que
-espera-se haver um particular nível, a partir do qual não se tem mais
-influência de adubação nas contagens.
+espera-se haver um particular nível, a partir do qual, não se tem mais
+influência de adubação potássica nas contagens.
 
 \section{Ensaio clínico em pacientes epilépticos}
 \label{sec:epilepsy}
@@ -547,15 +549,15 @@ medicina. \citeonline{Faught1996} apresenta um estudo aleatorizado,
 multicêntrico e duplo-cego para avaliação de uma nova droga
 anti-epiléptica (AED) topiramate em comparação com um falso placebo,
 combinação de uma ou duas outras AEDs. A aleatorização dos pacientes
-ocorreu após um período de 12 semanas de estabilização dos
-pacientes. Após a aleatorização, 45 pacientes medicados periodicamente
-com o placebo e 44 com o tratamento AED topiramate. Os pacientes foram
-acompanhados semanalmente, registrando-se o número de convulsões da
-respectiva semana. Na \autoref{fig:desc-epilepsy} são apresentados os
-perfis do número de convulsões epilépticas para cada paciente, bem como
-os perfis médio e meadiano. Como destacam \citeonline{Molenberghs2007},
-é interessante notar a forte assimetria à direita na distribuição do
-número de convulsões, a presença de valoes extremos e a redução no
+ocorreu após um período de 12 semanas de estabilização. Devidamente
+aleatorizados, 45 pacientes foram medicados periodicamente com o placebo
+e 44 com o tratamento AED topiramate. Os pacientes foram acompanhados
+semanalmente, registrando-se o número de convulsões da respectiva
+semana. Na \autoref{fig:desc-epilepsy} são apresentados os perfis do
+número de convulsões epilépticas para cada paciente, bem como os perfis
+médio e mediano. Como destacam \citeonline{Molenberghs2007}, é
+interessante notar a forte assimetria à direita na distribuição do
+número de convulsões, a presença de valores extremos e a redução no
 número de pacientes acompanhados no decorrer do estudo.
 
 <<desc-epilepsy, fig.width=9, fig.height=4, fig.cap="Perfis do número de convulções de cada paciente dos grupos tratamento e placebo. As linhas em preto representam os perfis médio (linha contínua) e mediano (linha pontilhada).">>=
@@ -586,7 +588,7 @@ xyplot(nseizw ~ week | trt,
        #            lines = list(lty = c(1, 2), lwd = 2)),
        data = epilepsy) +
     xyplot(ave + med ~ week | trt,
-           type = c("l", "g"),
+           type = c("l"),
            lwd = 2,
            scales = list(x = "free"),
            data = epilepsy_summary)
@@ -606,7 +608,7 @@ estimação generalizadas). \citeonline{Molenberghs2007} e
 \citeonline{Molenberghs2010} também utilizam esses dados como exemplo de
 aplicação de um modelo Poisson misto, porém os autores propõem a
 inclusão de duas fontes de efeitos aleatórios, para ajustar a
-superdispersão inerente à variável de contagem e para incorporar a
+superdispersão inerente à variável de contagem, e para incorporar a
 estrutura longitudinal do estudo. Para análise desse conjunto de dados,
 pretende adotar uma distribuição mais flexível para o número de
 convulsões de cada indivíduo ao invés de incluir efeitos aleatórios em
@@ -615,16 +617,16 @@ nível de observação.
 \section{Substratos alternativos para crescimento de bromélias}
 \label{sec:bromelia}
 
-Xaxim é um substrato utilizado no cultivo de bromélias e orquídeas, que
-foi proibido desde 2001. Desde então, há pesquisas em botânica para propor
-substratos alternativos ao Xaxim no cultivo de bromélias, orquídeas e
-outras epífitas. Esse conjunto de dados provém de um experimento
-aleatorizado em 4 blocos, cujo objetivo foi avaliar 5 diferentes
-recipientes de substratos alternativos para bromélias. Todos os
-tratamentos continham turfa e perlita e se diferenciavam no terceiro
+Xaxim é um substrato utilizado no cultivo de bromélias e orquídeas, cujo
+comercialização foi proibida em 2001. Desde então, há pesquisas em
+botânica para propor substratos alternativos ao Xaxim no cultivo de
+bromélias, orquídeas e outras epífitas. Esse conjunto de dados provém de
+um experimento aleatorizado em 4 blocos, cujo objetivo foi avaliar 5
+diferentes recipientes de substratos alternativos para bromélias. Todos
+os tratamentos continham turfa e perlita e se diferenciavam no terceiro
 componente: casca de Pinus, casca de Eucaliptos, Coxim, fibra de coco e
 Xaxim. A variável de interesse foi o número de folhas por unidade
-experimental (pote com inicialmente 8 plantas), que foi registrado
+experimental (pote com, inicialmente 8 plantas), que foi registrado
 diariamente durante 6 dias após a plantação.
 
 <<desc-bromelia, fig.width=9, fig.height=4, fig.cap="(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala log, calculadas sobre os blocos em cada tempo e tratamento, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
@@ -659,7 +661,7 @@ xy1 <- xyplot(ybar ~ time | treat,
               #            lines = list(lty = 1, lwd = 2)),
               data = bromelia) +
     xyplot(ave ~ time | treat,
-           type = c("l", "g"),
+           type = c("l"),
            lwd = 2,
            data = bromelia_summary)
 
@@ -693,24 +695,24 @@ respectivos perfis médios. Nota-se um comportamento não linear
 (sigmoidal) dos perfis em cada tratamento e uma pouca variabilidade
 entre blocos em um mesmo tempo e tratamento. Essa última característica
 é destacada na \autoref{fig:desc-bromelia}(b), onde os logaritmos das
-médias e variâncias são apresentados em um gráfico de dispersos. Para
+médias e variâncias são apresentados em um gráfico de dispersão. Para
 todas as combinações de tempo e tratamento, as variâncias do número de
-folhas obtidas dos quatro blocos bastante menores que as respectivas
-médias. Com isso esse conjunto de dados apresenta alguns desafios para
-análise, pois não encontramos literatura exemplos de análise de dados
+folhas obtidas dos quatro blocos são bastante menores que as respectivas
+médias. Com isso, esse conjunto de dados apresenta alguns desafios para
+análise, pois não encontrou-se na literatura, exemplos de análise de dados
 com as características de subdispersão em estudos longitudinais.
 
 \section{Infestação de mosca-branca em cultura de soja}
 
 A mosca-branca \textit{Bemisia tabaci} é praga de diversas culturas
 sendo capaz de se alimentar de mais de 500 espécies de vegetais. Na
-cultura de soja, a mosca-branca \textit{Bemisia tabaci} era pouco citada
-até a primeira década de 2000. Porém, períodos de seca e o uso intensivo
-de inseticidas e de fungicidas não selecionados afetaram seus inimigos
-naturais e consequentemente contribuíram com o aumento da importância
-econômica dessa praga.
+cultura de soja, essa espécie de mosca-branca era pouco citada até a
+primeira década de 2000. Porém, períodos de seca e o uso intensivo de
+inseticidas e de fungicidas não selecionados afetaram seus inimigos
+naturais e, consequentemente contribuíram para o aumento da importância
+econômica dessa praga em agronômia.
 
-<<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala log, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
+<<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias (eixo $x$) e variâncias (eixo $y$) amostrais, na escala log, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
 
 # Load data set
 whitefly <- read_delim("whitefly.txt", delim = "\t") %>%
@@ -738,7 +740,7 @@ xy1 <- useOuterStrips(
            data = whitefly) +
     xyplot(ave_ninf + ave_nmed + ave_nsup ~ dias | cult,
            outer = TRUE,
-           type = c("l", "g"),
+           type = c("l"),
            lwd = 2,
            data = whitefly_summary),
     strip.left = strip.custom(factor.levels = flvs)
@@ -778,30 +780,30 @@ print(xy2, position = c(0.75, 0, 1, 0.95), more = FALSE)
 @
 
 Sob essa motivação, \citeonline{Suekane2013} conduziu um experimento sob
-delinamento de blocos para avaliar o número de ninfas de mosca-branca em
-dez diferentes cultivares de soja. As plantas das diferentes cultivares
-de soja foram cultivadas em vasos contendo duas plantas. No ínicio do
-experimento houve infestação artificial de adultos de mosca-branca na
-casa de vegetação. Unidades amostrais, contendo dois vasos, foram
-avaliadas antes da infestação e nos dias 8, 13, 22, 31 e 38 onde
-mensurou-se o número de ninfas da mosca-branca em um folíolo do terço
-superior, médio e inferior da planta. Nessa pesquisa, pretende-se
-utilizar somente 4 dos 10 cultivares experimentados. Na
-\autoref{fig:desc-whitefly}(a) são apresentados os perfis das três
-contagens realizadas em cada bloco ao longo dos dias de infestação para
-cada cultivar e seus respectivos perfis médios. O comportamento dos
+o delineamento de blocos para avaliar o número de ninfas de mosca-branca
+em dez diferentes cultivares de soja. As plantas das diferentes
+cultivares de soja foram cultivadas em vasos contendo duas plantas. No
+início do experimento, houve infestação artificial de adultos de
+mosca-branca na casa de vegetação. Unidades amostrais, contendo dois
+vasos, foram avaliadas antes da infestação e nos dias 8, 13, 22, 31 e 38,
+onde mensurou-se o número de ninfas da mosca-branca em um folíolo do
+terço superior, médio e inferior da planta. Nessa pesquisa, pretende-se
+utilizar somente as cultivares BRS das 10 cultivares experimentadas. Na
+\autoref{fig:desc-whitefly}(a) são apresentados os perfis, das três
+contagens realizadas, em cada bloco ao longo dos dias de infestação para
+cada cultivar, e os respectivos perfis médios. O comportamento dos
 perfis se mostra não linear, com um pico no número de ninfas ocorrendo
 entre 10 e 20 dias de infestação. Além disso, ressalta-se que a
 variabilidade das contagens é muito superior nos primeiros dias de
-infestação. Na \autoref{fig:desc-whitefly}(b) apresentam-se as relações
-média e variância observadas em escala log para cada variável de
+infestação. Na \autoref{fig:desc-whitefly}(b) apresentam-se as
+médias e variâncias amostrais, em escala log, para cada variável de
 interesse. Há uma forte evidência de superdispersão. Para análise desses
 dados, modelos flexíveis para dados de contagens como Poisson-Tweedie,
 COM-Poisson, gamma-count e Poisson-generalizado, com a inclusão de
 efeitos para modelar a estrutura longitudinal, são alternativas bastante
 relevantes que ainda não são bem consolidadas na literatura. Em adição,
 ressalta-se a possibilidade de modelar o parâmetro de dispersão dessas
-distribuição com covariáveis, uma vez que observou-se que a
+distribuições com covariáveis, uma vez que observou-se que a
 variabilidade tem comportamento tempo-dependente.
 
 % ----------------------------------------------------------
