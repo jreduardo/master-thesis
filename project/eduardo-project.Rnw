@@ -807,8 +807,8 @@ variabilidade tem comportamento tempo-dependente.
 % ----------------------------------------------------------
 % Revisão de literatura
 % ----------------------------------------------------------
-\chapter{Metodologia}
-\label{cha:revisaodeliteratura}
+% \chapter{Metodologia}
+% \label{cha:metodologia}
 
 % ----------------------------------------------------------
 % Cronograma
@@ -843,12 +843,13 @@ variabilidade tem comportamento tempo-dependente.
           group right peak height=0.15,
           group left shift=.1,
           group right shift=-.1,
-          group incomplete/.append style={draw=black,fill=none},
+          group incomplete/.append style={fill=gray!20, draw=black},
+          group/.append style={draw=black,fill=blue!30!black!40},
           % Estilo das barras (atividades)
-          bar/.style={fill=gray!40, draw=black},
-          bar incomplete/.append style={fill=gray!10, draw=black},
+          bar/.style={fill=blue!30!black!40, draw=black},
+          bar incomplete/.append style={fill=gray!20, draw=black},
           bar label node/.append style={align=right},
-          bar label font=\scriptsize\color{black!65},          group/.append style={draw=black,fill=blue},
+          bar label font=\scriptsize\color{black!65},
           bar height=0.6, % size das barras de tarefas
           bar left shift=.2,
           bar right shift=-.2,
@@ -880,20 +881,20 @@ variabilidade tem comportamento tempo-dependente.
           %-------------------------------------------
           % Segundo artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=40]{Artigo 2}{1}{10} \\
-          \ganttbar[progress=20]{
+          progress=48]{Artigo 2}{1}{10} \\
+          \ganttbar[progress=80]{
             Revisão de \ganttalignnewline literatura}{1}{5} \\
-          \ganttbar[progress=0, progress label text=]{
+          \ganttbar[progress=60]{
             Implementação \ganttalignnewline computacional}{3}{5} \\
-          \ganttbar[progress=0, progress label text=]{
+          \ganttbar[progress=20]{
             Análise \ganttalignnewline de dados}{5}{8} \\
           \ganttbar[progress=0, progress label text=]{
             Redação do \ganttalignnewline artigo}{6}{10} \\
           %-------------------------------------------
           % Terceiro artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=100]{Artigo 3}{10}{22} \\
-          \ganttbar[progress=0, progress label text=]{
+          progress=15]{Artigo 3}{10}{22} \\
+          \ganttbar[progress=60]{
             Revisão de \ganttalignnewline literatura}{10}{14} \\
           \ganttbar[progress=0, progress label text=]{
             Implementação \ganttalignnewline computacional}{13}{17} \\
@@ -904,10 +905,10 @@ variabilidade tem comportamento tempo-dependente.
           % -------------------------------------------
           % Quarto artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=100]{Artigo 4}{22}{36} \\
-          \ganttbar[progress=0, progress label text=]{
+          progress=20]{Artigo 4}{22}{36} \\
+          \ganttbar[progress=50, progress label text=]{
             Revisão de \ganttalignnewline literatura}{22}{29} \\
-          \ganttbar[progress=0, progress label text=]{
+          \ganttbar[progress=20, progress label text=]{
             Implementação \ganttalignnewline computacional}{25}{30} \\
           \ganttbar[progress=0, progress label text=]{
             Análise \ganttalignnewline de dados}{28}{32} \\
@@ -916,11 +917,12 @@ variabilidade tem comportamento tempo-dependente.
           % -------------------------------------------
           % Dissertação
           \ganttgroup[group label node/.append style={align=right},
-          progress=100]{Dissertação}{1}{40} \\
+          progress=0, progress label text=]{Dissertação}{1}{40} \\
           \ganttbar[progress=0, progress label text=]{
-            Redação da \ganttalignnewline dissertação}{11}{12}
-          \ganttbar{}{23}{24}
-          \ganttbar{}{37}{38}\\
+            Redação da \ganttalignnewline dissertação}{1}{2}
+          \ganttbar[progress=0, progress label text=]{}{11}{12}
+          \ganttbar[progress=0, progress label text=]{}{23}{24}
+          \ganttbar[progress=0, progress label text=]{}{37}{38}\\
           \ganttbar[progress=0, progress label text=]{
             Revisão e \ganttalignnewline adequaão}{37}{40}
         \end{ganttchart}
