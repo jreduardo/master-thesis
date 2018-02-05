@@ -1159,6 +1159,105 @@ selecionador automático de distribuição.
 \section{Estimação e inferência em modelos de regressão}
 \label{sec:estimacao-e-inferencia}
 
+Para as versões parâmetricas dos modelos apresentados anteriormente, o
+processo de estimação pose ser feito sob o paradigma de verossimilhança,
+que é bastante intuitivo e fornece estimadores consistentes e
+assintoticamente não viesados \cite{Pawitan2001}. Para $\bm{y}$ um
+vetor, $n\times 1$ conhecido, de observações de uma mesma classe de
+distribuições de probabilidade $f(y, \bm{\theta})$ e $\bm{X}$ uma matriz
+$n \times p$ de delineamento ou matriz do modelo. A função de
+verossimilhança e seu logaritmo são dados por
+$$
+\mathcal{L}(\bm{\theta}) = \mathcal{L}(\bm{\theta}; \bm{y}, \bm{X}) =
+  \prod_{i=1}^n f(y_i; \bm{\theta}, \bm{x}_i)
+\quad \text{e} \quad
+\ell(\bm{\theta}) = \ell(\bm{\theta}; \bm{y}, \bm{X}) =
+  \sum_{i=1}^n \log[f(y_i; \bm{\theta}_i, \bm{x}_i)],
+$$
+em que $\bm{\theta} \in \Theta$ é o conjunto de parâmetros,
+desconhecido, que determina a distribuição e
+$\bm{x}_i^\top = (x_{i1}, x_{i2}, \ldots, x_{ip})$ o vetor de
+covariáveis da $i$-ésima observação. É interessante notar que para dados
+discretos, em que
+$f(y_i; \bm{\theta}; \bm{x}_i) \equiv \Pr(Y_i = y_i; \bm{\theta},
+\bm{x}_i)$,
+a função de verossimilhança representa a probabilidade de se observar
+$\bm{y}$, dado que $\bm{\theta}$ é verdadeiro. O estimador de máxima
+verossimilhança $\hat{\bm{\theta}}$ é obtido tal que
+$\mathcal{L}(\hat{\bm{\theta}}; \bm{y}) = \underset{\bm{\theta} \in
+  \Theta}{\text{max}}\,\mathcal{L}(\bm{\theta};
+\bm{y})$. Frequentemente, não é possível obter expressões em forma
+fechada para os estimadores de máxima verossimilhança
+\cite{Bonat2017b}. Entretanto, é usual assumir as estimativas de
+máxima verossimilhança como soluções para as equações escore
+\begin{equation}
+  \label{eqn:score}
+\mathcal{U}(\bm{\theta}) = \left (
+  \frac{\partial \ell(\bm{\theta})}{\partial \theta_1},
+  \frac{\partial \ell(\bm{\theta})}{\partial \theta_2},
+  \ldots,
+  \frac{\partial \ell(\bm{\theta})}{\partial \theta_p}
+  \right )^\top = \bm{0},
+\end{equation}
+que são obtidas por métodos iterativos como Newton-scoring, para quando
+a matriz Hessiana
+$$
+\mathcal{H}(\theta) =
+\begin{bmatrix}
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_1^2} &
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_1 \partial \theta_2} &
+    \cdots &
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_1 \partial \theta_p} \\
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_2 \partial \theta_1} &
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_2^2} &
+    \cdots &
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_2 \partial \theta_p} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_p \partial \theta_1} &
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_p \partial \theta_2} &
+    \cdots &
+    \frac{\partial \ell^2(\bm{\theta})}{\partial
+      \theta_p^2}
+  \end{bmatrix}
+$$
+é obtida de forma analítica (e.g. Poisson), e métodos
+derivatives-free, como BFGS \cite{Nocedal1995}, para quando
+$\mathcal{H}(\bm{\theta})$ não tem forma fechada (e.g. COM-Poisson,
+Gamma-Count, Poisson generalizada).
+
+A inferência nos modelos paramétricos, ajustados via maximização da
+verossimilhança baseia-se na distribuição assintótica dos estimadores de
+máxima verossimilhança
+$$
+  \hat{\bm{\theta}} \overset{a}{\sim}
+    \mathcal{N}(\bm{\theta}, \mathcal{I}(\bm{\theta}))
+  \quad {e} \quad
+  \hat{g(\bm{\theta})} \overset{a}{\sim}
+    \mathcal{N}(g(\bm{\theta}),
+      \bm{G}^\top \mathcal{I}(\bm{\theta}) \bm{G}),
+$$
+em que $\mathcal{I}(\bm{\theta}) = -\mathcal{H}^{-1}$ é a matriz de
+informação observada de Fisher, $g(\cdot)$ é uma função monótona e
+diferenciável e
+$\bm{G}^\top = (\partial g / \partial \beta_1, \ldots, \partial g
+/ \partial \beta_p)^\top$ o vetor de derivadas primeiras.
+
+Para a distribuição Poisson-Tweedie a estimação por máxima
+verossimilhança é computacionalmente exigente, uma vez que as
+probabilidades são dadas por uma integral intratável, exigindo o uso de
+métodos numéricos. Considerando a especificação de momentos,
+\citeonline{Bonat2017} propôs o uso combinado das funções de estimação
+quase-escore e de Person para estimação dos parâmetros de regressão e de
+dispersão $(p, \phi)$, respectivamente.
+
 % ----------------------------------------------------------
 % Cronograma
 % ----------------------------------------------------------
