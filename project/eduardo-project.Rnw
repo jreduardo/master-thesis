@@ -361,7 +361,7 @@ eventos gamma distribuído; o modelo COM-Poisson \cite{Shmueli2005,
   Sellers2010}, cujo a razão de recorrência das probabilidades é não
 linear por meio da adição de um parâmetro de dispersão; e o modelo
 Poisson generalizado \cite{Consul1992, Zamani2012}, uma generalização
-biparamétrica do modelo Poisson.
+bi-paramétrica do modelo Poisson.
 
 Embora as distribuição citadas sejam flexíveis para lidar com diferentes
 níveis de dispersão, há situações em que o delineamento do experimento
@@ -710,7 +710,7 @@ cultura de soja, essa espécie de mosca-branca era pouco citada até a
 primeira década de 2000. Porém, períodos de seca e o uso intensivo de
 inseticidas e de fungicidas não selecionados afetaram seus inimigos
 naturais e, consequentemente contribuíram para o aumento da importância
-econômica dessa praga em agronômia.
+econômica dessa praga em agronomia.
 
 <<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias (eixo $x$) e variâncias (eixo $y$) amostrais, na escala log, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
 
@@ -833,16 +833,16 @@ em que $\mu>0$. Pela função geradora de cumulantes da família
 exponencial é fácil mostrar que E$(Y)=\text{Var(Y)}=\mu$. Como discutido
 no \autoref{cha:introducao}, essa é uma particularidade bastante
 restritiva da distribuição Poisson.  A linearidade das razões de
-probabilidades consecutivas $\Pr(Y=y-1)/\Pr(Y=y-1)$ e a relação da
-distribuição Poisson com a distribuição exponencial são características
-que motivam classes de generalizações do modelo Poisson e serão
-discutidas nas próximas seções.
+probabilidades consecutivas $\Pr(Y=y-1)/\Pr(Y=y-1) = y / \mu$ e a
+relação da distribuição Poisson com a distribuição exponencial são
+características que motivam classes de generalizações do modelo Poisson
+e serão discutidas nas próximas seções.
 
-Para especificar um modelo de rergessão baseado na distribuição Poisson,
-considere $y_i$ observações de uma variável $Y_i$ Poisson distribuída
-e $\bm{x}_i^\top = (x_{i1}, x_{i2}, \ldots, x_{ip})$ um vetor de
-covariáveis conhecidas, $i=1,2,\ldots,n$.
-O modelo de regressão Poisson é especificado como
+Para especificar um modelo de regressão baseado na distribuição Poisson,
+considere $y_i$ observações de uma variável Poisson e
+$\bm{x}_i^\top = (x_{i1}, x_{i2}, \ldots, x_{ip})$ um vetor de
+covariáveis conhecidas, $i=1,2,\ldots,n$.  O modelo de regressão Poisson
+é especificado como
 $$
 Y_i \sim \text{Po}(\mu_i), \quad \text{em que} \quad \mu_i =
 g^{-1}(\bm{x}_i^\top\bm{\beta}),
@@ -856,7 +856,7 @@ $g^{-1}(\cdot)$ uma função de ligação conhecida, por exemplo logaritmo
 
 A distribuição COM-Poisson é o principal representante da família de
 distribuições Poisson ponderadas (WPD) \cite{DelCastillo1998}. Uma
-variável aleatória $Y$ pertence à familía WPD se sua função massa de
+variável aleatória $Y$ pertence à família WPD se sua função massa de
 probabilidade puder ser escrita como
 \begin{equation}
   \label{eqn:pmf-wpd}
@@ -893,14 +893,14 @@ enquanto que para a distribuição Poisson essa razão é $y /\lambda$,
 correspondente a $w(y)$ constante ou, no caso COM-Poisson, $\nu=1$. Além
 da Poisson ($\nu=1$), a distribuição COM-Poisson também tem como caso
 particular a distribuição geométrica ($\nu=0$ e $\lambda<1$) e como caso
-limite a distribuição Bernoulli ($nu\to \infty$ com probabilidade de
+limite a distribuição Bernoulli ($\nu\to \infty$ com probabilidade de
 sucesso $\lambda/(\lambda+1)$).
 
-Um inconveniente desse modelo é que os momentos esperança e variância,
-em geral, não são obtidos em forma fechada. \citeonline{Shmueli2005} e
-\citeonline{Sellers2010} a partir de uma aproximação para
-Z$(\lambda, \nu)$, mostram que a esperança e variância de uma variável
-$Y \sim \text{CMP}(\lambda, \nu)$ pode ser aproximada por
+Um inconveniente desse modelo é que os momentos média e variância, em
+geral, não são obtidos em forma fechada. A partir de uma aproximação
+para Z$(\lambda, \nu)$, \citeonline{Shmueli2005} e
+\citeonline{Sellers2010} mostram que a esperança e variância de uma
+variável $Y \sim \text{CMP}(\lambda, \nu)$ pode ser aproximada por
 \begin{equation}
     \label{eqn:mean-aprox}
   \text{E}(Y) \approx \lambda^{1/\nu} - \frac{\nu - 1}{2\nu} \qquad
@@ -909,9 +909,9 @@ $Y \sim \text{CMP}(\lambda, \nu)$ pode ser aproximada por
 \end{equation}
 que é particularmente acurada para $\nu \leq 1$ ou $\lambda > 10^\nu$
 \cite{Shmueli2005}. \citeonline{RibeiroJr2018} mostrou que a aproximação
-para a esperança é acurada, diferentemente da aproximação para
+para a média é acurada, diferentemente da aproximação para
 variância, que perde acurácia quando $\nu<1$. Além disso, o autor indica
-que a acurácia das aproximaççoes parecem não ter relação com as regiões
+que a acurácia das aproximações parece não ter relação com as regiões
 $\nu \leq 1$ ou $\lambda > 10^\nu$.
 
 Modelos de regressão baseados na distribuição COM-Poisson foram
@@ -934,7 +934,7 @@ parametrização original, $\lambda$ e $\nu$ são fortemente
 intra-relacionados na função de verossimilhança
 \cite{RibeiroJr2018}. Sob essas motivações \citeonline{Huang2017} e
 \citeonline{RibeiroJr2018} propuseram reparametrizações para a média no
-modelo COM-Poisson. Nesses caso, o modelo de regressão é especificado
+modelo COM-Poisson. Nesses casos, o modelo de regressão é especificado
 como
 $$
 Y_i \sim \text{CMP}_\mu(\mu_i, \nu), \quad \text{em que} \quad
@@ -942,12 +942,13 @@ Y_i \sim \text{CMP}_\mu(\mu_i, \nu), \quad \text{em que} \quad
 $$
 sendo $\text{CMP}_\mu(\mu_i, \nu)$ a distribuição COM-Poisson
 reparametrizada para a média. Na abordagem proposta por
-\citeauthor{Huang2017}, o parâmetro $\mu$ da distribuição
-$\text{CMP}_\mu(\mu_i, \nu)$ é obtido como raíz da equação
-$$ \sum_{j=0}^{\infty} (j-\mu_i) \frac{\lambda^j}{(j!)^\nu} = 0. $$
-Já na proposta de \citeauthor{RibeiroJr2018}, $\mu$ é obtido a partir da
-aproximação para a esperança,
-$$ \mu_i = h(\lambda, \nu) = \lambda^{1/\nu} - \frac{\nu - 1}{2\nu}. $$
+\citeauthor{Huang2017}, o parâmetro $\mu_i$ da distribuição
+$\text{CMP}_\mu(\mu_i, \nu)$ é obtido como raiz da equação
+$$ \sum_{j=0}^{\infty} (j-\mu_i) \frac{\lambda_i^j}{(j!)^\nu} = 0. $$
+Já na proposta de \citeauthor{RibeiroJr2018}, $\mu_i$ é obtido a partir
+da aproximação para a média,
+$$ \mu_i = h(\lambda_i, \nu) = \lambda_i^{1/\nu} - \frac{\nu -
+  1}{2\nu}. $$
 Em ambos os casos, $\mu_i$ e $\nu$ se mostram ortogonais e os parâmetros
 $\bm{\beta}$ em um modelo de regressão tem a mesma interpretação do caso
 Poisson.
@@ -956,7 +957,7 @@ Poisson.
 \label{sec:gamma-count}
 
 A distribuição Gamma-Count é uma generalização da distribuição Poisson
-derivada da relação da Poisson com a distribuição do tempo entre
+e deriva da relação da Poisson com a distribuição do tempo entre
 eventos. Seja $\tau_k>0,\, k\in\mathbb{N}^*$ o tempo entre o $(k-1)$ e o
 $k$-ésimo evento e $\vartheta_n$ o tempo de chegada do $n$-ésimo
 evento. Então $\vartheta_n = \sum_{k-1}^{n}\tau_k$ para
@@ -979,21 +980,22 @@ $\vartheta_y$ e $T$ a amplitude do intervalo de contagem, offset.
 A \autoref{eqn:renewal} deriva uma distribuição de contagem a partir,
 apenas, do conhecimento da distribuição do tempo entre eventos. Por
 exemplo, a distribuição Poisson deriva da suposição de que $\tau_k$ são
-exponencialmente distribuídos com parâmetro de taxa $\lambda$. Assim
+exponencialmente distribuídos com parâmetro de taxa $\lambda$. Assim,
 tem-se que $\vartheta_y$ segue uma distribuição de Erlang de parâmetros
-$y$ e $\lambda$, e a função massa de probabilidade é obtida como
+$y$ e $\lambda$, e a função massa de probabilidade de $Y_T$ é obtida como
 $$
 \Pr(Y_T = y) = \text{F}_y(T) - \text{F}_{y+1}(T) =
   \sum_{j=0}^{y-1}\frac{\exp(-\lambda T)(\lambda T)^j}{j!} -
   \sum_{j=0}^{  y}\frac{\exp(-\lambda T)(\lambda T)^j}{j!} =
   \frac{\exp(-\lambda T)(\lambda T)^j}{y!},
 $$
-que, para $T=1$ é idêntica a \autoref{eqn:pmf-poisson}.
+que, para $T=1$, é idêntica a \autoref{eqn:pmf-poisson}.
 
 A distribuição Gamma-Count GCT$(\alpha, \gamma)$ assume que $\tau_k$ são
-gamma distribuídos, com de parâmetros $\alpha$ e $\gamma$. Assim
-$\vartheta_y$ também é gamma distribuído, porém com parâmetros $y\alpha$
-e $\gamma$. Sua função massa de probabilidade é obtida por
+gamma distribuídos, com de parâmetros $\alpha$ e
+$\gamma$. Consequentemente, $\vartheta_y$ também é gamma distribuído,
+porém com parâmetros $y\alpha$ e $\gamma$. Sua função massa de
+probabilidade é obtida por
 \begin{equation}
   \label{eqn:pmf-gammacount}
   \Pr(Y_T = y) = \text{F}_y(T) - \text{F}_{n+1}(T) =
@@ -1003,16 +1005,15 @@ e $\gamma$. Sua função massa de probabilidade é obtida por
     \Gamma[(y+1)\alpha] \exp(\gamma t)} dt,
 \end{equation}
 que não tem forma fechada, a menos do caso particular $\alpha=1$ quando
-a distribuição se reduz a Poisson. Os momentos da distribuição também
-não são obtidos de forma fechada. \citeonline{Winkelmann1995} mostra que
+a distribuição reduz-se a Poisson. Os momentos da distribuição também
+não são obtidos em forma fechada. \citeonline{Winkelmann1995} mostra que
 para intervalos de observação suficientemente grandes, $T\to\infty$,
 sustenta-se que
 $$ Y_T \overset{a}{\sim} \mathcal{N}\left (
-  \frac{\gamma T}{\alpha}, \frac{\gamma T}{\alpha^2}  \right ), $$
+  \frac{\gamma T}{\alpha}, \frac{\gamma T}{\alpha^2} \right ), $$
 assim a razão média-variância assintótica é
 $1/\alpha$. Consequentemente, a distribuição Gamma-Count é capaz de
-modelar superdispersão para $0 < \alpha < 1$ e subdispersão para
-$\alpha > 1$.
+modelar superdispersão $(0 < \alpha < 1)$ e subdispersão $(\alpha > 1)$.
 
 Modelos de regressão Gamma-Count foram propostos por
 \citeonline{Winkelmann1995} e \citeonline{Zeviani2014}.  Para $y_i$
@@ -1026,10 +1027,10 @@ Y_i \sim \text{GCT}(\alpha, \gamma_i), \quad \text{em que} \quad
     g^{-1}(\bm{x}_i^\top\bm{\beta}) \right ]^{-1}.
 $$
 
-A desvantagem desse modelo é que, embora assintaticamente, para grandes
-valores de $T$, $\gamma_i / \alpha$ represente a média das contagens, em
-geral modela-se na escala do tempo entre eventos, perdendo a
-interpretação dos parâmetros de regressão $\beta$.
+A desvantagem desse modelo é que, embora assintoticamente
+($T\to \infty$), $\gamma_i / \alpha$ represente a média das contagens,
+em geral, modela-se a variável de contagem na escala do tempo entre
+eventos, perdendo a interpretação dos parâmetros de regressão $\beta$.
 
 \section{Distribuição Poisson generalizada}
 \label{sec:poisson-generalizada}
@@ -1069,10 +1070,17 @@ probabilidade
     \exp \left [ - \mu \frac{(1 + \alpha y)}{( 1 + \alpha \mu)}
     \right ],
 \end{equation}
-denotada por $\text{GPo}_\mu(\mu, \alpha)$. Para $y_i$ observações da
-distribuição Poisson generalizada e $\bm{x}_i$ um vetor de covariáveis
-conhecidas, o modelo de regressão baseado na distribuição Poisson
-generalizada é definido por
+denotada por $\text{GPo}_\mu(\mu, \alpha)$. Os momentos da distribuição
+nessa parametrização são
+\begin{equation}
+  \label{eqn:moments-gpo}
+\text{E}(Y) = \mu \quad \text{e} \quad
+   \text{Var}(Y) = \mu (1 + \mu\alpha)^2.
+\end{equation}
+
+Para $y_i$ observações da distribuição Poisson generalizada e $\bm{x}_i$
+um vetor conhecido de covariáveis, o modelo de regressão baseado na
+distribuição Poisson generalizada é definido por
 $$
 Y_i \sim \text{GPo}_\mu(\mu_i, \alpha), \quad \text{em que} \quad
   \mu_i = g^{-1}(\bm{x}_i^\top\bm{\beta}),
@@ -1082,15 +1090,17 @@ $\alpha > \text{min}[ -\text{max}(y_i^{-1}), -\text{max}(\mu_i^{-1})]$,
 quando $\alpha<0$.
 
 Aplicações do modelo de regressão Poisson generalizada são pouco
-reportadas na literatura. A grande dificuldade deste modelo é a
-complicada restrição no espaço paramétrico, que é difícil de se
-incorporar, de forma eficiente, no processo de estimação.
+reportadas na literatura. Embora a relação média-variância
+(\ref{eqn:moments-gpo}) tenha um comportamento cúbico em $\mu$, bastante
+flexível, a grande dificuldade deste modelo reside na restrição do
+espaço paramétrico, que é difícil de se incorporar, de forma eficiente,
+no processo de estimação.
 
 \section{Distribuição Poisson-Tweedie}
 \label{sec:poisson-tweedie}
 
-Distribuições de contagem baseadas em misturas da distribuição são
-comuns para análise de dados superdispersos. A distribuição
+Distribuições de contagem baseadas em misturas da distribuição Poisson
+são comuns para análise de dados superdispersos. A distribuição
 Poisson-Tweedie representa um caso geral de misturas Poisson
 \cite{Jorgensen1997}. Ela consiste da inclusão de aleatórios aleatórios
 Tweedie distribuídos em nível de observação.
@@ -1101,9 +1111,9 @@ Var$_p(Y) = \phi \mu^p$, então $Y$ segue distribuição Tweedie
 $\text{Tw}_p(\mu, \phi)$, em que $\mu \in \Omega_p$, $\phi > 0$ e
 $p \in (-\infty, 0] \cup [1, \infty)$.  Note que o suporte da
 distribuição depende de $p$, que age como um selecionador de
-distribuições uma vez que as distribuições Normal $(p = 0)$, Poisson
-$(p = 1)$, non-central gamma $(p = 3/2)$, gamma $(p = 2)$ and inverse
-Gaussian $(p = 3)$ são casos particulares. A função densidade de
+distribuições uma vez que as distribuições Gaussiana $(p = 0)$, Poisson
+$(p = 1)$, non-central gamma $(p = 3/2)$, gamma $(p = 2)$ e Gaussiana
+inversa $(p = 3)$ são casos particulares. A função densidade de
 probabilidade da distribuição Poisson não pode ser obtida em forma
 fechada.
 
@@ -1125,19 +1135,27 @@ Poisson-Tweedie são obtidos por
     \text{E}[\text{Var}(Y | Z)] = \mu + \phi\mu^p.
   \end{aligned}
 \end{equation}
-Devido à flexibilidade da distribuição Tweedie a Poisson-Tweedie também
+Devido à flexibilidade da distribuição Tweedie, a Poisson-Tweedie também
 têm importantes casos particulares que incluem as distribuições Hermite
-$(p = 0)$, Poisson compound Poisson $(1 < p < 2)$, binomial negativa
-$(p=2)$ e Poisson inversa gaussiana $(p = 3)$ \cite{Bonat2017}.
+$(p = 0)$, Neymann tipo-A $(p=1)$, Pólya-Aeppli $(p=1,5)$, binomial
+negativa $(p=2)$ e Poisson inversa gaussiana $(p = 3)$ \cite{Bonat2017}.
+
+Pela definição (\ref{eqn:espec-ptw}), modelos Poisson-Tweedie só modelam
+dados de contagem superdispersos. \citeonline{Bonat2017} estendem essa
+distribuição para lidar com subdispersão, adotando apenas a
+especificação de momentos \cite{Wedderburn1974} baseada nas expressões
+(\ref{eqn:moments-ptw}) e permitindo a estimação de $\phi<0$. Sob essa
+abordagem, não se conhece a distribuição completa de $Y$,
+impossibilitando o cálculo de probabilidades, por exemplo.
 
 Para observações $y_1, y_2, \ldots, y_n$ e seus respectivos vetores de
 covariáveis $\bm{x}_i$, os modelos de regressão Poisson-Tweedie são
 definidos por
 $$
 Y_i \sim \text{PTw}_p(\mu_i, \phi), \quad \text{em que} \quad
-  \mu_i = g^{-1}(\bm{x}_i^\top\bm{\beta}),
+  \mu_i = g^{-1}(\bm{x}_i^\top\bm{\beta}).
 $$
-e em sua versão estendida, a especificação fica
+Em sua versão estendida, a especificação é dada por
 $$
 \text{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^\top\bm{\beta})
   \quad \text{e} \quad
@@ -1145,25 +1163,18 @@ $$
 $$
 Note que para superdispersão ambas especificações são equivalentes.
 
-Pela definição (\ref{eqn:espec-ptw}), modelos Poisson-Tweedie só modelam
-dados de contagem superdispersos. \citeonline{Bonat2017} estendem essa
-distribuição para lidar com subdisprsão, adotando apenas a especificação
-dos momentos (\ref{eqn:moments-ptw}) e permitindo a estimação de
-$\phi<0$. Sob essa abordagem, não se conhece a distribuição completa de
-$Y$, impossibilitando o cálculo de probabilidades, por exemplo.
-
 A grande motivação da utilização dessa distribuição é sua função de
-variância, bastante flexível, onde a estimação de $p$ funciona como um
-selecionador automático de distribuição.
+variância, bastante flexível, em que a estimação de $p$ funciona como um
+selecionador automático de distribuições.
 
 \section{Estimação e inferência em modelos de regressão}
 \label{sec:estimacao-e-inferencia}
 
-Para as versões parâmetricas dos modelos apresentados anteriormente, o
-processo de estimação pose ser feito sob o paradigma de verossimilhança,
+Para as versões paramétricas dos modelos apresentados anteriormente, o
+processo de estimação pode ser feito sob o paradigma de verossimilhança,
 que é bastante intuitivo e fornece estimadores consistentes e
 assintoticamente não viesados \cite{Pawitan2001}. Para $\bm{y}$ um
-vetor, $n\times 1$ conhecido, de observações de uma mesma classe de
+vetor $n\times 1$ conhecido de observações de uma mesma classe de
 distribuições de probabilidade $f(y, \bm{\theta})$ e $\bm{X}$ uma matriz
 $n \times p$ de delineamento ou matriz do modelo. A função de
 verossimilhança e seu logaritmo são dados por
@@ -1248,7 +1259,7 @@ em que $\mathcal{I}(\bm{\theta}) = -\mathcal{H}^{-1}$ é a matriz de
 informação observada de Fisher, $g(\cdot)$ é uma função monótona e
 diferenciável e
 $\bm{G}^\top = (\partial g / \partial \beta_1, \ldots, \partial g
-/ \partial \beta_p)^\top$ o vetor de derivadas primeiras.
+/ \partial \beta_p)^\top$ o vetor de derivadas primeiras de $g(\cdot)$.
 
 Para a distribuição Poisson-Tweedie a estimação por máxima
 verossimilhança é computacionalmente exigente, uma vez que as
