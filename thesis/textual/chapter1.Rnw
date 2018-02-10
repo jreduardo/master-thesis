@@ -54,5 +54,5 @@ plot(cars)
 
 \cite{Zeviani2014} \cite{Hinde1998}
 
-\bibliography{references}
+\bibliography{../bibliography}
 \clearpage

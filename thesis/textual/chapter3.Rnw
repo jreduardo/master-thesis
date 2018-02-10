@@ -50,5 +50,5 @@ plot(density(volcano))
 
 \cite{Bonat2017} \cite{Hinde1998}
 
-\bibliography{references}
+\bibliography{../bibliography}
 \clearpage
