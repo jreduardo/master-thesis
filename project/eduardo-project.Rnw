@@ -164,13 +164,11 @@ ORIENTADORA: CLARICE GARCIA BORGES DEMÉTRIO
 
 PIRACICABA\\
 ESTADO DE SÃO PAULO -- BRASIL\\
-OUTUBRO / 2002
+FEVEREIRO / 2018
 \end{capa}
-% \setcounter{page}{2}
 
 % \imprimircapa
-
-\imprimirfolhaderosto
+% \imprimirfolhaderosto
 
 % ---
 
