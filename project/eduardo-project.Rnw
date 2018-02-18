@@ -1298,6 +1298,15 @@ métodos numéricos. Considerando a especificação de momentos,
 quase-escore e de Pearson para estimação dos parâmetros de regressão e
 de dispersão $(p, \phi)$, respectivamente.
 
+Com essa pesquisa, a análise de dados na forma de contagens pretende ser
+mais fiel ao processo gerador dos dados, levando a conclusões mais
+acertivas nos experimentos conduzidos, principalmente, na área
+agronômica. Com a apresentação e caracterização de distribuições
+flexíveis para dados dessa natureza, definição dos modelos de regressão,
+extensões para modelagem da dispersão e inclusão de efeitos aleatórios e
+discussão dos métodos de estimação, a pesquisa almeja ser uma referência
+metodologia para a estatística aplicada.
+
 % ----------------------------------------------------------
 % Cronograma
 % ----------------------------------------------------------
@@ -1365,11 +1374,11 @@ de dispersão $(p, \phi)$, respectivamente.
           %-------------------------------------------
           % Primeiro artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=100]{Artigo 1}{1}{2} \\
+          progress=100]{Objetivo (i)}{1}{2} \\
           %-------------------------------------------
           % Segundo artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=48]{Artigo 2}{1}{10} \\
+          progress=48]{Objetivo (ii)}{1}{10} \\
           \ganttbar[progress=80]{
             Revisão de \ganttalignnewline literatura}{1}{5} \\
           \ganttbar[progress=60]{
@@ -1381,7 +1390,7 @@ de dispersão $(p, \phi)$, respectivamente.
           %-------------------------------------------
           % Terceiro artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=15]{Artigo 3}{10}{22} \\
+          progress=15]{Objetivo (iii)}{10}{22} \\
           \ganttbar[progress=60]{
             Revisão de \ganttalignnewline literatura}{10}{14} \\
           \ganttbar[progress=0, progress label text=]{
@@ -1393,7 +1402,7 @@ de dispersão $(p, \phi)$, respectivamente.
           % -------------------------------------------
           % Quarto artigo
           \ganttgroup[group label node/.append style={align=right},
-          progress=20]{Artigo 4}{22}{36} \\
+          progress=20]{Objetivo (iv)}{22}{36} \\
           \ganttbar[progress=50, progress label text=]{
             Revisão de \ganttalignnewline literatura}{22}{29} \\
           \ganttbar[progress=20, progress label text=]{
