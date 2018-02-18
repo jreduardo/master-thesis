@@ -234,43 +234,43 @@ source("config.R")
 \label{cha:introducao}
 
 A classe dos modelos lineares generalizados (GLM) foi introduzida por
-\citet{Nelder1972} como um framework geral que contempla modelos
-para análise de dados normais e não normais. \citet{Wedderburn1974}
-generalizou essa classe para os modelos de quase-verossimilhança, em que
-faz-se apenas a suposição de primeiro e segundo momentos, ou seja,
-descreve apenas a relação entre a média e variância da variável
-resposta. Embora a classe estendida para quase-verossimilhança seja mais
-flexível do que os GLM's, na maioria das situações não é possível
-recuperar a distribuição da variável resposta \citep{Paula2013}.
+\citet{Nelder1972} contemplando modelos para análise de dados normais e
+não normais em uma mesma teoria. \citet{Wedderburn1974} generalizou essa
+classe para os modelos de quase-verossimilhança, em que há apenas a
+suposição de primeiro e segundo momentos, ou seja, descreve-se apenas a
+relação entre a média e a variância da variável resposta. Embora a
+classe estendida para quase-verossimilhança seja mais flexível do que os
+GLM's, na maioria das situações não é possível recuperar a distribuição
+da variável resposta \citep{Paula2013}.
 
-O modelos lineares generalizados podem ser ajustados por um eficiente
-algoritmo de Newton scoring e há muitos softwares estatísticos que
+O modelos lineares generalizados podem ser ajustados por um algoritmo
+Newton-escore eficiente e há muitos softwares estatísticos que
 implementam facilidades para isso. Além disso, há excelentes
 contribuições na literatura da área como \citet{McCullagh1989,
-  Venables2002} e \citet{Dobson2008}. Assim os modelos lineares
+  Venables2002} e \citet{Dobson2008}. Assim, os modelos lineares
 generalizados se tornaram métodos proeminentes na análise de dados em
 estatística aplicada.
 
 Apesar da flexibilidade dos modelos lineares generalizados, a relação
-média-variância, determinada pela função de variância $V(\mu_i)$, pode
+média--variância, determinada pela função de variância $V(\mu_i)$, pode
 ser bastante restritiva, principalmente nos casos de dados binomiais, de
 contagens e de tempo até o evento \citep{Molenberghs2010}. Para dados de
-contagens, por exemplo, a função de variância $V(\mu_i) = \mu_i$ leva ao
-GLM Poisson e determina que a esperança e a variância da distribuição
+contagens, por exemplo, o modelo Poisson tem função de variância
+$V(\mu_i) = \mu_i$, isto é, a esperança e a variância da distribuição
 são iguais para a $i$-ésima observação, característica conhecida como
 equidispersão. Porém, na prática, os dados podem apresentar
 características de superdispersão (média $<$ variância) e subdispersão
 (média $>$ variância), que tornam o modelo Poisson inadequado. Nesses
-casos, os coeficientes ainda pode ser estimados consistentemente, porém
+casos, os coeficientes ainda podem ser estimados consistentemente, porém
 os erros padrões das estimativas são incorretos \citep{Winkelmann1994,
   Hinde1998}. Em particular, um modelo Poisson ajustado a contagens
-superdispersas leva à subestimação dos erros padrão das estimativas; e
-para contagens subdispersas os erros padrão são superestimados.
+superdispersas leva à subestimação dos erros padrões das estimativas; e
+para contagens subdispersas os erros padrões são superestimados.
 
-O caso mais comum de fuga da suposição de equidispersão e,
+O caso mais comum de falha da suposição de equidispersão e,
 consequentemente com um maior número de abordagens possíveis, é a
 superdispersão. \citet{Hinde1998} discutem diversas razões que
-podem levar a variabilidade extra Poisson, dentre elas citam-se
+podem levar à variabilidade extra Poisson. Dentre elas citam-se
 amostragem por clusters, heterogeneidade das unidades amostras, dados em
 nível agregado e correlação entre observações. Os processos que reduzem
 a variabilidade das contagens, abaixo do estabelecido pela Poisson, não
@@ -284,27 +284,28 @@ subdispersão está relacionada à obtenção de estatísticas de ordem da
 variável resposta, por exemplo tomar o máximo das contagens observadas
 \citep{Steutel1989}.
 
-Na \autoref{fig:processo-pontual} são apresentados diferentes tipos de
+Na \autoref{fig:processo-pontual}, são apresentados diferentes tipos de
 processos pontuais para ilustrar o processo Poisson em um espaço
 bidimensional. Cada ponto representa a ocorrência de um evento e cada
-parcela, delimitada pelas linhas pontilhadas, representa a unidade (ou
-domínio) na qual conta-se o número de eventos (como variável
-aleatória). O painel da esquerda representa a situação de dados de
-contagem equidispersos.  Nesse cenário as ocorrências dos eventos se
-dispõem aleatoriamente. No painel central o padrão já se altera, tem-se
-a representação do caso de superdispersão. Nesse cenário formam-se
+quadrado, delimitado pelas linhas pontilhadas, representa a unidade (ou
+domínio) na qual se conta o número de eventos (como variável
+aleatória). A \autoref{fig:processo-pontual}(a) representa a situação de
+dados de contagem equidispersos. As ocorrências dos eventos se dispõem
+aleatoriamente. Na \autoref{fig:processo-pontual}(b) o padrão já se
+altera, tem-se a representação do caso de superdispersão. Formam-se
 aglomerados que deixam parcelas com contagens muito elevadas e parcelas
 com contagens baixas. Uma possível causa desse padrão se dá pelo
 processo de contágio (e.g. contagem de casos de uma doença contagiosa,
-contagem de frutos apodrecidos). No terceiro e último painel ilustra-se
-o caso de subdispersão, em que as ocorrências se dispõem uniformemente
-no espaço. Agora, as contagens de ocorrências nas parcelas variam bem
-pouco. Ao contrário do caso superdisperso, uma causa interpretável seria o
-oposto de contágio, a repulsa, ou seja, uma ocorrência causa a repulsa
-de outras ocorrências em seu redor (e.g. contagem de árvores, contagem
-de animais territoriais ou que disputam por território).
+contagem de frutos apodrecidos). Na \autoref{fig:processo-pontual}(c)
+ilustra-se o caso de subdispersão, em que as ocorrências se dispõem
+uniformemente no espaço. Agora, as contagens de ocorrências nas parcelas
+variam bem pouco. Ao contrário do caso superdisperso, uma causa
+interpretável seria o oposto de contágio, a repulsa, ou seja, uma
+ocorrência causa a repulsa de outras ocorrências em seu redor
+(e.g. contagem de árvores) ou ainda competição (e.g. contagem de animais
+territoriais ou que disputam por território).
 
-<<processo-pontual, fig.width=8, fig.height=3.3, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
+<<processo-pontual, fig.width=8, fig.height=3.5, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
 
 mygrid <- expand.grid(xc = 1:3, yc = 1:3)
 mygrid <- data.frame(mygrid)
@@ -328,23 +329,33 @@ xyplot(y ~ x | caso, data = da,
        layout = c(NA, 1),
        as.table = TRUE,
        pch = 19,
-       scales = list(draw = FALSE),
+       scales = list(
+           y = list(draw = FALSE),
+           x = list(at = pretty(da$x),
+                    labels = rep("", length(pretty(da$x))))
+       ),
        xlab = "",
        ylab = "",
        strip = strip.custom(
            factor.levels = c("Equidispersão",
                              "Superdispersão",
                              "Subdispersão")),
-       panel = function(x, y, subscripts, ...) {
-           l <- seq(min(x), max(x), length.out = 10)
-           panel.abline(h = l, v = l, col = col, lty = 2)
+       panel = function(x, y, ...) {
+           panel.grid(h = 10, v = 10, col = col, lty = 2)
            panel.xyplot(x, y, ...)
+           # grid.text(y = 0, sub[panel.number()])
        })
+subs <- paste0("(", letters[1:3], ")")
+poss <- c(0, 1, 2)/3 + 0.02
+lapply(seq(poss), function(i) {
+    grid.text(subs[i], x = poss[i], y = .03, gp = gpar(cex = .9))
+})
+
 
 @
 
-As alternativas paramétricas para análise de dados de contagem não
-equidipersos estão, geralmente, relacionadas as causas da não
+As alternativas paramétricas para análise de dados na forma de contagens
+não equidipersos estão, geralmente, relacionadas às causas da não
 equidispersão. Para superdispersão, destacam-se os modelos mistos, que
 incluem efeitos aleatórios em nível de observação, considerando a
 heterogeneidade não observada. Um exemplo bem conhecido dessa prática é
@@ -352,43 +363,43 @@ o modelo Poisson com efeitos aleatórios gama, que resulta no modelo
 binomial negativo. Porém, outras escolhas para a distribuição dos
 efeitos aleatórios podem ser tomadas como, por exemplo, o modelo
 Poisson-Tweedie \citep{Bonat2017} e seus casos particulares
-Poisson-inverse-Gaussiano (PIG) e Neyman-Type A assumem que os efeitos
-aleatórios são Tweedie, inverse Gaussiano e Poisson distribuídos,
+Poisson-Gaussiano-inverso (PIG) e Neyman-Type A assumem que os efeitos
+aleatórios são Tweedie, Gaussiano inverso e Poisson distribuídos,
 respectivamente.
 
-Além dos modelos mistos, alguns modelos alternativos que contemplam
-desde sub a superdispersão têm ganhado atenção da comunidade
-estatística. Desses modelos destacam-se: o modelo Gamma-Count
-\citep{Winkelmann1995, Zeviani2014}, que considera-se o tempo entre
-eventos gamma distribuído; o modelo COM-Poisson \citep{Shmueli2005,
-  Sellers2010}, cujo a razão de recorrência das probabilidades é não
-linear por meio da adição de um parâmetro de dispersão; e o modelo
-Poisson generalizado \citep{Consul1992, Zamani2012}, uma generalização
-bi-paramétrica do modelo Poisson.
+Além dos modelos mistos, alguns modelos alternativos que modelam sub e
+superdispersão têm merecido atenção da comunidade estatística. Dentre
+eles destacam-se: o modelo \textit{Gamma-Count} \citep{Winkelmann1995,
+  Zeviani2014}, que considera a distribuição gama para o tempo entre
+eventos; o modelo COM-Poisson \citep{Shmueli2005, Sellers2010}, em que a
+razão de recorrência das probabilidades é não linear por meio da adição
+de um parâmetro de dispersão; e o modelo Poisson generalizado
+\citep{Consul1992, Zamani2012}, uma generalização bi-paramétrica do
+modelo Poisson.
 
 Embora as distribuição citadas sejam flexíveis para lidar com diferentes
 níveis de dispersão, há situações em que o delineamento do experimento
 sugere uma estrutura de covariância entre observações induzida por um
-processo hierárquico de casualização ou amostragem, e portanto, devem
+processo hierárquico de casualização ou amostragem e portanto, devem
 ser consideradas no modelo. São casos assim os experimentos em parcelas
 subdivididas e experimentos com medidas repetidas ou longitudinais.
 Tais estruturas estabelecem modelos com efeitos não observáveis e isso
 pode ser incorporado no modelo de regressão com a inclusão de efeitos
-aleatórios a nível de grupos experimentais, tais modelos são denominados
+aleatórios em nível de grupos experimentais; tais modelos são denominados
 modelos lineares generalizados mistos (GLMM) \citep{Molenberghs2005}.
 
 Para dados de contagem hierárquicos, o modelo GLMM Poisson assume que as
-contagens são condicionalmente Poisson distribuídas e que os efeitos
-aleatórios são normalmente distribuídos. Embora este modelo se adeque a
-diversas situações, casos em que as contagens condicionais não são
-equidispersas são pouco explorados na
-literatura. \citet{Molenberghs2007} e \citet{Molenberghs2010}
-apresentam uma nova família de modelos que consideram efeitos aleatórios
-normais, para contemplar a estrutura hierárquica e conjugados, para
-adequar-se a contagens condicionalmente superdispersas. No entanto,
-modelos hierárquicos mais flexíveis, capazes de lidar com diferentes
-níveis de dispersão das contagens condicionais aos efeitos aleatórios,
-não são consolidadas na literatura e são escassas suas aplicações.
+contagens são distribuídas condicionalmente como Poisson e que os
+efeitos aleatórios são normalmente distribuídos. Embora esse modelo se
+adeque a diversas situações, casos em que as contagens condicionais não
+são equidispersas são pouco explorados na
+literatura. \citet{Molenberghs2007} e \citet{Molenberghs2010} apresentam
+uma nova família de modelos que consideram efeitos aleatórios normais,
+para contemplar a estrutura hierárquica e conjugados, para contagens
+condicionalmente superdispersas. No entanto, modelos hierárquicos mais
+flexíveis, capazes de modelar diferentes níveis de dispersão das
+contagens condicionais aos efeitos aleatórios, não são consolidadas na
+literatura e são escassas suas aplicações.
 
 % ----------------------------------------------------------
 % Objetivos
@@ -399,39 +410,37 @@ não são consolidadas na literatura e são escassas suas aplicações.
 \section{Objetivo Geral}
 \label{sec:objetivosgerais}
 
-Contribuir para a área de análise de dados de contagem, explorando
-distribuições probabilísticas que podem ser adotadas na estrutura
-aleatória de modelos de regressão estendidos para análise de dados
-hierárquicos e heterogêneos.
+Contribuir para a área de análise de dados na forma de contagens,
+explorando distribuições probabilísticas que podem ser adotadas na
+estrutura aleatória de modelos de regressão estendidos para análise de
+dados hierárquicos e heterogêneos.
 
 \section{Objetivos Específicos}
 \label{sec:objetivosespecificos}
 
-Têm-se como principal objetivo específico a elaboração e publicação de
-artigos científicos a fim de contribuir para o desenvolvimento da área
-de análise de dados de contagem. Abaixo listam-se, os artigos e seus
-conteúdos pretendidos:
+Como objetivos específicos, têm-se:
 
 \begin{enumerate}[label=(\roman*)]
-  \item \textbf{Artigo 1:} Propor uma nova reparametrização para o
-    modelo COM-Poisson, avaliar a flexibilidade do modelo, as
-    propriedades dos estimadores e apresentar aplicações;
-  \item \textbf{Artigo 2:} Revisar distribuições capazes de lidar com
-    diferentes níveis de dispersão, destacando suas diferenças através
-    de estudos de caso e de dados simulação;
-  \item \textbf{Artigo 3:} Propor e avaliar as propriedades de um modelo
-    linear generalizado duplo, em que o parâmetro de dispersão das
-    distribuições para dados de contagem também é modelado com
-    covariáveis; e
-  \item \textbf{Artigo 4:} Propor e avaliar as propriedades de um modelo
-    linear generalizado misto, em que a distribuição para a variável
-    aleatória de contagem, condicional aos efeitos aleatórios, é
-    flexível para lidar com diferentes níveis de dispersão.
+\item Propor uma nova reparametrização para o modelo COM-Poisson,
+  avaliar a flexibilidade do modelo, as propriedades dos estimadores e
+  apresentar aplicações;
+\item Revisar distribuições capazes de modelar diferentes níveis de
+  dispersão, destacando suas diferenças usando-se estudos de caso e
+  dados simulados;
+\item Propor e avaliar as propriedades de um modelo linear generalizado
+  duplo, em que o parâmetro de dispersão das distribuições para dados na
+  forma de contagens também é modelado com covariáveis; e
+\item Propor e avaliar as propriedades de um modelo linear generalizado
+  misto, em que a distribuição para a variável aleatória de contagem,
+  condicional aos efeitos aleatórios, é flexível para lidar com
+  diferentes níveis de dispersão.
 \end{enumerate}
 
-Para todos os artigos almejados, pretende-se disponibilizar os conjuntos
-de dados e as implementações computacionais, para que toda a pesquisa
-seja facilmente reproduzível.
+Todos os conjuntos de dados e as implementações computacionais
+utillizadas serão disponibilizadas, para que toda a pesquisa seja
+facilmente reproduzível. Como forma de divulgação científica, almeja-se
+a produção e publicação de artigos científicos em periódicos na área de
+análise de dados e modelagem estatística.
 
 % ----------------------------------------------------------
 % Materiais e Métodos
@@ -439,9 +448,9 @@ seja facilmente reproduzível.
 \chapter{Estudos de caso}
 \label{cha:estudosdecaso}
 
-Nesse capítulo são apresentados cinco estudos de caso, em que a variável
-resposta se apresenta como contagem e, portanto, podem ilustrar
-aplicações dos modelos propostos.
+Nesse capítulo, são apresentados cinco estudos de caso, em que a
+variável resposta se apresenta como contagem e, portanto, podem ilustrar
+aplicações dos modelos a serem propostos.
 
 \section{Desfolha artificial em capulhos de algodão}
 \label{sec:cotton}
@@ -451,12 +460,12 @@ fitotoxicidade por substâncias químicas, granizo e certas injúrias
 mecânicas são os principais agentes de desfolha, causando prejuízos na
 produtividade. A fim de explorar os efeitos da redução da área foliar na
 cultura do algodão \textit{Gossypium hirsutum}, \citet{Silva2012}
-conduziu um experimento fatorial $5$ (níveis de desfolha) $\times $ 5
-(estágios fenológicos) sob delineamento inteiramente casualizados com
+conduziram um experimento fatorial $5$ (níveis de desfolha) $\times $ 5
+(estágios fenológicos) no delineamento inteiramente casualizados com
 cinco repetições e condições controladas em uma casa de vegetação. A
 variável de interesse foi o número de capulhos de algodão em cada
 unidade experimental (vaso com duas plantas). Na
-\autoref{fig:desc-cotton} são apresentados os número de capulhos
+\autoref{fig:desc-cotton}, são apresentados os números de capulhos
 observados em cada combinação entre estágio fenológico e nível de
 desfolha.
 
@@ -481,12 +490,12 @@ xyplot(ncap ~ des | est,
 @
 
 Diversas alternativas já foram propostas para análise desse conjunto de
-dados. \citet{Zeviani2014} utilizou o modelo Gamma-Count,
-\citet{Huang2017} e \citet{RibeiroJr2018} utilizaram
-reparametrizações do modelo COM-Poisson e \citet{Bonat2017}
-apresentou os resultados da aplicação do modelo Poisson-Tweedie
-estendido. A notável relevância desse conjunto de dados é a
-característica de subdispersão em uma estrutura fatorial.
+dados. \citet{Zeviani2014} utilizaram o modelo \textit{Gamma-Count},
+\citet{Huang2017} e \citet{RibeiroJr2018} utilizaram reparametrizações
+do modelo COM-Poisson e \citet{Bonat2017} apresentaram os resultados da
+aplicação do modelo Poisson-Tweedie estendido. A notável relevância
+desse conjunto de dados é a característica de subdispersão em uma
+estrutura fatorial.
 
 \section{Dose potássica e umidade do solo na produtividade de soja}
 \label{sec:soybean}
@@ -494,17 +503,17 @@ característica de subdispersão em uma estrutura fatorial.
 Os solos tropicais, normalmente pobres em potássio (K), quando
 cultivados com soja (\textit{Glycine max L.}) demandam adubação
 potássica para obtenção de produtividades satisfatórias. Em um
-experimento fatorial $(5 \times 3)$ conduzido em casa de vegetação sob
-um delineamento de blocos casualizados, \citet{Serafim2012} avaliou
-a influência de doses de potássio ($0, 30, 60, 120$ e $180$ mg
-dm$^{-3}$) combinadas com diferentes níveis de umidade do solo
-($37,5, 50$ e $62,5$ \% do volume total de poros) no número de grãos e
-de vagens viáveis. Na \autoref{fig:desc-soybean} são apresentados os
-valores contabilizados de cada variável de interesse, grãos de soja e
-vagens viáveis, para cada um dos tratamentos, combinação entre umidade
-do solo e adubação com potássio.
+experimento fatorial $(5 \times 3)$ conduzido em casa de vegetação no
+delineamento de blocos casualizados, \citet{Serafim2012} avaliaram a
+influência de doses de potássio ($0, 30, 60, 120$ e $180$ mg dm$^{-3}$)
+combinadas com diferentes níveis de umidade do solo ($37,5; 50$ e $62,5$
+\% do volume total de poros) no número de grãos e de vagens viáveis. Na
+\autoref{fig:desc-soybean}, são apresentados os valores contabilizados de
+cada variável de interesse, grãos de soja e vagens viáveis, para cada um
+dos tratamentos, combinação entre umidade do solo e adubação com
+potássio.
 
-<<desc-soybean, fig.width=8, fig.height=3.8, fig.cap="Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta. As linhas contínuas ligam os pontos médios de cada tratamento.">>=
+<<desc-soybean, fig.width=9, fig.height=4, fig.cap="Dispersão do número de grão e de vagens viáveis observado para cada nível de umidade do solo e de adubação potássica. As linhas contínuas ligam os pontos médios de cada tratamento.">>=
 
 # Load data
 soybean <- read_delim("soybean.txt", delim = "\t") %>%
@@ -530,15 +539,15 @@ xyplot(ngra + nvag ~ K | umid,
 
 @
 
-\citet{RibeiroJr2018} analisou o número de grãos por parcela com
-sua proposta de reparametrização do modelo COM-Poisson. A característica
+\citet{RibeiroJr2018} analisaram o número de grãos por parcela com sua
+proposta de reparametrização do modelo COM-Poisson. A característica
 interessante desse conjunto é que há diferentes níveis de dispersão em
 cada contagem mensurada. Para o número de grão por parcela, por exemplo,
-\citet{RibeiroJr2018} mostra que há uma variabilidade extra
+\citet{RibeiroJr2018} mostram que há uma variabilidade extra
 Poisson. Outra característica ainda não contemplada na análise desses
 dados é o comportamento não linear das contagens, em particular, modelos
-lineares platô apresentam-se como bastante adequados, uma vez que
-espera-se haver um particular nível, a partir do qual, não se tem mais
+lineares com platô apresentam-se como bastante adequados, uma vez que se
+espera haver um particular nível, a partir do qual, não se tem mais
 influência de adubação potássica nas contagens.
 
 \section{Ensaio clínico em pacientes epilépticos}
@@ -548,20 +557,24 @@ Epilepsia é uma doença que se manifesta por crises de perda da
 consciência, acompanhadas de convulsões, que ocorrem em intervalos
 irregulares de tempo. A manipulação de drogas para diminuir as
 convulsões epilépticas é um campo de interesse em
-medicina. \citet{Faught1996} apresenta um estudo aleatorizado,
+medicina. \citet{Faught1996} apresentam um estudo aleatorizado,
 multicêntrico e duplo-cego para avaliação de uma nova droga
-anti-epiléptica (AED) topiramate em comparação com um falso placebo,
-combinação de uma ou duas outras AEDs. A aleatorização dos pacientes
+anti-epiléptica (AED), topiramate, em comparação com um falso placebo,
+combinados de uma ou duas outras AEDs. A aleatorização dos pacientes
 ocorreu após um período de 12 semanas de estabilização. Devidamente
 aleatorizados, 45 pacientes foram medicados periodicamente com o placebo
-e 44 com o tratamento AED topiramate. Os pacientes foram acompanhados
-semanalmente, registrando-se o número de convulsões da respectiva
-semana. Na \autoref{fig:desc-epilepsy} são apresentados os perfis do
-número de convulsões epilépticas para cada paciente, bem como os perfis
-médio e mediano. Como destacam \citet{Molenberghs2007}, é
-interessante notar a forte assimetria à direita na distribuição do
-número de convulsões, a presença de valores extremos e a redução no
-número de pacientes acompanhados no decorrer do estudo.
+e 44 com a AED topiramate. Os pacientes foram acompanhados semanalmente,
+registrando-se o número de convulsões da respectiva semana. Na
+\autoref{fig:desc-epilepsy}, são apresentados os perfis do número de
+convulsões epilépticas para cada paciente, bem como os perfis médio e
+mediano. Como destacam \citet{Molenberghs2007}, é interessante notar a
+forte assimetria à direita na distribuição do número de convulsões, a
+presença de valores extremos e a redução no número de pacientes
+acompanhados no decorrer do estudo. Além disso, observa-se que há
+excesso de contagens nulas (semanas em que não foram observadas
+convulsões epilépticas em um determinado paciente) que representam
+\Sexpr{sum(epilepsy$nseizw == 0) / length(epilepsy$nseizw)*100}\% dos
+dados observados.
 
 <<desc-epilepsy, fig.width=9, fig.height=4, fig.cap="Perfis do número de convulções de cada paciente dos grupos tratamento e placebo. As linhas em preto representam os perfis médio (linha contínua) e mediano (linha pontilhada).">>=
 
@@ -599,21 +612,21 @@ xyplot(nseizw ~ week | trt,
 @
 
 Esse conjunto de dados é interessante, pois traz observações
-multivariadas para cada indivíduo, isto é, para cada $i$-ésimo
-indivíduos registra-se $n_i$ observações ($n_i$, número de semanas em
-que o $i$-ésimo indivíduo foi acompanhado). Isto traz desafios para
-análise, que são frequentemente superados pela inclusão de efeitos
-aleatórios a fim de induzir correlação entre observações de um mesmo
-indivíduo. \citet{Molenberghs2005} utiliza esse conjunto de dados
-como exemplo para a aplicação dos modelos lineares generalizados Poisson
-pela abordagem condicional (efeitos aleatórios) e marginal (equações de
+multivariadas para cada indivíduo, isto é, para cada $i$-ésimo indivíduo
+registra-se $n_i$ observações ($n_i$, número de semanas em que o
+$i$-ésimo indivíduo foi acompanhado). Isto traz desafios para análise,
+que são frequentemente superados pela inclusão de efeitos aleatórios a
+fim de induzir correlação entre observações de um mesmo
+indivíduo. \citet{Molenberghs2005} utilizam esse conjunto de dados como
+exemplo para a aplicação dos modelos lineares generalizados Poisson pela
+abordagem condicional (efeitos aleatórios) e marginal (equações de
 estimação generalizadas). \citet{Molenberghs2007} e
 \citet{Molenberghs2010} também utilizam esses dados como exemplo de
 aplicação de um modelo Poisson misto, porém os autores propõem a
 inclusão de duas fontes de efeitos aleatórios, para ajustar a
 superdispersão inerente à variável de contagem, e para incorporar a
 estrutura longitudinal do estudo. Para análise desse conjunto de dados,
-pretende adotar uma distribuição mais flexível para o número de
+pretende-se adotar uma distribuição mais flexível para o número de
 convulsões de cada indivíduo ao invés de incluir efeitos aleatórios em
 nível de observação.
 
@@ -629,10 +642,10 @@ diferentes recipientes de substratos alternativos para bromélias. Todos
 os tratamentos continham turfa e perlita e se diferenciavam no terceiro
 componente: casca de Pinus, casca de Eucaliptos, Coxim, fibra de coco e
 Xaxim. A variável de interesse foi o número de folhas por unidade
-experimental (pote com, inicialmente 8 plantas), que foi registrado
+experimental (pote com inicialmente 8 plantas), que foi registrado
 diariamente durante 6 dias após a plantação.
 
-<<desc-bromelia, fig.width=9, fig.height=4, fig.cap="(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala log, calculadas sobre os blocos em cada tempo e tratamento, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
+<<desc-bromelia, fig.width=9, fig.height=4, fig.cap="(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala logarítmica, calculadas sobre os blocos em cada tempo e tratamento, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
 
 # Load data set
 comps <- c("Casca de Pinus", "Casca de Eucaliptos", "Coxim",
@@ -692,18 +705,19 @@ print(xy2, position = c(0.6, 0, 1, 0.95), more = FALSE)
 
 @
 
-Na \autoref{fig:desc-bromelia}(a) são apresentados os perfis individuais
-do número de folhas para cada bloco em cada tratamento e seus
-respectivos perfis médios. Nota-se um comportamento não linear
+Na \autoref{fig:desc-bromelia}(a), são apresentados os perfis
+individuais do número de folhas para cada bloco em cada tratamento e
+seus respectivos perfis médios. Nota-se um comportamento não linear
 (sigmoidal) dos perfis em cada tratamento e uma pouca variabilidade
 entre blocos em um mesmo tempo e tratamento. Essa última característica
 é destacada na \autoref{fig:desc-bromelia}(b), onde os logaritmos das
 médias e variâncias são apresentados em um gráfico de dispersão. Para
 todas as combinações de tempo e tratamento, as variâncias do número de
-folhas obtidas dos quatro blocos são bastante menores que as respectivas
-médias. Com isso, esse conjunto de dados apresenta alguns desafios para
-análise, pois não encontrou-se na literatura, exemplos de análise de dados
-com as características de subdispersão em estudos longitudinais.
+folhas obtidas dos quatro blocos são bastante menores do que as
+respectivas médias. Com isso, esse conjunto de dados apresenta alguns
+desafios para análise, pois não se encontraram na literatura, exemplos
+de análise de dados com as características de subdispersão em estudos
+longitudinais.
 
 \section{Infestação de mosca-branca em cultura de soja}
 
@@ -712,10 +726,10 @@ sendo capaz de se alimentar de mais de 500 espécies de vegetais. Na
 cultura de soja, essa espécie de mosca-branca era pouco citada até a
 primeira década de 2000. Porém, períodos de seca e o uso intensivo de
 inseticidas e de fungicidas não selecionados afetaram seus inimigos
-naturais e, consequentemente contribuíram para o aumento da importância
+naturais e, consequentemente, contribuíram para o aumento da importância
 econômica dessa praga em agronomia.
 
-<<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias (eixo $x$) e variâncias (eixo $y$) amostrais, na escala log, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
+<<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias (eixo $x$) e variâncias (eixo $y$) amostrais, na escala logarítmica, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
 
 # Load data set
 whitefly <- read_delim("whitefly.txt", delim = "\t") %>%
@@ -782,31 +796,34 @@ print(xy2, position = c(0.75, 0, 1, 0.95), more = FALSE)
 
 @
 
-Sob essa motivação, \citet{Suekane2013} conduziu um experimento sob
-o delineamento de blocos para avaliar o número de ninfas de mosca-branca
+Sob essa motivação, \citet{Suekane2013} conduziu um experimento sob o
+delineamento de blocos para avaliar o número de ninfas de mosca-branca
 em dez diferentes cultivares de soja. As plantas das diferentes
 cultivares de soja foram cultivadas em vasos contendo duas plantas. No
 início do experimento, houve infestação artificial de adultos de
 mosca-branca na casa de vegetação. Unidades amostrais, contendo dois
-vasos, foram avaliadas antes da infestação e nos dias 8, 13, 22, 31 e 38,
-onde mensurou-se o número de ninfas da mosca-branca em um folíolo do
-terço superior, médio e inferior da planta. Nessa pesquisa, pretende-se
-utilizar somente as cultivares BRS das 10 cultivares experimentadas. Na
-\autoref{fig:desc-whitefly}(a) são apresentados os perfis, das três
+vasos, foram avaliadas antes da infestação e nos dias 8, 13, 22, 31 e
+38, quando se mensurou o número de ninfas da mosca-branca em um folíolo
+do terço superior, médio e inferior da planta. Nessa pesquisa,
+inicialmente, pretende-se utilizar somente as cultivares BRS das 10
+cultivares experimentadas, devido às contagens nessas cultivares se
+comportarem de forma similar e ao interesse na comparação das cultivares
+transgênicas BRS produzidas pela Embrapa. Na
+\autoref{fig:desc-whitefly}(a), são apresentados os perfis, das três
 contagens realizadas, em cada bloco ao longo dos dias de infestação para
 cada cultivar, e os respectivos perfis médios. O comportamento dos
 perfis se mostra não linear, com um pico no número de ninfas ocorrendo
 entre 10 e 20 dias de infestação. Além disso, ressalta-se que a
 variabilidade das contagens é muito superior nos primeiros dias de
-infestação. Na \autoref{fig:desc-whitefly}(b) apresentam-se as
-médias e variâncias amostrais, em escala log, para cada variável de
+infestação. Na \autoref{fig:desc-whitefly}(b), apresentam-se as médias e
+variâncias amostrais, em escala logarítmica, para cada variável de
 interesse. Há uma forte evidência de superdispersão. Para análise desses
 dados, modelos flexíveis para dados de contagens como Poisson-Tweedie,
-COM-Poisson, gamma-count e Poisson-generalizado, com a inclusão de
-efeitos para modelar a estrutura longitudinal, são alternativas bastante
-relevantes que ainda não são bem consolidadas na literatura. Em adição,
-ressalta-se a possibilidade de modelar o parâmetro de dispersão dessas
-distribuições com covariáveis, uma vez que observou-se que a
+COM-Poisson, \textit{Gamma-Count} e Poisson-generalizado, com a inclusão
+de efeitos para modelar a estrutura longitudinal, são alternativas
+bastante relevantes que ainda não são bem consolidadas na literatura. Em
+adição, ressalta-se a possibilidade de modelar o parâmetro de dispersão
+dessas distribuições com covariáveis, uma vez que se observou que a
 variabilidade tem comportamento tempo-dependente.
 
 % ----------------------------------------------------------
@@ -816,15 +833,16 @@ variabilidade tem comportamento tempo-dependente.
 \label{cha:metodologia}
 
 Nesse capítulo são apresentados alguns modelos probabilísticos flexíveis
-para dados discretos com suporte nos naturais, como especificar os
-modelos de regressão e direções para estimação e inferência.
+para dados discretos com suporte no conjunto dos números naturais, como
+especificar os modelos de regressão e direções para estimação e
+inferência.
 
 \section{Distribuição Poisson}
 \label{sec:poisson}
 
-A distribuição Poisson é a principal referência para análise de dados de
-contagem. É uma distribuição pertencente à família exponencial e tem
-interpretação como um modelo exponencial de dispersão
+A distribuição Poisson é a principal referência para análise de dados na
+forma de contagens. É uma distribuição pertencente à família exponencial
+e tem interpretação como um modelo exponencial de dispersão
 \citep{Jorgensen1997}. A distribuição de Poisson Po$(\mu)$, com média
 $\mu$, tem função massa de probabilidade
 \begin{equation}
@@ -857,7 +875,7 @@ $g^{-1}(\cdot)$ uma função de ligação conhecida, por exemplo logaritmo
 \section{Distribuição COM-Poisson}
 \label{sec:com-poisson}
 
-A distribuição COM-Poisson é o principal representante da família de
+A distribuição COM-Poisson é a principal representante da família de
 distribuições Poisson ponderadas (WPD) \citep{DelCastillo1998}. Uma
 variável aleatória $Y$ pertence à família WPD se sua função massa de
 probabilidade puder ser escrita como
@@ -872,9 +890,9 @@ constante de normalização; e $w(y)$ é uma função peso, não negativa e
 tal que $\text{E}_\lambda[w(Y)]$ seja finita. A função peso
 $w(y) \equiv w(y, \nu)$, pode depender de um parâmetro adicional de tal
 forma que sub e superdispersão sejam abrangidas. Obtém-se a distribuição
-COM-Poisson CMP$(\lambda, \nu)$ tomando $w(y, \nu) = (y!)^{1-\nu}$, para
-$\nu \geq 0$ \citep{Sellers2012}. Sua função de probabilidade assume a
-forma
+COM-Poisson CMP$(\lambda, \nu)$ tomando-se $w(y, \nu) = (y!)^{1-\nu}$,
+para $\nu \geq 0$ \citep{Sellers2012}. Sua função de probabilidade
+assume a forma
 \begin{equation}
   \label{eqn:pmf-compoisson}
   \Pr(Y = y) = \frac{\lambda^y \exp(-\lambda)}{
@@ -884,8 +902,8 @@ forma
 \end{equation}
 em que $\nu$ é dito como o parâmetro de dispersão tal que para $0<\nu<1$
 e $\nu<1$ têm-se os casos de superdispersão e subdispersão,
-respectivamente.  Para as distribuições pertencentes à família WPD, e
-particularmente para a distribuição COM-Poisson, a razão entre as
+respectivamente.  Para as distribuições pertencentes à família WPD e,
+particularmente, para a distribuição COM-Poisson, a razão entre as
 probabilidades de dois eventos consecutivos é dada por
 \begin{equation}
   \frac{\Pr(Y = y - 1)}{\Pr(Y = y)} =
@@ -896,25 +914,25 @@ enquanto que para a distribuição Poisson essa razão é $y /\lambda$,
 correspondente a $w(y)$ constante ou, no caso COM-Poisson, $\nu=1$. Além
 da Poisson ($\nu=1$), a distribuição COM-Poisson também tem como caso
 particular a distribuição geométrica ($\nu=0$ e $\lambda<1$) e como caso
-limite a distribuição Bernoulli ($\nu\to \infty$ com probabilidade de
-sucesso $\lambda/(\lambda+1)$).
+limite a distribuição Bernoulli ($\nu\to \infty$, sendo a probabilidade
+de sucesso $\lambda/(\lambda+1)$).
 
 Um inconveniente desse modelo é que os momentos média e variância, em
 geral, não são obtidos em forma fechada. A partir de uma aproximação
 para Z$(\lambda, \nu)$, \citet{Shmueli2005} e
-\citet{Sellers2010} mostram que a esperança e variância de uma
-variável $Y \sim \text{CMP}(\lambda, \nu)$ pode ser aproximada por
+\citet{Sellers2010} mostram que a esperança e a variância de uma
+variável $Y \sim \text{CMP}(\lambda, \nu)$ podem ser aproximadas por
 \begin{equation}
     \label{eqn:mean-aprox}
   \text{E}(Y) \approx \lambda^{1/\nu} - \frac{\nu - 1}{2\nu} \qquad
   \textrm{e} \qquad
   \text{Var}(Y) \approx \frac{\lambda^{1/\nu}}{\nu},
 \end{equation}
-que é particularmente acurada para $\nu \leq 1$ ou $\lambda > 10^\nu$
-\citep{Shmueli2005}. \citet{RibeiroJr2018} mostrou que a aproximação
-para a média é acurada, diferentemente da aproximação para
-variância, que perde acurácia quando $\nu<1$. Além disso, o autor indica
-que a acurácia das aproximações parece não ter relação com as regiões
+que são particularmente acuradas para $\nu \leq 1$ ou $\lambda > 10^\nu$
+\citep{Shmueli2005}. \citet{RibeiroJr2018} mostraram que a aproximação
+para a média é acurada, diferentemente da aproximação para variância,
+que perde acurácia quando $\nu<1$. Além disso, os autores indicam que a
+acurácia das aproximações parece não ter relação com as regiões
 $\nu \leq 1$ ou $\lambda > 10^\nu$.
 
 Modelos de regressão baseados na distribuição COM-Poisson foram
@@ -928,7 +946,7 @@ Y_i \sim \text{CMP}(\lambda_i, \nu), \quad \text{em que} \quad
   \lambda_i = g^{-1}(\bm{x}_i^\top\bm{\beta}).
 $$
 Embora outras funções de ligação sejam possíveis, a função de ligação
-logarítmica é frequentemente adotada.
+logarítmica é, frequentemente, adotada.
 
 Essa formulação tem o grande inconveniente de interpretabilidade, uma
 vez que o modelo de regressão está associado a um parâmetro que não
@@ -945,28 +963,28 @@ Y_i \sim \text{CMP}_\mu(\mu_i, \nu), \quad \text{em que} \quad
 $$
 sendo $\text{CMP}_\mu(\mu_i, \nu)$ a distribuição COM-Poisson
 reparametrizada para a média. Na abordagem proposta por
-\citeauthor{Huang2017}, o parâmetro $\mu_i$ da distribuição
+\Citeauthor{Huang2017}, o parâmetro $\mu_i$ da distribuição
 $\text{CMP}_\mu(\mu_i, \nu)$ é obtido como raiz da equação
-$$ \sum_{j=0}^{\infty} (j-\mu_i) \frac{\lambda_i^j}{(j!)^\nu} = 0. $$
-Já na proposta de \citeauthor{RibeiroJr2018}, $\mu_i$ é obtido a partir
+$$ \sum_{j=0}^{\infty} (j-\mu_i) \frac{\lambda_i^j}{(j!)^\nu} = 0, $$
+enquanto que \Citeauthor{RibeiroJr2018}, obtém $\mu_i$ a partir
 da aproximação para a média,
 $$ \mu_i = h(\lambda_i, \nu) = \lambda_i^{1/\nu} - \frac{\nu -
   1}{2\nu}. $$
 Em ambos os casos, $\mu_i$ e $\nu$ se mostram ortogonais e os parâmetros
-$\bm{\beta}$ em um modelo de regressão tem a mesma interpretação do caso
-Poisson.
+$\bm{\beta}$ em um modelo de regressão têm a mesma interpretação do
+modelo Poisson.
 
-\section{Distribuição Gamma-Count}
+\section{Distribuição \textit{Gamma-Count}}
 \label{sec:gamma-count}
 
-A distribuição Gamma-Count é uma generalização da distribuição Poisson
-e deriva da relação da Poisson com a distribuição do tempo entre
-eventos. Seja $\tau_k>0,\, k\in\mathbb{N}^*$ o tempo entre o $(k-1)$ e o
-$k$-ésimo evento e $\vartheta_n$ o tempo de chegada do $n$-ésimo
-evento. Então $\vartheta_n = \sum_{k-1}^{n}\tau_k$ para
-$n=1,2,\ldots$. Seguindo \citet{Winkelmann1995}, seja $Y_T$ o
-número total de eventos no intervalo $(0, T)$. Para $T$ fixo, $Y_T$ é
-uma variável aleatória de contagem. Segue das definições de $Y_t$ e
+A distribuição \textit{Gamma-Count} é uma generalização da distribuição
+Poisson que resulta da relação da Poisson com a distribuição do tempo
+entre eventos. Seja $\tau_k>0,\, k\in\mathbb{N}^*$ o tempo entre o
+$(k-1)$ e o $k$-ésimo evento e $\vartheta_n$ o tempo de chegada do
+$n$-ésimo evento. Então $\vartheta_n = \sum_{k-1}^{n}\tau_k$ para
+$n=1,2,\ldots$. Seguindo \citet{Winkelmann1995}, seja $Y_T$ o número
+total de eventos no intervalo $(0, T)$. Para $T$ fixo, $Y_T$ é uma
+variável aleatória de contagem. Segue das definições de $Y_t$ e
 $\vartheta_n$ que $Y_T < y$ e $\vartheta_y \geq T$ são eventos
 equivalentes e portanto,
 \begin{equation}
@@ -978,9 +996,10 @@ equivalentes e portanto,
   \end{gathered}
 \end{equation}
 em que $\text{F}_y(T)$ é a função distribuição acumulada de
-$\vartheta_y$ e $T$ a amplitude do intervalo de contagem, offset.
+$\vartheta_y$ e $T$ é a amplitude do intervalo de contagem,
+frequentemente denotado como \textit{offset} nos modelos de regressão.
 
-A \autoref{eqn:renewal} deriva uma distribuição de contagem a partir,
+A \autoref{eqn:renewal} resulta uma distribuição de contagem a partir,
 apenas, do conhecimento da distribuição do tempo entre eventos. Por
 exemplo, a distribuição Poisson deriva da suposição de que $\tau_k$ são
 exponencialmente distribuídos com parâmetro de taxa $\lambda$. Assim,
@@ -994,10 +1013,10 @@ $$
 $$
 que, para $T=1$, é idêntica a \autoref{eqn:pmf-poisson}.
 
-A distribuição Gamma-Count GCT$(\alpha, \gamma)$ assume que $\tau_k$ são
-gamma distribuídos, com de parâmetros $\alpha$ e
-$\gamma$. Consequentemente, $\vartheta_y$ também é gamma distribuído,
-porém com parâmetros $y\alpha$ e $\gamma$. Sua função massa de
+A distribuição \textit{Gamma-Count} GCT$(\alpha, \gamma)$ assume
+distribuição gama, com de parâmetros $\alpha$ e $\gamma$, para
+$\tau_k$. Consequentemente, a distribuição de $\vartheta_y$ também é
+gama, porém com parâmetros $y\alpha$ e $\gamma$. Sua função massa de
 probabilidade é obtida por
 \begin{equation}
   \label{eqn:pmf-gammacount}
@@ -1008,22 +1027,23 @@ probabilidade é obtida por
     \Gamma[(y+1)\alpha] \exp(\gamma t)} dt,
 \end{equation}
 que não tem forma fechada, a menos do caso particular $\alpha=1$ quando
-a distribuição reduz-se a Poisson. Os momentos da distribuição também
+a distribuição reduz-se à Poisson. Os momentos da distribuição também
 não são obtidos em forma fechada. \citet{Winkelmann1995} mostra que
 para intervalos de observação suficientemente grandes, $T\to\infty$,
 sustenta-se que
 $$ Y_T \overset{a}{\sim} \mathcal{N}\left (
   \frac{\gamma T}{\alpha}, \frac{\gamma T}{\alpha^2} \right ), $$
 assim a razão média-variância assintótica é
-$1/\alpha$. Consequentemente, a distribuição Gamma-Count é capaz de
-modelar superdispersão $(0 < \alpha < 1)$ e subdispersão $(\alpha > 1)$.
+$1/\alpha$. Consequentemente, a distribuição \textit{Gamma-Count} é
+capaz de modelar superdispersão $(0 < \alpha < 1)$ e subdispersão
+$(\alpha > 1)$.
 
-Modelos de regressão Gamma-Count foram propostos por
+Modelos de regressão \textit{Gamma-Count} foram propostos por
 \citet{Winkelmann1995} e \citet{Zeviani2014}.  Para $y_i$
 observações independentes do modelo $\text{GCT}(\alpha, \gamma_i)$ e
 $\bm{x}_i^\top = (x_{i1}, x_{i2}, \ldots, x_{ip})$ um vetor de
 covariáveis conhecidas, $i=1,2,\ldots,n$, o modelo de regressão
-Gamma-Count é definido como
+\textit{Gamma-Count} é definido como
 $$
 Y_i \sim \text{GCT}(\alpha, \gamma_i), \quad \text{em que} \quad
   \gamma_i = \alpha \left [
@@ -1038,11 +1058,11 @@ eventos, perdendo a interpretação dos parâmetros de regressão $\beta$.
 \section{Distribuição Poisson generalizada}
 \label{sec:poisson-generalizada}
 
-A distribuição Poisson generalizada é derivada de uma forma limite da
-distribuição binomial negativa generalizada e pode lidar com sub e
-superdispersão \citep{Zamani2012}. Seja $Y$ variável aleatória que segue
-a distribuição Poisson generalizada GPo$(\lambda, \gamma)$, então sua
-função massa de probabilidade é dada por
+A distribuição Poisson generalizada é resultante de uma forma limite da
+distribuição binomial negativa generalizada e pode modelar sub e
+superdispersão \citep{Zamani2012}. Seja $Y$ uma variável aleatória que
+segue a distribuição Poisson generalizada GPo$(\lambda, \gamma)$, então
+sua função massa de probabilidade é dada por
 \begin{equation}
   \label{eqn:pmf-gpoisson0}
   \Pr(Y=y) =
@@ -1054,15 +1074,15 @@ função massa de probabilidade é dada por
 \end{equation}
 em que $\lambda>0$, max$(-1, -\lambda/4) \leq \gamma \leq 1$ e $m$ é o
 maior inteiro positivo tal que $\lambda + m\gamma >0$ quando $\gamma$ é
-negativo \citep{Consul1992}. A média e variância são
+negativo \citep{Consul1992}. A média e a variância são dadas por
 E$(Y) = \lambda(1-\gamma)^{-1}$ e Var$(Y) = \lambda(1-\gamma)^{-3}$,
 respectivamente. A distribuição Poisson é um caso particular, quando
 $\gamma=0$.
 
 Para modelos de regressão, sugere-se a parametrização para a média
 $$
-\mu = \frac{\lambda}{1 + \alpha \lambda} \quad \text{ e } \quad
-\gamma = \frac{\alpha \lambda}{ 1 + \alpha \lambda},
+\lambda = \frac{\mu}{1 + \alpha \mu} \quad \text{ e } \quad
+\gamma = \frac{\alpha \mu}{ 1 + \alpha \mu},
 $$
 que substituindo em (\ref{eqn:pmf-gpoisson0}) leva à função massa de
 probabilidade
@@ -1078,8 +1098,10 @@ nessa parametrização são
 \begin{equation}
   \label{eqn:moments-gpo}
 \text{E}(Y) = \mu \quad \text{e} \quad
-   \text{Var}(Y) = \mu (1 + \mu\alpha)^2.
+   \text{Var}(Y) = \mu (1 + \mu\alpha)^2,
 \end{equation}
+que garantem bastante flexibilidade à distribuição, uma vez que a
+relação média--variância é determinada como uma função cúbica de $\mu$.
 
 Para $y_i$ observações da distribuição Poisson generalizada e $\bm{x}_i$
 um vetor conhecido de covariáveis, o modelo de regressão baseado na
@@ -1093,42 +1115,40 @@ $\alpha > \text{min}[ -\text{max}(y_i^{-1}), -\text{max}(\mu_i^{-1})]$,
 quando $\alpha<0$.
 
 Aplicações do modelo de regressão Poisson generalizada são pouco
-reportadas na literatura. Embora a relação média-variância
-(\ref{eqn:moments-gpo}) tenha um comportamento cúbico em $\mu$, bastante
-flexível, a grande dificuldade deste modelo reside na restrição do
-espaço paramétrico, que é difícil de se incorporar, de forma eficiente,
-no processo de estimação.
+reportadas na literatura. Embora bastante flexível, a grande dificuldade
+desse modelo reside na complicada restrição do espaço paramétrico, que é
+difícil de se incorporar, de forma eficiente, no processo de estimação.
 
 \section{Distribuição Poisson-Tweedie}
 \label{sec:poisson-tweedie}
 
-Distribuições de contagem baseadas em misturas da distribuição Poisson
-são comuns para análise de dados superdispersos. A distribuição
-Poisson-Tweedie representa um caso geral de misturas Poisson
-\citep{Jorgensen1997}. Ela consiste da inclusão de aleatórios aleatórios
-Tweedie distribuídos em nível de observação.
+Distribuições de variáveis na forma de contagens baseadas em
+especificações hierárquicas da distribuição Poisson são comuns para
+análise de dados superdispersos, e.g. distribuição binomial negativa. A
+distribuição Poisson-Tweedie representa um caso geral dos modelos
+Poisson com especificação hierárquica \citep[Seção 4.6]{Jorgensen1997}.
 
-A distribuição Tweedie pertence a classe dos modelos exponenciais de
-dispersão \citep{Jorgensen1997}. Seja E$(Y = \mu)$ e
-Var$_p(Y) = \phi \mu^p$, então $Y$ segue distribuição Tweedie
+A distribuição Tweedie pertence à classe dos modelos exponenciais de
+dispersão \citep{Jorgensen1997}. Seja E$(Y) = \mu$ e
+Var$_p(Y) = \phi \mu^p$ então, $Y$ segue distribuição Tweedie
 $\text{Tw}_p(\mu, \phi)$, em que $\mu \in \Omega_p$, $\phi > 0$ e
 $p \in (-\infty, 0] \cup [1, \infty)$.  Note que o suporte da
 distribuição depende de $p$, que age como um selecionador de
 distribuições uma vez que as distribuições Gaussiana $(p = 0)$, Poisson
 $(p = 1)$, non-central gamma $(p = 3/2)$, gamma $(p = 2)$ e Gaussiana
 inversa $(p = 3)$ são casos particulares. A função densidade de
-probabilidade da distribuição Poisson não pode ser obtida em forma
+probabilidade da distribuição Tweedie não pode ser obtida em forma
 fechada.
 
-A distribuição Poisson-Tweedie PTw$_p(\mu, \phi)$ é derivada da
+A distribuição Poisson-Tweedie PTw$_p(\mu, \phi)$ é resultante da
 especificação hierárquica
 \begin{equation}
   \label{eqn:espec-ptw}
   Y \mid Z \sim \text{Po}(Z) \quad \text{em que } \quad
     Z \sim \text{Tw}_p(\mu, \phi),
 \end{equation}
-cujo não tem forma fechada para função de probabilidade, exceto para
-casos especiais. A esperança e variância de uma variável aleatória
+que não tem forma fechada para função de probabilidade, exceto para
+casos especiais. A esperança e a variância de uma variável aleatória
 Poisson-Tweedie são obtidos por
 \begin{equation}
   \label{eqn:moments-ptw}
@@ -1139,16 +1159,17 @@ Poisson-Tweedie são obtidos por
   \end{aligned}
 \end{equation}
 Devido à flexibilidade da distribuição Tweedie, a Poisson-Tweedie também
-têm importantes casos particulares que incluem as distribuições Hermite
+tem importantes casos particulares que incluem as distribuições Hermite
 $(p = 0)$, Neymann tipo-A $(p=1)$, Pólya-Aeppli $(p=1,5)$, binomial
-negativa $(p=2)$ e Poisson inversa gaussiana $(p = 3)$ \citep{Bonat2017}.
+negativa $(p=2)$ e Poisson--inversa gaussiana $(p = 3)$ \citep{Bonat2017}.
 
 Pela definição (\ref{eqn:espec-ptw}), modelos Poisson-Tweedie só modelam
-dados de contagem superdispersos. \citet{Bonat2017} estendem essa
-distribuição para lidar com subdispersão, adotando apenas a
-especificação de momentos \citep{Wedderburn1974} baseada nas expressões
-(\ref{eqn:moments-ptw}) e permitindo a estimação de $\phi<0$. Sob essa
-abordagem, não se conhece a distribuição completa de $Y$,
+superdispersão. \citet{Bonat2017} estendem essa distribuição para
+contemplar subdispersão, adotando apenas a especificação de momentos
+baseada nas expressões em (\ref{eqn:moments-ptw}) e permitindo a
+estimação de $\phi<0$. Essa abordagem é análoga aos modelos de
+quase-verossimilhança \citep{Wedderburn1974}, e, a menos dos casos
+particulares, não se conhece a distribuição completa de $Y$,
 impossibilitando o cálculo de probabilidades, por exemplo.
 
 Para observações $y_1, y_2, \ldots, y_n$ e seus respectivos vetores de
@@ -1164,7 +1185,7 @@ $$
   \quad \text{e} \quad
 \text{Var}(Y_i) = \mu_i + \phi\mu_i^p.
 $$
-Note que para superdispersão ambas especificações são equivalentes.
+Note que para superdispersão ambas as especificações são equivalentes.
 
 A grande motivação da utilização dessa distribuição é sua função de
 variância, bastante flexível, em que a estimação de $p$ funciona como um
@@ -1188,8 +1209,8 @@ $$
 \ell(\bm{\theta}) = \ell(\bm{\theta}; \bm{y}, \bm{X}) =
   \sum_{i=1}^n \log[f(y_i; \bm{\theta}_i, \bm{x}_i)],
 $$
-em que $\bm{\theta} \in \Theta$ é o conjunto de parâmetros,
-desconhecido, que determina a distribuição e
+respectivamente, em que $\bm{\theta} \in \Theta$ é o conjunto de
+parâmetros, desconhecido, que determina a distribuição e
 $\bm{x}_i^\top = (x_{i1}, x_{i2}, \ldots, x_{ip})$ o vetor de
 covariáveis da $i$-ésima observação. É interessante notar que para dados
 discretos, em que
@@ -1200,10 +1221,11 @@ $\bm{y}$, dado que $\bm{\theta}$ é verdadeiro. O estimador de máxima
 verossimilhança $\hat{\bm{\theta}}$ é obtido tal que
 $\mathcal{L}(\hat{\bm{\theta}}; \bm{y}) = \underset{\bm{\theta} \in
   \Theta}{\text{max}}\,\mathcal{L}(\bm{\theta};
-\bm{y})$. Frequentemente, não é possível obter expressões em forma
-fechada para os estimadores de máxima verossimilhança
-\citep{Bonat2017b}. Entretanto, é usual assumir as estimativas de
-máxima verossimilhança como soluções para as equações escore
+\bm{y})$.
+Frequentemente, não é possível obter expressões em forma fechada para os
+estimadores de máxima verossimilhança \citep{Bonat2017b}. Entretanto, é
+usual assumir as estimativas de máxima verossimilhança como soluções
+para as equações escore
 \begin{equation}
   \label{eqn:score}
 \mathcal{U}(\bm{\theta}) = \left (
@@ -1213,8 +1235,8 @@ máxima verossimilhança como soluções para as equações escore
   \frac{\partial \ell(\bm{\theta})}{\partial \theta_p}
   \right )^\top = \bm{0},
 \end{equation}
-que são obtidas por métodos iterativos como Newton-scoring, para quando
-a matriz Hessiana
+que são obtidas por métodos iterativos como Newton-escore, sendo a
+matriz Hessiana
 $$
 \mathcal{H}(\theta) =
 \begin{bmatrix}
@@ -1242,13 +1264,17 @@ $$
       \theta_p^2}
   \end{bmatrix}
 $$
-é obtida de forma analítica (e.g. Poisson), e métodos
-derivatives-free, como BFGS \citep{Nocedal1995}, para quando
+obtida de forma analítica (e.g. Poisson). Quando
 $\mathcal{H}(\bm{\theta})$ não tem forma fechada (e.g. COM-Poisson,
-Gamma-Count, Poisson generalizada).
+\textit{Gamma-Count}, Poisson generalizada), métodos que não necessitam
+da especicação das derivadas de $\ell(\bm{\theta})$, como BFGS
+\citep{Nocedal1995} são adotados. Nesses casos, a matriz Hessiana é
+aproximada, geralmente, por diferenças finitas o que demanda um número
+maior de avaliações do logaritmo da função de verossimilhança, tornando
+o processo de estimação mais lento.
 
 A inferência nos modelos paramétricos, ajustados via maximização da
-verossimilhança baseia-se na distribuição assintótica dos estimadores de
+verossimilhança, baseia-se na distribuição assintótica dos estimadores de
 máxima verossimilhança
 $$
   \hat{\bm{\theta}} \overset{a}{\sim}
@@ -1268,9 +1294,9 @@ Para a distribuição Poisson-Tweedie a estimação por máxima
 verossimilhança é computacionalmente exigente, uma vez que as
 probabilidades são dadas por uma integral intratável, exigindo o uso de
 métodos numéricos. Considerando a especificação de momentos,
-\citet{Bonat2017} propôs o uso combinado das funções de estimação
-quase-escore e de Person para estimação dos parâmetros de regressão e de
-dispersão $(p, \phi)$, respectivamente.
+\citet{Bonat2017} propuseram o uso combinado das funções de estimação
+quase-escore e de Pearson para estimação dos parâmetros de regressão e
+de dispersão $(p, \phi)$, respectivamente.
 
 % ----------------------------------------------------------
 % Cronograma
