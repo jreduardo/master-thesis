@@ -243,7 +243,7 @@ classe estendida para quase-verossimilhança seja mais flexível do que os
 GLM's, na maioria das situações não é possível recuperar a distribuição
 da variável resposta \citep{Paula2013}.
 
-O modelos lineares generalizados podem ser ajustados por um algoritmo
+Os modelos lineares generalizados podem ser ajustados por um algoritmo
 Newton-escore eficiente e há muitos softwares estatísticos que
 implementam facilidades para isso. Além disso, há excelentes
 contribuições na literatura da área como \citet{McCullagh1989,
@@ -254,23 +254,24 @@ estatística aplicada.
 Apesar da flexibilidade dos modelos lineares generalizados, a relação
 média--variância, determinada pela função de variância $V(\mu_i)$, pode
 ser bastante restritiva, principalmente nos casos de dados binomiais, de
-contagens e de tempo até o evento \citep{Molenberghs2010}. Para dados de
-contagens, por exemplo, o modelo Poisson tem função de variância
-$V(\mu_i) = \mu_i$, isto é, a esperança e a variância da distribuição
-são iguais para a $i$-ésima observação, característica conhecida como
-equidispersão. Porém, na prática, os dados podem apresentar
-características de superdispersão (média $<$ variância) e subdispersão
-(média $>$ variância), que tornam o modelo Poisson inadequado. Nesses
-casos, os coeficientes ainda podem ser estimados consistentemente, porém
-os erros padrões das estimativas são incorretos \citep{Winkelmann1994,
-  Hinde1998}. Em particular, um modelo Poisson ajustado a contagens
-superdispersas leva à subestimação dos erros padrões das estimativas; e
-para contagens subdispersas os erros padrões são superestimados.
+contagens e de tempo até o evento \citep{Molenberghs2010,
+  Molenberghs2017}. Para contagens, por exemplo, o modelo Poisson tem
+função de variância $V(\mu_i) = \mu_i$, isto é, a esperança e a
+variância da distribuição são iguais para a $i$-ésima observação,
+característica conhecida como equidispersão. Porém, na prática, os dados
+podem apresentar características de superdispersão (média $<$ variância)
+e subdispersão (média $>$ variância), que tornam o modelo Poisson
+inadequado. Nesses casos, os coeficientes ainda podem ser estimados
+consistentemente, porém os erros padrões das estimativas são incorretos
+\citep{Winkelmann1994, Hinde1998}. Em particular, um modelo Poisson
+ajustado a contagens superdispersas leva à subestimação dos erros
+padrões das estimativas; e para contagens subdispersas os erros padrões
+são superestimados.
 
 O caso mais comum de falha da suposição de equidispersão e,
 consequentemente com um maior número de abordagens possíveis, é a
 superdispersão. \citet{Hinde1998} discutem diversas razões que
-podem levar à variabilidade extra Poisson. Dentre elas citam-se
+podem levar à variabilidade extra Poisson. Dentre elas, citam-se
 amostragem por clusters, heterogeneidade das unidades amostras, dados em
 nível agregado e correlação entre observações. Os processos que reduzem
 a variabilidade das contagens, abaixo do estabelecido pela Poisson, não
@@ -289,21 +290,21 @@ processos pontuais para ilustrar o processo Poisson em um espaço
 bidimensional. Cada ponto representa a ocorrência de um evento e cada
 quadrado, delimitado pelas linhas pontilhadas, representa a unidade (ou
 domínio) na qual se conta o número de eventos (como variável
-aleatória). A \autoref{fig:processo-pontual}(a) representa a situação de
-dados de contagem equidispersos. As ocorrências dos eventos se dispõem
-aleatoriamente. Na \autoref{fig:processo-pontual}(b) o padrão já se
-altera, tem-se a representação do caso de superdispersão. Formam-se
-aglomerados que deixam parcelas com contagens muito elevadas e parcelas
-com contagens baixas. Uma possível causa desse padrão se dá pelo
-processo de contágio (e.g. contagem de casos de uma doença contagiosa,
-contagem de frutos apodrecidos). Na \autoref{fig:processo-pontual}(c)
-ilustra-se o caso de subdispersão, em que as ocorrências se dispõem
-uniformemente no espaço. Agora, as contagens de ocorrências nas parcelas
-variam bem pouco. Ao contrário do caso superdisperso, uma causa
-interpretável seria o oposto de contágio, a repulsa, ou seja, uma
-ocorrência causa a repulsa de outras ocorrências em seu redor
-(e.g. contagem de árvores) ou ainda competição (e.g. contagem de animais
-territoriais ou que disputam por território).
+aleatória). A \autoref{fig:processo-pontual}(a), representa a situação
+de dados de contagem equidispersos. As ocorrências dos eventos se
+dispõem aleatoriamente. Na \autoref{fig:processo-pontual}(b), o padrão
+já se altera, tem-se a representação do caso de superdispersão. Nesse
+cenário, formam-se aglomerados que deixam parcelas com contagens muito
+elevadas e parcelas com contagens baixas. Uma possível causa desse
+padrão se dá pelo processo de contágio (e.g. contagem de casos de uma
+doença contagiosa, contagem de frutos apodrecidos). Na
+\autoref{fig:processo-pontual}(c), ilustra-se o caso de subdispersão, em
+que as ocorrências se dispõem uniformemente no espaço. Agora, as
+contagens de ocorrências nas parcelas variam bem pouco. Ao contrário da
+superdispersão, uma causa interpretável seria o oposto de contágio, a
+repulsa, ou seja, uma ocorrência causa a repulsa de outras ocorrências
+em seu redor (e.g. contagem de árvores) ou ainda a competição
+(e.g. contagem de animais territoriais ou que disputam por território).
 
 <<processo-pontual, fig.width=8, fig.height=3.5, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
 
@@ -355,7 +356,7 @@ lapply(seq(poss), function(i) {
 @
 
 As alternativas paramétricas para análise de dados na forma de contagens
-não equidipersos estão, geralmente, relacionadas às causas da não
+não equidipersas estão, geralmente, relacionadas às causas da não
 equidispersão. Para superdispersão, destacam-se os modelos mistos, que
 incluem efeitos aleatórios em nível de observação, considerando a
 heterogeneidade não observada. Um exemplo bem conhecido dessa prática é
@@ -363,7 +364,7 @@ o modelo Poisson com efeitos aleatórios gama, que resulta no modelo
 binomial negativo. Porém, outras escolhas para a distribuição dos
 efeitos aleatórios podem ser tomadas como, por exemplo, o modelo
 Poisson-Tweedie \citep{Bonat2017} e seus casos particulares
-Poisson-Gaussiano-inverso (PIG) e Neyman-Type A assumem que os efeitos
+Poisson-inversa Gaussiana (PIG) e Neyman-Type A assumem que os efeitos
 aleatórios são Tweedie, Gaussiano inverso e Poisson distribuídos,
 respectivamente.
 
@@ -374,7 +375,7 @@ eles destacam-se: o modelo \textit{Gamma-Count} \citep{Winkelmann1995,
 eventos; o modelo COM-Poisson \citep{Shmueli2005, Sellers2010}, em que a
 razão de recorrência das probabilidades é não linear por meio da adição
 de um parâmetro de dispersão; e o modelo Poisson generalizado
-\citep{Consul1992, Zamani2012}, uma generalização bi-paramétrica do
+\citep{Consul1992, Zamani2012}, uma generalização biparamétrica do
 modelo Poisson.
 
 Embora as distribuição citadas sejam flexíveis para lidar com diferentes
@@ -393,13 +394,13 @@ contagens são distribuídas condicionalmente como Poisson e que os
 efeitos aleatórios são normalmente distribuídos. Embora esse modelo se
 adeque a diversas situações, casos em que as contagens condicionais não
 são equidispersas são pouco explorados na
-literatura. \citet{Molenberghs2007} e \citet{Molenberghs2010} apresentam
-uma nova família de modelos que consideram efeitos aleatórios normais,
-para contemplar a estrutura hierárquica e conjugados, para contagens
-condicionalmente superdispersas. No entanto, modelos hierárquicos mais
-flexíveis, capazes de modelar diferentes níveis de dispersão das
-contagens condicionais aos efeitos aleatórios, não são consolidadas na
-literatura e são escassas suas aplicações.
+literatura. \citet{Molenberghs2007, Molenberghs2010, Molenberghs2017}
+apresentam uma nova família de modelos que consideram efeitos aleatórios
+normais, para contemplar a estrutura hierárquica e conjugados, para
+as contagens condicionalmente superdispersas. No entanto, modelos
+hierárquicos mais flexíveis, capazes de modelar diferentes níveis de
+dispersão das contagens condicionais aos efeitos aleatórios, não são
+consolidadas na literatura e são escassas suas aplicações.
 
 % ----------------------------------------------------------
 % Objetivos
@@ -437,7 +438,7 @@ Como objetivos específicos, têm-se:
 \end{enumerate}
 
 Todos os conjuntos de dados e as implementações computacionais
-utillizadas serão disponibilizadas, para que toda a pesquisa seja
+utillizadas, serão disponibilizadas para que toda a pesquisa seja
 facilmente reproduzível. Como forma de divulgação científica, almeja-se
 a produção e publicação de artigos científicos em periódicos na área de
 análise de dados e modelagem estatística.
