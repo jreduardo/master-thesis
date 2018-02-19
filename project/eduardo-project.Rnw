@@ -33,6 +33,7 @@
 \usepackage{bm}
 \usepackage{setspace}
 \usepackage{enumitem}
+\usepackage[brazilian]{cleveref}
 
 \usepackage{caption}
 \captionsetup{
@@ -285,20 +286,20 @@ subdispersão está relacionada à obtenção de estatísticas de ordem da
 variável resposta, por exemplo tomar o máximo das contagens observadas
 \citep{Steutel1989}.
 
-Na \autoref{fig:processo-pontual}, são apresentados diferentes tipos de
+Na \Cref{fig:processo-pontual}, são apresentados diferentes tipos de
 processos pontuais para ilustrar o processo Poisson em um espaço
 bidimensional. Cada ponto representa a ocorrência de um evento e cada
 quadrado, delimitado pelas linhas pontilhadas, representa a unidade (ou
 domínio) na qual se conta o número de eventos (como variável
-aleatória). A \autoref{fig:processo-pontual}(a), representa a situação
+aleatória). A \Cref{fig:processo-pontual}(a), representa a situação
 de dados de contagem equidispersos. As ocorrências dos eventos se
-dispõem aleatoriamente. Na \autoref{fig:processo-pontual}(b), o padrão
+dispõem aleatoriamente. Na \Cref{fig:processo-pontual}(b), o padrão
 já se altera, tem-se a representação do caso de superdispersão. Nesse
 cenário, formam-se aglomerados que deixam parcelas com contagens muito
 elevadas e parcelas com contagens baixas. Uma possível causa desse
 padrão se dá pelo processo de contágio (e.g. contagem de casos de uma
 doença contagiosa, contagem de frutos apodrecidos). Na
-\autoref{fig:processo-pontual}(c), ilustra-se o caso de subdispersão, em
+\Cref{fig:processo-pontual}(c), ilustra-se o caso de subdispersão, em
 que as ocorrências se dispõem uniformemente no espaço. Agora, as
 contagens de ocorrências nas parcelas variam bem pouco. Ao contrário da
 superdispersão, uma causa interpretável seria o oposto de contágio, a
@@ -466,7 +467,7 @@ conduziram um experimento fatorial $5$ (níveis de desfolha) $\times $ 5
 cinco repetições e condições controladas em uma casa de vegetação. A
 variável de interesse foi o número de capulhos de algodão em cada
 unidade experimental (vaso com duas plantas). Na
-\autoref{fig:desc-cotton}, são apresentados os números de capulhos
+\Cref{fig:desc-cotton}, são apresentados os números de capulhos
 observados em cada combinação entre estágio fenológico e nível de
 desfolha.
 
@@ -509,7 +510,7 @@ delineamento de blocos casualizados, \citet{Serafim2012} avaliaram a
 influência de doses de potássio ($0, 30, 60, 120$ e $180$ mg dm$^{-3}$)
 combinadas com diferentes níveis de umidade do solo ($37,5; 50$ e $62,5$
 \% do volume total de poros) no número de grãos e de vagens viáveis. Na
-\autoref{fig:desc-soybean}, são apresentados os valores contabilizados de
+\Cref{fig:desc-soybean}, são apresentados os valores contabilizados de
 cada variável de interesse, grãos de soja e vagens viáveis, para cada um
 dos tratamentos, combinação entre umidade do solo e adubação com
 potássio.
@@ -554,6 +555,18 @@ influência de adubação potássica nas contagens.
 \section{Ensaio clínico em pacientes epilépticos}
 \label{sec:epilepsy}
 
+<<load-epilepsy, include=FALSE>>=
+
+# Load data set
+epilepsy <- read_delim("epilepsy.csv", delim = ";") %>%
+    mutate(trt = factor(trt, labels = c("Placebo", "Tratamento")),
+           sex = factor(sex),
+           race = factor(race),
+           date0 = lubridate::dmy(date0)) %>%
+    rename("week" = studyweek)
+
+@
+
 Epilepsia é uma doença que se manifesta por crises de perda da
 consciência, acompanhadas de convulsões, que ocorrem em intervalos
 irregulares de tempo. A manipulação de drogas para diminuir as
@@ -566,7 +579,7 @@ ocorreu após um período de 12 semanas de estabilização. Devidamente
 aleatorizados, 45 pacientes foram medicados periodicamente com o placebo
 e 44 com a AED topiramate. Os pacientes foram acompanhados semanalmente,
 registrando-se o número de convulsões da respectiva semana. Na
-\autoref{fig:desc-epilepsy}, são apresentados os perfis do número de
+\Cref{fig:desc-epilepsy}, são apresentados os perfis do número de
 convulsões epilépticas para cada paciente, bem como os perfis médio e
 mediano. Como destacam \citet{Molenberghs2007}, é interessante notar a
 forte assimetria à direita na distribuição do número de convulsões, a
@@ -578,14 +591,6 @@ convulsões epilépticas em um determinado paciente) que representam
 dados observados.
 
 <<desc-epilepsy, fig.width=9, fig.height=4, fig.cap="Perfis do número de convulções de cada paciente dos grupos tratamento e placebo. As linhas em preto representam os perfis médio (linha contínua) e mediano (linha pontilhada).">>=
-
-# Load data set
-epilepsy <- read_delim("epilepsy.csv", delim = ";") %>%
-    mutate(trt = factor(trt, labels = c("Placebo", "Tratamento")),
-           sex = factor(sex),
-           race = factor(race),
-           date0 = lubridate::dmy(date0)) %>%
-    rename("week" = studyweek)
 
 # Visualize profiles
 epilepsy_summary <- epilepsy %>% group_by(trt, week) %>%
@@ -706,12 +711,12 @@ print(xy2, position = c(0.6, 0, 1, 0.95), more = FALSE)
 
 @
 
-Na \autoref{fig:desc-bromelia}(a), são apresentados os perfis
+Na \Cref{fig:desc-bromelia}(a), são apresentados os perfis
 individuais do número de folhas para cada bloco em cada tratamento e
 seus respectivos perfis médios. Nota-se um comportamento não linear
 (sigmoidal) dos perfis em cada tratamento e uma pouca variabilidade
 entre blocos em um mesmo tempo e tratamento. Essa última característica
-é destacada na \autoref{fig:desc-bromelia}(b), onde os logaritmos das
+é destacada na \Cref{fig:desc-bromelia}(b), onde os logaritmos das
 médias e variâncias são apresentados em um gráfico de dispersão. Para
 todas as combinações de tempo e tratamento, as variâncias do número de
 folhas obtidas dos quatro blocos são bastante menores do que as
@@ -810,13 +815,13 @@ inicialmente, pretende-se utilizar somente as cultivares BRS das 10
 cultivares experimentadas, devido às contagens nessas cultivares se
 comportarem de forma similar e ao interesse na comparação das cultivares
 transgênicas BRS produzidas pela Embrapa. Na
-\autoref{fig:desc-whitefly}(a), são apresentados os perfis, das três
+\Cref{fig:desc-whitefly}(a), são apresentados os perfis, das três
 contagens realizadas, em cada bloco ao longo dos dias de infestação para
 cada cultivar, e os respectivos perfis médios. O comportamento dos
 perfis se mostra não linear, com um pico no número de ninfas ocorrendo
 entre 10 e 20 dias de infestação. Além disso, ressalta-se que a
 variabilidade das contagens é muito superior nos primeiros dias de
-infestação. Na \autoref{fig:desc-whitefly}(b), apresentam-se as médias e
+infestação. Na \Cref{fig:desc-whitefly}(b), apresentam-se as médias e
 variâncias amostrais, em escala logarítmica, para cada variável de
 interesse. Há uma forte evidência de superdispersão. Para análise desses
 dados, modelos flexíveis para dados de contagens como Poisson-Tweedie,
@@ -853,7 +858,7 @@ $\mu$, tem função massa de probabilidade
 \end{equation}
 em que $\mu>0$. Pela função geradora de cumulantes da família
 exponencial é fácil mostrar que E$(Y)=\text{Var(Y)}=\mu$. Como discutido
-no \autoref{cha:introducao}, essa é uma particularidade bastante
+no \Cref{cha:introducao}, essa é uma particularidade bastante
 restritiva da distribuição Poisson.  A linearidade das razões de
 probabilidades consecutivas $\Pr(Y=y-1)/\Pr(Y=y-1) = y / \mu$ e a
 relação da distribuição Poisson com a distribuição exponencial são
@@ -1000,7 +1005,7 @@ em que $\text{F}_y(T)$ é a função distribuição acumulada de
 $\vartheta_y$ e $T$ é a amplitude do intervalo de contagem,
 frequentemente denotado como \textit{offset} nos modelos de regressão.
 
-A \autoref{eqn:renewal} resulta uma distribuição de contagem a partir,
+A \Cref{eqn:renewal} resulta uma distribuição de contagem a partir,
 apenas, do conhecimento da distribuição do tempo entre eventos. Por
 exemplo, a distribuição Poisson deriva da suposição de que $\tau_k$ são
 exponencialmente distribuídos com parâmetro de taxa $\lambda$. Assim,
@@ -1012,7 +1017,7 @@ $$
   \sum_{j=0}^{  y}\frac{\exp(-\lambda T)(\lambda T)^j}{j!} =
   \frac{\exp(-\lambda T)(\lambda T)^j}{y!},
 $$
-que, para $T=1$, é idêntica a \autoref{eqn:pmf-poisson}.
+que, para $T=1$, é idêntica a \Cref{eqn:pmf-poisson}.
 
 A distribuição \textit{Gamma-Count} GCT$(\alpha, \gamma)$ assume
 distribuição gama, com de parâmetros $\alpha$ e $\gamma$, para
@@ -1281,7 +1286,7 @@ $$
   \hat{\bm{\theta}} \overset{a}{\sim}
     \mathcal{N}(\bm{\theta}, \mathcal{I}(\bm{\theta}))
   \quad {e} \quad
-  \hat{g(\bm{\theta})} \overset{a}{\sim}
+  g(\hat{\bm{\theta}}) \overset{a}{\sim}
     \mathcal{N}(g(\bm{\theta}),
       \bm{G}^\top \mathcal{I}(\bm{\theta}) \bm{G}),
 $$
@@ -1422,7 +1427,7 @@ metodologia para a estatística aplicada.
           \ganttbar[progress=0, progress label text=]{}{23}{24}
           \ganttbar[progress=0, progress label text=]{}{37}{38}\\
           \ganttbar[progress=0, progress label text=]{
-            Revisão e \ganttalignnewline adequaão}{37}{40}
+            Revisão e \ganttalignnewline adequação}{37}{40}
         \end{ganttchart}
       \end{tikzpicture}
     % \end{SingleSpacing}
