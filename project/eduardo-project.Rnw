@@ -271,18 +271,18 @@ são superestimados.
 
 O caso mais comum de falha da suposição de equidispersão e,
 consequentemente com um maior número de abordagens possíveis, é a
-superdispersão. \citet{Hinde1998} discutem diversas razões que
-podem levar à variabilidade extra Poisson. Dentre elas, citam-se
-amostragem por clusters, heterogeneidade das unidades amostras, dados em
-nível agregado e correlação entre observações. Os processos que reduzem
-a variabilidade das contagens, abaixo do estabelecido pela Poisson, não
+superdispersão. \citet{Hinde1998} discutem diversas razões que podem
+levar à variabilidade extra Poisson. Dentre elas, citam-se amostragem
+por aglomerados, heterogeneidade das unidades amostras, dados em nível
+agregado e correlação entre observações. Os processos que reduzem a
+variabilidade das contagens, abaixo do estabelecido pela Poisson, não
 são tão conhecidos quanto os que produzem variabilidade extra. Pela
 mesma razão, são poucas as abordagens descritas na literatura capazes de
 tratar subdispersão. Uma das causas da subdispersão pode ser a violação
 do processo Poisson, em que o tempo entre eventos pode não ser mais
-exponencialmente distribuído, esse processo motiva a classe dos modelos
-de dependência de duração \citep{Winkelmann1995}. Outra possível causa da
-subdispersão está relacionada à obtenção de estatísticas de ordem da
+exponencialmente distribuído; esse processo motiva a classe dos modelos
+de dependência de duração \citep{Winkelmann1995}. Outra possível causa
+da subdispersão está relacionada à obtenção de estatísticas de ordem da
 variável resposta, por exemplo tomar o máximo das contagens observadas
 \citep{Steutel1989}.
 
@@ -379,16 +379,17 @@ de um parâmetro de dispersão; e o modelo Poisson generalizado
 \citep{Consul1992, Zamani2012}, uma generalização biparamétrica do
 modelo Poisson.
 
-Embora as distribuição citadas sejam flexíveis para lidar com diferentes
-níveis de dispersão, há situações em que o delineamento do experimento
-sugere uma estrutura de covariância entre observações induzida por um
-processo hierárquico de casualização ou amostragem e portanto, devem
-ser consideradas no modelo. São casos assim os experimentos em parcelas
-subdivididas e experimentos com medidas repetidas ou longitudinais.
-Tais estruturas estabelecem modelos com efeitos não observáveis e isso
-pode ser incorporado no modelo de regressão com a inclusão de efeitos
-aleatórios em nível de grupos experimentais; tais modelos são denominados
-modelos lineares generalizados mistos (GLMM) \citep{Molenberghs2005}.
+Embora as distribuições citadas sejam flexíveis para lidar com
+diferentes níveis de dispersão, há situações em que o delineamento do
+experimento sugere uma estrutura de covariância entre observações
+induzida por um processo hierárquico de casualização ou amostragem e
+portanto, devem ser consideradas no modelo. São casos assim os
+experimentos em parcelas subdivididas e experimentos com medidas
+repetidas ou longitudinais.  Tais estruturas estabelecem modelos com
+efeitos não observáveis e isso pode ser incorporado no modelo de
+regressão com a inclusão de efeitos aleatórios em nível de grupos
+experimentais; tais modelos são denominados modelos lineares
+generalizados mistos (GLMM) \citep{Molenberghs2005}.
 
 Para dados de contagem hierárquicos, o modelo GLMM Poisson assume que as
 contagens são distribuídas condicionalmente como Poisson e que os
@@ -439,7 +440,7 @@ Como objetivos específicos, têm-se:
 \end{enumerate}
 
 Todos os conjuntos de dados e as implementações computacionais
-utillizadas, serão disponibilizadas para que toda a pesquisa seja
+utilizadas, serão disponibilizadas para que toda a pesquisa seja
 facilmente reproduzível. Como forma de divulgação científica, almeja-se
 a produção e publicação de artigos científicos em periódicos na área de
 análise de dados e modelagem estatística.
@@ -544,8 +545,8 @@ xyplot(ngra + nvag ~ K | umid,
 \citet{RibeiroJr2018} analisaram o número de grãos por parcela com sua
 proposta de reparametrização do modelo COM-Poisson. A característica
 interessante desse conjunto é que há diferentes níveis de dispersão em
-cada contagem mensurada. Para o número de grão por parcela, por exemplo,
-\citet{RibeiroJr2018} mostram que há uma variabilidade extra
+cada contagem mensurada. Para o número de grãos por parcela, por
+exemplo, \citet{RibeiroJr2018} mostram que há uma variabilidade extra
 Poisson. Outra característica ainda não contemplada na análise desses
 dados é o comportamento não linear das contagens, em particular, modelos
 lineares com platô apresentam-se como bastante adequados, uma vez que se
@@ -619,7 +620,7 @@ xyplot(nseizw ~ week | trt,
 
 Esse conjunto de dados é interessante, pois traz observações
 multivariadas para cada indivíduo, isto é, para cada $i$-ésimo indivíduo
-registra-se $n_i$ observações ($n_i$, número de semanas em que o
+registram-se $n_i$ observações ($n_i$, número de semanas em que o
 $i$-ésimo indivíduo foi acompanhado). Isto traz desafios para análise,
 que são frequentemente superados pela inclusão de efeitos aleatórios a
 fim de induzir correlação entre observações de um mesmo
@@ -802,7 +803,7 @@ print(xy2, position = c(0.75, 0, 1, 0.95), more = FALSE)
 
 @
 
-Sob essa motivação, \citet{Suekane2013} conduziu um experimento sob o
+Sob essa motivação, \citet{Suekane2013} conduziram um experimento sob o
 delineamento de blocos para avaliar o número de ninfas de mosca-branca
 em dez diferentes cultivares de soja. As plantas das diferentes
 cultivares de soja foram cultivadas em vasos contendo duas plantas. No
@@ -860,7 +861,7 @@ em que $\mu>0$. Pela função geradora de cumulantes da família
 exponencial é fácil mostrar que E$(Y)=\text{Var(Y)}=\mu$. Como discutido
 no \Cref{cha:introducao}, essa é uma particularidade bastante
 restritiva da distribuição Poisson.  A linearidade das razões de
-probabilidades consecutivas $\Pr(Y=y-1)/\Pr(Y=y-1) = y / \mu$ e a
+probabilidades consecutivas $\Pr(Y=y-1)/\Pr(Y=y) = y / \mu$ e a
 relação da distribuição Poisson com a distribuição exponencial são
 características que motivam classes de generalizações do modelo Poisson
 e serão discutidas nas próximas seções.
@@ -875,7 +876,7 @@ Y_i \sim \text{Po}(\mu_i), \quad \text{em que} \quad \mu_i =
 g^{-1}(\bm{x}_i^\top\bm{\beta}),
 $$
 em que $\bm{\beta}$ são parâmetros desconhecidos a serem estimados e
-$g^{-1}(\cdot)$ uma função de ligação conhecida, por exemplo logaritmo
+$g^{-1}(\cdot)$ uma função de ligação conhecida, por exemplo, logaritmo
 (função de ligação canônica) e raiz quadrada.
 
 \section{Distribuição COM-Poisson}
@@ -1017,13 +1018,14 @@ $$
   \sum_{j=0}^{  y}\frac{\exp(-\lambda T)(\lambda T)^j}{j!} =
   \frac{\exp(-\lambda T)(\lambda T)^j}{y!},
 $$
-que, para $T=1$, é idêntica a \Cref{eqn:pmf-poisson}.
+que, para $T=1$, é idêntica à \Cref{eqn:pmf-poisson}.
 
-A distribuição \textit{Gamma-Count} GCT$(\alpha, \gamma)$ assume
-distribuição gama, com de parâmetros $\alpha$ e $\gamma$, para
-$\tau_k$. Consequentemente, a distribuição de $\vartheta_y$ também é
-gama, porém com parâmetros $y\alpha$ e $\gamma$. Sua função massa de
-probabilidade é obtida por
+Para a distribuição \textit{Gamma-Count} GCT$(\alpha, \gamma)$ assume-se
+distribuição gama, com de parâmetros $\alpha$ e $\gamma$, para os tempos
+entre eventos $\tau_k$. Consequentemente, a distribuição de
+$\vartheta_y$ também é gama, porém com parâmetros $y\alpha$ e
+$\gamma$. Sua função massa de probabilidade de uma variável aleatória
+$Y_t \sim \text{GCT}((\alpha, \gamma))$ é obtida por
 \begin{equation}
   \label{eqn:pmf-gammacount}
   \Pr(Y_T = y) = \text{F}_y(T) - \text{F}_{n+1}(T) =
@@ -1273,15 +1275,15 @@ $$
 obtida de forma analítica (e.g. Poisson). Quando
 $\mathcal{H}(\bm{\theta})$ não tem forma fechada (e.g. COM-Poisson,
 \textit{Gamma-Count}, Poisson generalizada), métodos que não necessitam
-da especicação das derivadas de $\ell(\bm{\theta})$, como BFGS
+da especificação das derivadas de $\ell(\bm{\theta})$, como BFGS
 \citep{Nocedal1995} são adotados. Nesses casos, a matriz Hessiana é
 aproximada, geralmente, por diferenças finitas o que demanda um número
 maior de avaliações do logaritmo da função de verossimilhança, tornando
 o processo de estimação mais lento.
 
-A inferência nos modelos paramétricos, ajustados via maximização da
-verossimilhança, baseia-se na distribuição assintótica dos estimadores de
-máxima verossimilhança
+A inferência nos modelos paramétricos, ajustados por meio da maximização
+da função de verossimilhança, baseia-se na distribuição assintótica dos
+estimadores de máxima verossimilhança
 $$
   \hat{\bm{\theta}} \overset{a}{\sim}
     \mathcal{N}(\bm{\theta}, \mathcal{I}(\bm{\theta}))
@@ -1296,7 +1298,7 @@ diferenciável e
 $\bm{G}^\top = (\partial g / \partial \beta_1, \ldots, \partial g
 / \partial \beta_p)^\top$ o vetor de derivadas primeiras de $g(\cdot)$.
 
-Para a distribuição Poisson-Tweedie a estimação por máxima
+Para a distribuição Poisson-Tweedie a estimação pelo método da máxima
 verossimilhança é computacionalmente exigente, uma vez que as
 probabilidades são dadas por uma integral intratável, exigindo o uso de
 métodos numéricos. Considerando a especificação de momentos,
@@ -1306,7 +1308,7 @@ de dispersão $(p, \phi)$, respectivamente.
 
 Com essa pesquisa, a análise de dados na forma de contagens pretende ser
 mais fiel ao processo gerador dos dados, levando a conclusões mais
-acertivas nos experimentos conduzidos, principalmente, na área
+assertivas nos experimentos conduzidos, principalmente, na área
 agronômica. Com a apresentação e caracterização de distribuições
 flexíveis para dados dessa natureza, definição dos modelos de regressão,
 extensões para modelagem da dispersão e inclusão de efeitos aleatórios e
