@@ -364,7 +364,7 @@ heterogeneidade não observada. Um exemplo bem conhecido dessa prática é
 o modelo Poisson com efeitos aleatórios gama, que resulta no modelo
 binomial negativo. Porém, outras escolhas para a distribuição dos
 efeitos aleatórios podem ser tomadas como, por exemplo, o modelo
-Poisson-Tweedie \citep{Bonat2017} e seus casos particulares
+Poisson-Tweedie \citep{Bonat2018} e seus casos particulares
 Poisson-inversa Gaussiana (PIG) e Neyman-Type A assumem que os efeitos
 aleatórios são Tweedie, Gaussiano inverso e Poisson distribuídos,
 respectivamente.
@@ -494,7 +494,7 @@ xyplot(ncap ~ des | est,
 Diversas alternativas já foram propostas para análise desse conjunto de
 dados. \citet{Zeviani2014} utilizaram o modelo \textit{Gamma-Count},
 \citet{Huang2017} e \citet{RibeiroJr2018} utilizaram reparametrizações
-do modelo COM-Poisson e \citet{Bonat2017} apresentaram os resultados da
+do modelo COM-Poisson e \citet{Bonat2018} apresentaram os resultados da
 aplicação do modelo Poisson-Tweedie estendido. A notável relevância
 desse conjunto de dados é a característica de subdispersão em uma
 estrutura fatorial.
@@ -1167,10 +1167,10 @@ Poisson-Tweedie são obtidos por
 Devido à flexibilidade da distribuição Tweedie, a Poisson-Tweedie também
 tem importantes casos particulares que incluem as distribuições Hermite
 $(p = 0)$, Neymann tipo-A $(p=1)$, Pólya-Aeppli $(p=1,5)$, binomial
-negativa $(p=2)$ e Poisson--inversa gaussiana $(p = 3)$ \citep{Bonat2017}.
+negativa $(p=2)$ e Poisson--inversa gaussiana $(p = 3)$ \citep{Bonat2018}.
 
 Pela definição (\ref{eqn:espec-ptw}), modelos Poisson-Tweedie só modelam
-superdispersão. \citet{Bonat2017} estendem essa distribuição para
+superdispersão. \citet{Bonat2018} estendem essa distribuição para
 contemplar subdispersão, adotando apenas a especificação de momentos
 baseada nas expressões em (\ref{eqn:moments-ptw}) e permitindo a
 estimação de $\phi<0$. Essa abordagem é análoga aos modelos de
@@ -1300,7 +1300,7 @@ Para a distribuição Poisson-Tweedie a estimação por máxima
 verossimilhança é computacionalmente exigente, uma vez que as
 probabilidades são dadas por uma integral intratável, exigindo o uso de
 métodos numéricos. Considerando a especificação de momentos,
-\citet{Bonat2017} propuseram o uso combinado das funções de estimação
+\citet{Bonat2018} propuseram o uso combinado das funções de estimação
 quase-escore e de Pearson para estimação dos parâmetros de regressão e
 de dispersão $(p, \phi)$, respectivamente.
 
