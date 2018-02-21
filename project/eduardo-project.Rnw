@@ -1438,6 +1438,43 @@ metodologia para a estatística aplicada.
 
 \phantompart
 
+%-----------------------------------------------------------------------
+% Informações finais - exigência do ppg ESALQ
+\begin{flushright}
+  Piracicaba, 15 de fevereiro de 2018. \\[1.5cm]
+  \begin{minipage}[t]{.4\textwidth}
+    \centering
+      \noindent\rule{\textwidth}{0.4pt} \\
+      Eduardo Elias Ribeiro Junior
+  \end{minipage}
+\end{flushright}
+
+\vspace{1cm}
+
+De acordo\\[1.5cm]
+
+\begin{minipage}[t]{.4\textwidth}
+  \centering
+  \noindent\rule{\textwidth}{0.4pt} \\
+  Clarice Garcia Borges Demétrio
+\end{minipage}
+
+\vspace{1.5cm}
+
+Aprovado pelo programa em \quad \rule{2.2cm}{0.4pt}.\\[1.5cm]
+
+\begin{minipage}[t]{.4\textwidth}
+  \centering
+  \noindent\rule{\textwidth}{0.4pt} \\
+  Carlos Tadeu dos Santos Dias \\
+  Coordenador do PPG em Estatística e Experimentação Agronômica
+\end{minipage}
+
+
+<<>>=
+
+@
+
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
