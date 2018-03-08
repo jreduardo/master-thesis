@@ -1097,7 +1097,7 @@ probabilidade
 \begin{equation}
   \label{eqn:pmf-gpoisson}
   \Pr(Y=y) = \left ( \frac{\mu}{1+\alpha \mu} \right )^y
-    \frac{(1+\alpha \mu)^{y-1}}{y!}
+    \frac{(1+\alpha y)^{y-1}}{y!}
     \exp \left [ - \mu \frac{(1 + \alpha y)}{( 1 + \alpha \mu)}
     \right ],
 \end{equation}
