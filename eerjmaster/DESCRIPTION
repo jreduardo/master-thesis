@@ -1,0 +1,12 @@
+Package: eerjmaster
+Version: 0.0.0
+Title: Codes and Data for Master Thesis of Eduardo Jr
+Description: Functions for fitting flexible models for analysis of
+    dispersed count data. Real data are stored and documented in this
+    package as well.
+Authors@R: person(given = "Eduardo", family = "Ribeiro Jr",
+                  email = "jreduardo@usp.br", role = c("aut", "cre"))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
