@@ -69,3 +69,39 @@ NULL
 #' data(cotton)
 #' str(cotton)
 NULL
+
+#' @name soybean
+#' @docType data
+#' @title Soil Moisture and Potassium Doses in Soybean Crop
+#' @description The tropical soils, usually poor in potassium, demand
+#'     potassium fertilization when cultivated with soybean to obtain
+#'     satisfactory yields. This dataset results of a greenhouse
+#'     factorial experiment set up in a randomized complete block design
+#'     with five blocks. The aim of this study was to evaluate the
+#'     effects of potassium doses and soil humidity levels on soybean
+#'     agronomic characteristics. The experimental unit was a pot with 2
+#'     soybean plants and the response variables are the numbers of
+#'     grains, pods and viable pods recorded after the plants reach
+#'     physiological maturity and dry out naturally.
+#'
+#' @format A data frame with 74 observations and 6 variables, where
+#'
+#'     \describe{
+#'
+#'     \item{\code{grains}}{Number of grains.}
+#'     \item{\code{pods}}{Number of pods.}
+#'     \item{\code{vpods}}{Number of viable pods.}
+#'     \item{\code{K}}{Potassium doses (10 mg\eqn{^{-2}}
+#'     dm\eqn{^{-3}}).}
+#'     \item{\code{soil}}{Soil moisture levels (percentual of the total
+#'     porosity).}
+#'     \item{\code{block}}{Indicates the block.}
+#'     }
+#'
+#' @keywords datasets
+#' @usage data(soybean)
+#' @examples
+#'
+#' data(soybean)
+#' str(soybean)
+NULL
