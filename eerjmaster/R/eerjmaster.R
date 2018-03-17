@@ -8,7 +8,7 @@ NULL
 
 #' @name bromelia
 #' @docType data
-#' @title Alternative substrates for growth of bromeliads.
+#' @title Alternative Substrates for Growth of Bromeliads
 #' @description Xaxim is used in the past for containers to grow
 #'     bromeliads and orchids whose was commercially prohibited since
 #'     2001. Experiments have been conducted to find alternative
@@ -37,4 +37,35 @@ NULL
 #'
 #' data(bromelia)
 #' str(bromelia)
+NULL
+
+#' @name cotton
+#' @docType data
+#' @title Artifitial Defoliation in Cotton Phenology
+#' @description Several sources may lead to defoliation in the cotton
+#'     crop, e.g. pests, diseases of foliage and mechanical
+#'     injuries. This dataset comes from a greenshouse factorial
+#'     experiment performed to evaluate the effect of artifical
+#'     defoliation in the total number of cotton bolls at different
+#'     growth stages. The experimental unit was a pot with 2 cotton
+#'     plants. The response variable is the number of bolls produced at
+#'     the end of the crop cycle.
+#'
+#' @format A data frame with 125 observations and 3 variables, where
+#'
+#'     \describe{
+#'
+#'     \item{\code{bolls}}{Number of cotton bolls.}
+#'     \item{\code{defol}}{Levels of the artificial defoliation (percent
+#'     in leaf area removed with scissors).}
+#'     \item{\code{phenol}}{Phenological growth stages of the cotton
+#'     plants.}
+#'     }
+#'
+#' @keywords datasets
+#' @usage data(cotton)
+#' @examples
+#'
+#' data(cotton)
+#' str(cotton)
 NULL
