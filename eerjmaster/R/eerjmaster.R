@@ -18,6 +18,7 @@ NULL
 #'     for bromeliads. Plots with 8 plants, initially, were followed
 #'     during 435 days after planting and the total number of leaves per
 #'     plot was recorded at five dates.
+#'
 #' @format A data frame with 120 observations and 5 variables, where
 #'
 #'     \describe{
@@ -104,4 +105,41 @@ NULL
 #'
 #' data(soybean)
 #' str(soybean)
+NULL
+
+#' @name whitefly
+#' @docType data
+#' @title Damage of Whitefly in Soybean Crop
+#' @description The whitefly causes several damage in the soybean crop
+#'     by sucking the plant sap, transmission of viruses and promoting
+#'     sooty mold. This dataset comes from an experiment to evaluate the
+#'     effect of the whitefly \emph{Bemisia tabaci} infestation in the
+#'     differents cultivars of soybean. The experiment was
+#'     performed in a greenhouse conditions where randomized blocks were
+#'     infested with adults whiteflies. The experimental unit was two
+#'     pots with soybean plants that were followed during 38 days. The
+#'     number of nymphs in the upper, middle and lower third of the
+#'     plants were recorded weekly.
+#' @format A data frame with 96 observations and 6 variables, where
+#'
+#'     \describe{
+#'
+#'     \item{\code{nupper}}{Number of whitefly nymphs in the upper
+#'     third.}
+#'     \item{\code{nmiddle}}{Number of whitefly nymphs in the middle
+#'     third.}
+#'     \item{\code{nlower}}{Number of whitefly nymphs in the upper
+#'     third.}
+#'     \item{\code{days}}{Days of infestation (o days indicates no
+#'     infestation).}
+#'     \item{\code{cult}}{Initials of the soybean cultivar.}
+#'     \item{\code{block}}{Indicates the block.}
+#'     }
+#'
+#' @keywords datasets
+#' @usage data(whitefly)
+#' @examples
+#'
+#' data(whitefly)
+#' str(whitefly)
 NULL
