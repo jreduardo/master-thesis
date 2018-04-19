@@ -3,7 +3,7 @@
 \docType{data}
 \name{bromelia}
 \alias{bromelia}
-\title{Alternative substrates for growth of bromeliads.}
+\title{Alternative Substrates for Growth of Bromeliads}
 \format{A data frame with 120 observations and 5 variables, where
 
     \describe{
