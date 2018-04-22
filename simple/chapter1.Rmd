@@ -1,0 +1,13 @@
+# Review of Distributions for Count Data
+
+## Poisson
+
+## Poisson-Tweedie
+
+## COM-Poisson
+
+## Gamma-Count
+
+## Generalized Poisson
+
+## Discrete Weibull

@@ -1,0 +1,11 @@
+# Reparametrization of COM-Poisson Models
+
+## Background
+
+## Reparametrized COM-Poisson
+
+## Simulation study
+
+## Case studies
+
+## Concluding remarks

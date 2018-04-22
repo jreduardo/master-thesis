@@ -8,6 +8,9 @@
 *.vrb
 *.pdf
 
+## Output directory of bookdown
+**/book-dir/*
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

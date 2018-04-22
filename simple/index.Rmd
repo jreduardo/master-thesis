@@ -1,0 +1,9 @@
+---
+title: "Flexible Models for Analysis of Count Data"
+author: "Eduardo Elias Ribeiro Junior"
+date: "`r Sys.Date()`"
+---
+
+# Preface
+
+Hello
