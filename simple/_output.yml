@@ -1,3 +1,9 @@
 bookdown::gitbook: default
-bookdown::pdf_book: default
+bookdown::pdf_book:
+  template: latex/default.tex
+  includes:
+    in_header: latex/preamble.tex
+    before_body: latex/before.tex
+  latex_engine: xelatex
+  keep_tex: true
 bookdown::epub_book: default
