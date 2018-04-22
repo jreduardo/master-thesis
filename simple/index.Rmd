@@ -1,9 +1,27 @@
 ---
-title: "Flexible Models for Analysis of Count Data"
+title: "Flexible Models for Analysis of Dispersed Count Data"
 author: "Eduardo Elias Ribeiro Junior"
 date: "`r Sys.Date()`"
+documentclass: memoir
+classoption:
+  - book
+  - A4paper
+  - 10pt
+  - twoside
+  - oldfontcommands
+bibliography: [../bibliography.bib]
+biblio-style: authoryear
+link-citations: yes
+colorlinks: yes
+esalq-informations: ./latex/informations.tex
+esalq-cover: ./latex/cover.tex
+esalq-record: ./latex/record.tex
+esalq-dedication: ./latex/dedication.tex
+esalq-acknowledge: ./latex/acknowledge.tex
+esalq-biography: ./latex/biography.tex
+esalq-epigraph: ./latex/epigraph.tex
 ---
 
-# Preface
+# Preface {-}
 
 Hello
