@@ -1,0 +1,140 @@
+/*------------------------------------------- */
+/* General style */
+
+body {
+    text-align: justify;
+}
+
+#header {
+    border-bottom: 1.5px solid rgb(100, 100, 100, 0.3);
+}
+
+#header .title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 0em;
+}
+
+#header .author {
+    text-align: center;
+    font-size: 1.5em;
+    opacity: 0.7;
+}
+
+#header .date {
+    text-align: center;
+    margin: 0px 0px 30px 0px;
+}
+
+#header .author em {
+    font-style: normal;
+}
+
+#ftype, #udate {
+    font-style: normal;
+    text-align: center;
+}
+
+.header-section-number{
+    display: block;
+}
+
+#before-toc {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#before-toc p {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin: 10px 0px 0px 0px;
+}
+
+#before-toc a,
+#before-toc a:link,
+#before-toc a:visited,
+#before-toc a:active {
+    color: inherit;
+}
+
+#before-toc a:hover {
+    color: #008cff;
+    background: 0 0;
+}
+.color-theme-1 #before-toc a:hover {
+    color: #704214;
+    background: transparent;
+}
+.color-theme-2 #before-toc a:hover {
+    color: #f4f4f5;
+    background: #252737;
+}
+
+/* Fonte serif */
+.book.font-family-0 {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+/* Fonte sans */
+.book.font-family-1 {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.book .book-header, .book .book-summary {
+    /* font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; */
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h4.author {
+    margin-bottom: 0px;
+    font-size: 1.5em;
+}
+
+address {
+    line-height: 1;
+    font-size: 1.5em !important;
+}
+
+address i.fa {
+    margin-right: 0.5ex;
+}
+
+p.caption {
+    color: #777;
+    margin-top: 10px;
+}
+
+/*------------------------------------------- */
+/* Code */
+
+p code {
+    white-space: inherit;
+}
+
+pre {
+    word-break: normal;
+    word-wrap: normal;
+}
+
+pre code {
+    white-space: inherit;
+}
+
+/*------------------------------------------- */
+.figure>img {
+    width: 95%;
+}
+
+/*------------------------------------------- */
+
+.book .book-body .page-wrapper .page-inner section.normal pre,
+.book .book-body .page-wrapper .page-inner section.normal code {
+    line-height: 1.2;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal pre {
+    padding: .3em .3em;
+}

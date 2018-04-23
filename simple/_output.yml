@@ -1,6 +1,12 @@
 bookdown::gitbook:
-  css: css/style.css
+  css: ["css/gitbook.css", "css/style.css"]
   split_by: chapter
+  includes:
+    in_header: css/MathJax.html
+  config:
+    toc:
+      before: |
+        <div id="before-toc"><a href="./">Flexible Models for Analysis of Dispersed Count Data</a><p id="toc-author">Eduardo E. Ribeiro Jr</p></div>
 bookdown::pdf_book:
   template: latex/default.tex
   includes:

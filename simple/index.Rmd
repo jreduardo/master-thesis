@@ -1,7 +1,7 @@
 ---
 title: "Flexible Models for Analysis of Dispersed Count Data"
 author: "Eduardo Elias Ribeiro Junior"
-date: "`r Sys.Date()`"
+date:  <span id="ftype">Master's thesis at ESALQ/USP</span><br>Updated `r format(Sys.Date(), "%B %d, %Y")`</span>
 documentclass: memoir
 classoption:
   - book
@@ -26,6 +26,19 @@ esalq-acknowledge: false # ./latex/acknowledge.tex
 esalq-biography: false # ./latex/biography.tex
 esalq-epigraph: false # ./latex/epigraph.tex
 ---
+
+```{r setup, include=FALSE}
+
+categories <- c("LC_CTYPE",
+                "LC_TIME",
+                "LC_MONETARY",
+                "LC_PAPER",
+                "LC_COLLATE",
+                "LC_MESSAGES")
+lapply(categories, Sys.setlocale,
+       locale = "en_US.UTF-8")
+
+```
 
 # Preface {-}
 
