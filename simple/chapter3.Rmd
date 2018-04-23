@@ -1,5 +1,19 @@
 # Double COM-Poisson Regression Models
 
+```{block2, type="abstract_en"}
+
+In this paper, we propose the double COM-Poisson models where the mean
+and dispersion parameters of the COM-Poisson distribution are modeled in
+terms of covariates. These model are quite flexible and allow us to
+identify significant effects in both mean and dispersion of the observed
+count data.
+
+\vspace*{0.3cm}
+
+**Keywords:** COM-Poisson distribution, Varying dispersion, Double
+     COM-Poisson models.
+
+```
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab

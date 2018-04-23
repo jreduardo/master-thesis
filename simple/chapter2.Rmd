@@ -1,5 +1,48 @@
 # Reparametrization of COM-Poisson Models
 
+```{block2, type="abstract_en"}
+
+In the analysis of count data often the equidispersion assumption is not
+suitable, hence the Poisson regression model is inappropriate.  As a
+generalization of the Poisson distribution the COM-Poisson distribution
+can deal with under-, equi- and overdispersed count data.  It is a
+member of the exponential family of distributions and has the Poisson
+and geometric distributions as special cases, as well as the Bernoulli
+distribution as a limiting case.  In spite of the nice properties of the
+COM-Poisson distribution, its location parameter does not correspond to
+the expectation, which complicates the interpretation of regression
+models specified using this distribution. In this paper, we propose a
+straightforward reparametrization of the COM-Poisson distribution based
+on an approximation to the expectation of this distribution. The main
+advantage of our new parametrization is the straightforward
+interpretation of the regression coefficients in terms of the
+expectation of the count response variable, as usual in the context of
+generalized linear models. Furthermore, the estimation and inference for
+the new COM-Poisson regression model can be done based on the likelihood
+paradigm. We carried out simulation studies to verify the finite sample
+properties of the maximum likelihood estimators. The results from our
+simulation study show that the maximum likeli-hood estimators are
+unbiased and consistent for both regression and dispersion
+parameters. We observed that the empirical correlation between the
+regression and dispersion parameter estimators is close to zero, which
+suggests that these parameters are orthogonal. We illustrate the
+application of the proposed model through the analysis of three data
+sets with over-, under- and equidispersed count data.  The study of
+distribution properties through a consideration of dispersion,
+zero-inflated and heavy tail indexes, together with the results of data
+analysis show the flexibility over standard approaches. Therefore, we
+encourage the application of the new parametrization for the analysis of
+count data in the context of COM-Poisson regression models.  The
+computational routines for fitting the original and new version of the
+COM-Poisson regression model and the analyzed data sets are available in
+the supplementary material.
+\vspace*{0.3cm}
+
+**Keywords:** COM-Poisson, Count data, Likelihood inference,
+  Overdispersion, Underdispersion.
+
+```
+
 ## Background
 
 ## Reparametrized COM-Poisson

@@ -1,5 +1,29 @@
-# Flexible Models for Analysis of Underdispersed Count Data
+# Flexible Models for Analysis of Underdispersed Longitudinal Count Data
 
+```{block2, type="abstract_en"}
+
+In the analysis of count data the equidispersion assumption is often not
+suitable, hence the Poisson regression model is inappropriate. The
+COM-Poisson and Gamma-Count distributions are increasingly popular
+flexible models for analysis of underdispersed count data. Regression
+models based on these distributions have been proposed in the
+literature, however regression models for a hierarchical structure data
+remain unexplored. In this paper, we propose regression models based on
+COM-Poisson and Gamma-Count distributions with the addition of
+random-effects to model hierarchical structure. Inference for these
+model is made using a Bayesian perspective. In this work, for obtaining
+posterior samples, we use the user-friendly interface utilities for MCMC
+models via Just Another Gibbs Sampler (JAGS). We illustrate the
+methodology with a data set from an experiment conducted to find
+alternative container material for growing bromelias. The computational
+routines are organized in a `R` package and available on GitHub.
+
+\vspace*{0.3cm}
+
+**Keywords:** Bayesian inference, COM-Poisson, Gamma-Count,
+    Random-effects, Underdispersion.
+
+```
 
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab

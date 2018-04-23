@@ -1,12 +1,19 @@
 # Review of Distributions for Count Data
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-mollit anim id est laborum. @RibeiroJr2018
+```{block2, type="abstract_en"}
+
+In the analysis of count data often the equidispersion assumption is not
+suitable, hence the Poisson regression model is inappropriate. In this
+work, we review and compare the use of COM-Poisson, Gamma-Count,
+generalized Poisson and Poisson-Tweedie models. The application of these
+models is illustrated with the analysis of a real count data.
+\vspace*{0.3cm}
+
+**Keywords:** COM-Poisson distribution, Gamma-Count distribution,
+  Generalized Poisson distribution, Overdispersion, Poisson-Tweedie
+  family, Underdispersion.
+
+```
 
 ## Poisson
 
