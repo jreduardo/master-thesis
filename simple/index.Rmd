@@ -6,11 +6,16 @@ documentclass: memoir
 classoption:
   - book
   - A4paper
-  - 10pt
+  - 11pt
   - twoside
   - oldfontcommands
 bibliography: [../bibliography.bib]
 biblio-style: authoryear
+biblatexoptions:
+  - refsegment=chapter
+  - giveninits=true
+  - maxbibnames=99
+  - maxcitenames=3
 link-citations: yes
 colorlinks: yes
 esalq-informations: ./latex/informations.tex
@@ -22,7 +27,7 @@ esalq-biography: false # ./latex/biography.tex
 esalq-epigraph: false # ./latex/epigraph.tex
 ---
 
-# {-}
+# Preface {-}
 
 ```{block2, type="main_abstract_en", latex.options='{Flexible Models for Analysis of Dispersed Count Data}'}
 

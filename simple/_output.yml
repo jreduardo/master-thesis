@@ -1,11 +1,14 @@
 bookdown::gitbook:
   css: css/style.css
+  split_by: chapter
 bookdown::pdf_book:
   template: latex/default.tex
   includes:
     in_header: latex/preamble.tex
     before_body: latex/before.tex
   latex_engine: xelatex
+  citation_package: biblatex
+  toc_unnumbered: no
   keep_tex: true
 bookdown::epub_book:
   stylesheet: css/style.css
