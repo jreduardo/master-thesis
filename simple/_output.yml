@@ -1,4 +1,5 @@
-bookdown::gitbook: default
+bookdown::gitbook:
+  css: css/style.css
 bookdown::pdf_book:
   template: latex/default.tex
   includes:
@@ -6,4 +7,5 @@ bookdown::pdf_book:
     before_body: latex/before.tex
   latex_engine: xelatex
   keep_tex: true
-bookdown::epub_book: default
+bookdown::epub_book:
+  stylesheet: css/style.css

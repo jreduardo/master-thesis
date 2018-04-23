@@ -1,0 +1,58 @@
+\newenvironment{main_abstract_en}[1]
+{
+  \setlength{\parindent}{0pt}
+  \chapter*{\hspace{7.45cm}{ABSTRACT}}
+  \addcontentsline{toc}{chapter}{Abstract}
+  \begin{center}
+    {\bfseries \sffamily \fontsize{12}{12} #1}
+    \vspace*{-0.8cm}
+    \begin{abstract}
+    \parindent0pt
+    \noindent
+    }{%
+    \end{abstract}
+  \end{center}
+}
+
+\newenvironment{main_abstract_pt}[1]
+{
+  \chapter*{\hspace{7.45cm}{RESUMO}}
+  \addcontentsline{toc}{chapter}{Resumo}
+  \begin{center}
+    {\bfseries \sffamily \fontsize{12}{12} #1}
+    \vspace*{-0.8cm}
+    \begin{abstract}
+    \parindent0pt
+    \noindent
+    }{%
+    \end{abstract}
+  \end{center}
+}
+
+\newenvironment{abstract_en}
+{
+  \vspace*{0.8cm}
+  \begin{center}
+    {\bfseries \sffamily \fontsize{12}{12} ABSTRACT}
+    \vspace*{-1.0cm}
+    \begin{abstract}
+    \parindent0pt
+    \noindent
+    }{%
+    \end{abstract}
+  \end{center}
+}
+
+\newenvironment{abstract_pt}
+{
+  \vspace*{-0.8cm}
+  \begin{center}
+    {\bfseries \sffamily \fontsize{12}{12} RESUMO}
+    \vspace*{-1.0cm}
+    \begin{abstract}
+    \parindent0pt
+    \noindent
+    }{%
+    \end{abstract}
+  \end{center}
+}

@@ -1,0 +1,29 @@
+.abstract_en, .abstract_pt,
+.main_abstract_en, .main_abstract_pt {
+    text-align: justify;
+    padding: 1em 1em 1em 1em;
+    background-color: rgb(150, 150, 150, 0.1);
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.abstract_en::before, .main_abstract_en::before{
+    content: "ABSTRACT";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.abstract_pt::before, .main_abstract_pt::before {
+    content: "RESUMO";
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+div.abstract_en > p {
+    font-size: 10px;
+}
