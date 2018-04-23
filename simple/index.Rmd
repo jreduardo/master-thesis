@@ -61,7 +61,6 @@ blandit. Quisque dapibus sollicitudin velit.
 ```
 \clearpage
 
-
 ```{block2, type="main_abstract_pt", latex.options='{Modelos Flexíveis para Análise de Dados de Contagem}'}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
@@ -92,8 +91,18 @@ dictum augue tristique a. Morbi ut eros tincidunt, cursus mauris in,
 interdum urna. Lorem ipsum dolor sit amet, consectetur adipiscing
 elit. Integer ac cursus metus. Nam pretium ligula elementum aliquet
 blandit. Quisque dapibus sollicitudin velit.
+\vspace*{0.3cm}
 
 **Keywords:** Aaaaaaaaa, Bbbbbbbbbb bbb, Ccccc, Dddddd eeeeeeee L.
 
 ```
+\clearpage
+
+
+<!-- % Lista de figuras -->
+\listoffigures
+\clearpage
+
+<!-- % Lista de tabelas -->
+\listoftables
 \clearpage
