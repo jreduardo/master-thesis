@@ -1,116 +1,272 @@
-# Reparametrization of COM-Poisson Models
+# Flexible probability distributions for count data # {#chap2-rmodels}
 
-```{block2, type="abstract_en"}
+```{block2, result="asis", echo=TRUE, type="abstract_en"}
 
-In the analysis of count data often the equidispersion assumption is not
-suitable, hence the Poisson regression model is inappropriate.  As a
-generalization of the Poisson distribution the COM-Poisson distribution
-can deal with under-, equi- and overdispersed count data.  It is a
-member of the exponential family of distributions and has the Poisson
-and geometric distributions as special cases, as well as the Bernoulli
-distribution as a limiting case.  In spite of the nice properties of the
-COM-Poisson distribution, its location parameter does not correspond to
-the expectation, which complicates the interpretation of regression
-models specified using this distribution. In this paper, we propose a
-straightforward reparametrization of the COM-Poisson distribution based
-on an approximation to the expectation of this distribution. The main
-advantage of our new parametrization is the straightforward
-interpretation of the regression coefficients in terms of the
-expectation of the count response variable, as usual in the context of
-generalized linear models. Furthermore, the estimation and inference for
-the new COM-Poisson regression model can be done based on the likelihood
-paradigm. We carried out simulation studies to verify the finite sample
-properties of the maximum likelihood estimators. The results from our
-simulation study show that the maximum likeli-hood estimators are
-unbiased and consistent for both regression and dispersion
-parameters. We observed that the empirical correlation between the
-regression and dispersion parameter estimators is close to zero, which
-suggests that these parameters are orthogonal. We illustrate the
-application of the proposed model through the analysis of three data
-sets with over-, under- and equidispersed count data.  The study of
-distribution properties through a consideration of dispersion,
-zero-inflated and heavy tail indexes, together with the results of data
-analysis show the flexibility over standard approaches. Therefore, we
-encourage the application of the new parametrization for the analysis of
-count data in the context of COM-Poisson regression models.  The
-computational routines for fitting the original and new version of the
-COM-Poisson regression model and the analyzed data sets are available in
-the supplementary material.
+In the analysis of count data often the equidispersion
+assumption is not suitable, hence the Poisson regression model is
+inappropriate. In this work, we review and compare the use of
+COM-Poisson, Gamma-Count, generalized Poisson and Poisson-Tweedie
+models. The application of these models is illustrated with the analysis
+of a real count data.
 \vspace*{0.3cm}
 
-**Keywords:** COM-Poisson, Count data, Likelihood inference,
-  Overdispersion, Underdispersion.
+**Keywords:** COM-Poisson, Gamma-Count, Generalized Poisson,
+  Overdispersion, Poisson-Tweedie family, Underdispersion.
 
 ```
 
-## Background
+## Weigthed Poisson distributions ## {#chap2-weighted-poisson}
 
-## Reparametrized COM-Poisson
+The family of weighted Poisson distributions (WPD) @[DelCastillo1998]
+weights the Poisson probability function by a suitable function,
+relaxing the assumption of linearity of the ratios of successive
+probabilities. A random variable $Y$ is a weighted Poisson distribution
+if its probability mass function can be written in the form
+\begin{equation*}
+  \label{eqn:chap2-pmf-wpd}
+  \Pr(Y = y) = \frac{w(y) \exp(-\lambda)\lambda^y}{
+    y! \text{E}_\lambda[w(Y)]}, \quad y \in \mathbb{N},
+\end{equation*}
+where $\text{E}_\lambda(\cdot)$ denotes the mean value with respect to
+the Poisson random variable with parameter $\lambda$ and $w(\cdot)$ is a
+weight function. The weight function may depend on an extra parameter to
+ensure more flexibility to the distribution.
 
-## Simulation study
+An important member of this family is the COM-Poisson distribution,
+which is obtained when $w(y) \equiv w(y, \nu) = (y!)^{1-\nu}$ for
+$\nu \geq 0$ [@Sellers2012]. Its probability mass function takes the
+form
+\begin{equation}
+  \label{eqn:chap2-pmf-compoisson}
+  \Pr(Y = y) = \frac{\lambda^y \exp(-\lambda)}{
+    (y!)^\nu \text{E}_\lambda[(Y!)^{1-\nu}]} =
+  \frac{\lambda^y}{(y!)^\nu \text{Z}(\lambda, \nu)},
+  \quad \text{where} \quad
+  \text{Z}(\lambda,\nu) = \sum_{j=0}^\infty \frac{\lambda^j}{(j!)^\nu}.
+\end{equation}
+The series $\text{Z}(\lambda, \nu)$ is a normalizing constant that
+cannot be expressed in closed form unless for special cases. As the
+dispersion parameter, for $0 < \nu < 1$ and $\nu > 1$ we have the
+overdispersed and undersipersed cases, respectively. When $\nu=1$ we
+have Poisson distribution as a special case. Another special case is
+geometric distribution, when $\nu=0$ and $\lambda<1$, and as a limiting
+case the Bernoulli distribution arises when $\nu\to \infty$, with
+probability of success equal to $\lambda/(\lambda+1)$.
 
-## Case studies
+Despite the nice properties of COM-Poisson distribution, its major
+limitation is that the location parameter $\lambda$ does not represent
+the expectation of the distribution and has no direct
+interpretation. Under this motivation, in Chapter \@ref(chap1-reparcmp)
+we showed the @Huang2017 and @RibeiroJr2018 proposals of mean
+parametrizations of COM-Poisson distribution. The distribution now is
+indexed by mean parameter $\mu$, where $\mu$ is obtained by the solution
+for $\sum_{j=0}^{\infty} (j-\mu)\lambda^j/(j!)^\nu = 0$ in the Huang's
+proposal and $\mu = \lambda^{1/\nu} -(\nu-1)/2\nu$ in the Ribeiro Jr's
+proposal.
 
-## Concluding remarks
+## Duration dependence ## {#chap2-duration-dependence}
 
+Another straightforward flexible distribution arises from the
+relationship between Poisson and exponential distribution. Following
+@Winkelmann1995, let $\tau_k>0,\, k\in\mathbb{N}^*$, denote the
+waiting times between the $(k-1)$ and the $k$-$th$ event and
+$\vartheta_n$, denote the arrival time of the $n$-$th$ event, so
+$\vartheta_n = \sum_{k=1}^n \tau_k$. Finally, denote $Y_T$ the number of
+events within a $(0, T)$ interval. Following the definitions, we have
+\begin{equation}
+  \label{eqn:chap2-renewal}
+  \begin{aligned}
+    Y_T &< y \iff \vartheta_y \geq T \\
+    \Pr(Y_T < y) &= \Pr(\vartheta_y \geq T) = 1 - \text{F}_y(T), \\
+    \Pr(Y_T = y) &= \Pr(Y_T < y) - \Pr(Y_T < y + 1) \\
+    \Pr(Y_T = y) &= \text{F}_{\vartheta_y}(T) -
+      \text{F}_{\vartheta_{y+1}}(T),
+  \end{aligned}
+\end{equation}
+where $\text{F}_{\vartheta_n}(T)$ is the cumulative density function of
+$\vartheta_n$ and $T$ is the interval of the counting. This process is
+called by renewal process [@Cox1962; @Winkelmann2008, p.54].
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
-eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
-corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-voluptas nulla pariatur?
-[@Dobson2008; @McCullagh1989; @Molenberghs2005].
+From the renewal process Equation \ref{eqn:chap2-renewal}, Poisson
+distribution is obtained by assuming $\tau_k$ exponentially
+distributed. Consequently, $\vartheta_n$ drawn from an Erlang
+distribution (a special case of gamma distribution) and $\Pr(Y_T = y) =
+\text{F}_{\vartheta_y}(T) - \text{F}_{\vartheta_{y+1}}(T)$ has closed
+form. @Winkelmann1995 proposed a more general distribution for the
+waiting times $\tau_k$.  The Gamma-Count distribution assumes that
+$\tau_k$ is independently gamma distributed, i.e $\tau_k
+\overset{\textit{\tiny iid}}{\sim} \text{Gamma}(\alpha, \kappa)$.  Due
+to reproductive property of gamma random variables, $\vartheta_n \sim
+\text{Gamma}(y\alpha, \kappa)$. Thereby, the Gamma-Count probability
+mass function takes the form
+\begin{equation}
+  \label{eqn:chap2-pmf-gammacount}
+  \Pr(Y_T = y) =
+  \int_0^T \frac{\kappa^{y\alpha} t^{y\alpha -1}}{\Gamma(y\alpha)
+    \exp(\kappa t)} dt -
+  \int_0^T \frac{\kappa^{(y+1)\alpha} t^{(y+1)\alpha - 1}}{
+    \Gamma[(y+1)\alpha] \exp(\kappa t)} dt,
+\end{equation}
+a difference bettwen two Gamma cumulative density functions,
+$\text{G}(y\alpha, \kappa) - \text{G}((y+1)\alpha, \kappa)$, where
+$\text{G}(\alpha, \kappa)$ is the cumulative function $\text{F}_y(T)$
+for the Gamma variable with parameters $\alpha$ and $\kappa$.
 
-But I must explain to you how all this mistaken idea of denouncing
-pleasure and praising pain was born and I will give you a complete
-account of the system, and expound the actual teachings of the great
-explorer of the truth, the master-builder of human happiness. No one
-rejects, dislikes, or avoids pleasure itself, because it is pleasure,
-but because those who do not know how to pursue pleasure rationally
-encounter consequences that are extremely painful. Nor again is there
-anyone who loves or pursues or desires to obtain pain of itself, because
-it is pain, but because occasionally circumstances occur in which toil
-and pain can procure him some great pleasure. To take a trivial example,
-which of us ever undertakes laborious physical exercise, except to
-obtain some advantage from it? But who has any right to find fault with
-a man who chooses to enjoy a pleasure that has no annoying consequences,
-or one who avoids a pain that produces no resultant pleasure?
+As in the COM-Poisson distribution, the moments cannot be obtained in
+closed form. However, @Winkelmann1995 showed for increasing
+$T$, i.e. high counts, it holds that
+$$
+Y_T \overset{\textit{\tiny asy}}{\sim}
+  \mathcal{N}\left (
+    \frac{\kappa T}{\alpha}, \frac{\kappa T}{\alpha^2}
+  \right ),
+$$
+thus the limiting variance-mean ratio equals a constant
+$1/\alpha$. Consequently, the Gamma-Count distribution displays
+overdispersion for $0 < \alpha < 1$ and underdispersion for
+$\alpha > 1$.
 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui
-blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-et quas molestias excepturi sint occaecati cupiditate non provident,
-similique sunt in culpa qui officia deserunt mollitia animi, id est
-laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-cumque nihil impedit quo minus id quod maxime placeat facere possimus,
-omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-voluptatibus maiores alias consequatur aut perferendis doloribus
-asperiores repellat.
+## Discretization process ## {#chap2-discretization-process}
 
-On the other hand, we denounce with righteous indignation and dislike
-men who are so beguiled and demoralized by the charms of pleasure of the
-moment, so blinded by desire, that they cannot foresee the pain and
-trouble that are bound to ensue; and equal blame belongs to those who
-fail in their duty through weakness of will, which is the same as saying
-through shrinking from toil and pain. These cases are perfectly simple
-and easy to distinguish. In a free hour, when our power of choice is
-untrammelled and when nothing prevents our being able to do what we like
-best, every pleasure is to be welcomed and every pain avoided. But in
-certain circumstances and owing to the claims of duty or the obligations
-of business it will frequently occur that pleasures have to be
-repudiated and annoyances accepted. The wise man therefore always holds
-in these matters to this principle of selection: he rejects pleasures to
-secure other greater pleasures, or else he endures pains to avoid worse
-pains.
+## Generalized Poisson ## {#chap2-generalized-poisson}
+
+Another generalization of Poisson distribution resulting from the
+limiting form of the generalized negative binomial distribution
+[@Zamani2012]. Let $Y$ a random variable according to the generalized
+Poisson distribution, then its probability mass function is given by
+\begin{equation}
+  \label{eqn:chap2-pmf-gpoisson0}
+  \Pr(Y=y) =
+  \begin{cases}
+    \left [ \lambda (\lambda + y\gamma)^{y-1}
+      \exp(-\lambda - y\gamma) \right ] / y!, & y =0, 1,2,\ldots \\
+    0 & \text{para } y > m, \text{quando } \gamma < 0,
+  \end{cases}
+\end{equation}
+where $\lambda>0$, max$(-1, -\lambda/4) \leq \gamma \leq 1$ e $m$ is the
+largest integer value for which $\lambda + m\gamma >0$ quando $\gamma$
+is negative [@Consul1992]. The mean and variance is obtained by E$(Y) =
+\lambda(1-\gamma)^{-1}$ and Var$(Y) = \lambda(1-\gamma)^{-3}$. The
+Poisson distribution is a particular case when $\gamma=0$.
+
+To obtain the model in mean parametrization, let
+$$
+\lambda = \frac{\mu}{1 + \alpha \mu} \quad \text{ and } \quad
+\gamma = \frac{\alpha \mu}{ 1 + \alpha \mu},
+$$
+\noindent now, the probability mass function can be written as
+\begin{equation}
+  \label{eqn:chap2-pmf-gpoisson}
+  \Pr(y) = \left ( \frac{\mu}{1+\alpha \mu} \right )^y
+    \frac{(1+\alpha y)^{y-1}}{y!}
+    \exp \left [ - \mu \frac{(1 + \alpha y)}{( 1 + \alpha \mu)}
+    \right ],
+\end{equation}
+\noindent where $\alpha >
+\text{min}[ -\text{max}(y_i^{-1}), -\text{max}(\mu_i^{-1})]$, when
+$\alpha<0$. The moments are given by $\text{E}(Y) = \mu$ and
+$\text{Var}(Y) = \mu (1 + \mu\alpha)^2$.
+
+## Poisson mixture models ## {#chap2-poisson-mixture-models}
+
+Poisson mixture models
+[@Winkelmann2008, Sec.2.5; @Jorgensen1997, Sec.4.6.1], also called
+two-stage models [@Hinde1998] are widely applied to model overdispersed
+count data. These models are specified hierarchically as $Y \sim
+\text{Poisson}(\lambda)$ and $\lambda \sim \mathcal{D}(\bm{\theta})$.
+The standard example for counts is the negative binomial distribution,
+where the mean parameter ($\lambda$) is assumed to be gamma distributed.
+
+A general case of Poisson mixture models is a Poisson-Tweedie case
+[@Jorgensen1997]. The Poisson-Tweedie family is given by following the
+hierarchical specification
+\begin{equation}
+  \label{eqn:chap2-espec-ptw}
+  Y \mid Z \sim \text{Po}(Z) \quad \text{em que } \quad
+    Z \sim \text{Tw}_p(\mu, \phi),
+\end{equation}
+\noindent where $\text{Tw}_p(\mu, \phi)$ denotes a Tweedie
+distribution. The probability mass function for the Poisson-Tweedie
+family cannot be written in a closed form, apart from the special case
+negative binomial distribution ($p=2$). However, due to hierarchical
+specification (Equation \ref{eqn:chap2-espec-ptw}), the moments mean and
+variance takes the form
+\begin{equation}
+  \label{eqn:chap2-moments-ptw}
+  \begin{aligned}
+  \text{E}(Y)   &= \text{E}[\text{E}(Y | Z)] = \mu \\
+  \text{Var}(Y) &= \text{Var}[\text{E}(Y | Z)] +
+    \text{E}[\text{Var}(Y | Z)] = \mu + \phi\mu^p.
+  \end{aligned}
+\end{equation}
+Besides the negative binomial ($p=2$), special cases include Hermite $(p
+= 0)$, Neymann tipo-A $(p=1)$, Pólya-Aeppli $(p=1,5)$, Poisson compound
+Poisson ($1<p<2$) and Poisson-inverse Gaussian $(p = 3)$
+[@Bonat2018; @Bonat2018b].
+
+## Regression models and estimation ## {#chap2-regression-models-and-estimation}
+
+The models presented are summarised in Table \ref{tab:chap2-models},
+where the notation, further results and the form of regression models
+are highlighted.
+
+\begin{table}[ht]
+  \renewcommand{\arraystretch}{1.5}
+  \centering \small
+  \caption{Summary of the regression models for analysis of count data..}
+  \label{tab:chap2-models}
+  \begin{tabularx}{\textwidth}{m{2.2cm}CCCCC}
+    \toprule
+    & COM-Poisson & Gamma-Count & Generalized Poisson &
+      Poisson-Tweedie \\
+    \midrule
+    Notation &
+      CMP$(\mu_i, \nu)$ &
+      GCT$(\kappa_i, \gamma)$ &
+      GPo$(\mu_i, \sigma)$ &
+      PTw$_p(\mu_i, \omega)$ \\
+    \makecell[l]{Dispersion \\[-.8mm] parameter} &
+      \makecell{$\phi = \log(\nu)$ \\ $\nu > 0$} &
+      \makecell{$\gamma = \log(\alpha)$ \\ $\alpha > 0$} &
+      \makecell{$\sigma$ \\ $\sigma > c^*$} &
+      \makecell{$\omega$ \\ $\omega > 0$} \\
+    Expectation &
+      $\approx \mu_i$ &
+      $\overset{a}{\approx} \kappa_i / \alpha$ &
+      $\mu_i$ &
+      $\mu_i$ \\
+    Variance &
+      $\approx \mu_i / \nu$ &
+      $\overset{a}{\approx} \kappa_i / \alpha^2$ &
+      $\mu_i (1 + \sigma\mu_i)^2$ &
+      $\mu_i (1 + \omega\mu_i^{p-1})$ \\[0.1cm]
+    \makecell[l]{Dispersion \\[-.8mm] index (DI)} &
+      $\approx 1 / \nu$ &
+      $\overset{a}{\approx} 1 / \alpha$ &
+      $(1 + \sigma\mu_i)^2$ &
+      $1 + \omega\mu_i^{p-1}$ \\
+    \makecell[l]{Linear \\[-.8mm] predictor} &
+      $g(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $g(\kappa_i \alpha^{-1}) = \bm{x}_i^\top \bm{\beta} $ &
+      $g(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $g(\mu_i) = \bm{x}_i^\top \bm{\beta}$ \\
+    \bottomrule
+  \end{tabularx}
+  \footnotesize \raggedright
+  $c^* = \text{min}[ -\text{max}(y_i^{-1}),
+  -\text{max}(\mu_i^{-1})]$;\; $\overset{a}{\approx}$ asymptotically
+  when $T \to \infty$.
+\end{table}
+
+Besides the Table \ref{tab:chap2-models}, we compare the models in terms
+of mean-variance relationship. The Figure
+\ref{fig:chap2-plot-mean-variance} shows the mean-variance relationship
+for the COM-Poisson (CMP), Gamma-Count (GCT), Generalized Poisson (GPo),
+and Poisson-Tweedie, cases Neymann Type A ($p=1$, PTw$_1$), negative
+Binomial ($p=2$, PTw$_1$) and Poisson-inverse Gaussian ($p=2$, PTw$_3$).
+
+```{r chap2-plot-mean-variance, results="asis", fig.width=9, fig.height=6.5, fig.cap="Mean-variance relationship for different parameters of the CMP, GCT, GPo and PTw$_p$ distributions. The parameters range are considered such that $\\text{DI}=4$ and $\\text{DI}=0.25$ when $\\text{E}(Y)=50$."}
+knitr::include_graphics("chapter2-figure/plot-mean-variance-1")
+```
+
 \printbibliography[segment=\therefsegment,heading=subbibliography]
