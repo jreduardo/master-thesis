@@ -6,7 +6,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <div id="before-toc"><a href="./">Flexible Models for Analysis of Dispersed Count Data</a><p id="toc-author">Eduardo E. Ribeiro Jr</p></div>
+        <div id="before-toc"><a href="./">Contributions to the Analysis of Dispersed Count Data</a><p id="toc-author">Eduardo E. Ribeiro Jr</p></div>
 bookdown::pdf_book:
   template: latex/default.tex
   includes:

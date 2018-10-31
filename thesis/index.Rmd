@@ -1,5 +1,5 @@
 ---
-title: "Flexible Models for Analysis of Dispersed Count Data"
+title: "Contributions to the Analysis of Dispersed Count Data"
 author: "Eduardo Elias Ribeiro Junior"
 date:  <span id="ftype">Master's thesis at ESALQ/USP</span><br>Updated `r format(Sys.Date(), "%B %d, %Y")`</span>
 documentclass: memoir
@@ -38,11 +38,33 @@ categories <- c("LC_CTYPE",
 lapply(categories, Sys.setlocale,
        locale = "en_US.UTF-8")
 
+library(knitr)
+library(xtable)
+options(digits = 3, OutDec = ".",
+        xtable.caption.placement = "top",
+        xtable.booktabs = TRUE,
+        xtable.sanitize.text.function = identity,
+        xtable.size = "small",
+        xtable.math.style.negative = TRUE)
+opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    echo = FALSE,
+    results = "hide",
+    fig.width = 7,
+    fig.height = 5,
+    out.width = "1\\textwidth",
+    fig.align = "center",
+    fig.pos = "!htbp",
+    # dev = "tikz"
+    dev.args = list(family = "Palatino")
+    )
+
 ```
 
 # Preface {-}
 
-```{block2, type="main_abstract_en", latex.options='{Flexible Models for Analysis of Dispersed Count Data}'}
+```{block2, type="main_abstract_en", latex.options='{Contributions to the Analysis of Dispersed Count Data}'}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
 vestibulum nunc, ut elemen- tum sapien. Morbi sed efficitur lorem. Nunc
@@ -79,7 +101,7 @@ blandit. Quisque dapibus sollicitudin velit.
 ```
 \clearpage
 
-```{block2, type="main_abstract_pt", latex.options='{Modelos Flexíveis para Análise de Dados de Contagem}'}
+```{block2, type="main_abstract_pt", latex.options='{Contribuições à Análise de Dados de Contagem}'}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
 vestibulum nunc, ut elemen- tum sapien. Morbi sed efficitur lorem. Nunc

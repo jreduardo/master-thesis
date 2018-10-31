@@ -2,3 +2,11 @@ book_filename: "eduardo-thesis"
 chapter_name: "Chapter "
 output_dir: book-dir
 delete_merged_file: true
+rmd_files: [
+    "index.Rmd",
+    "chapter1.Rmd",
+    # "chapter2.Rmd",
+    # "chapter3.Rmd",
+    # "chapter4.Rmd",
+    "references.Rmd"
+]
