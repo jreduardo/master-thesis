@@ -1,77 +1,233 @@
-# Double COM-Poisson Regression Models
+# Double COM-Poisson models: modelling mean and dispersion in the analysis of count data # {#chap3-doublecmp}
 
 ```{block2, type="abstract_en"}
 
-In this paper, we propose the double COM-Poisson models where the mean
-and dispersion parameters of the COM-Poisson distribution are modeled in
-terms of covariates. These model are quite flexible and allow us to
-identify significant effects in both mean and dispersion of the observed
-count data.
-
+In this chapter, we propose the double COM-Poisson models where the
+approximate mean and dispersion parameters of the COM-Poisson
+distribution are modeled in terms of covariates. These model are quite
+flexible and allow us to identify significant effects in both mean and
+dispersion of the observed count data.
 \vspace*{0.3cm}
 
 **Keywords:** COM-Poisson distribution, Varying dispersion, Double
-     COM-Poisson models.
+  COM-Poisson models.
 
 ```
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
-eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
-corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-voluptas nulla pariatur?
-[@Molenberghs2007; @Molenberghs2010; @Molenberghs2017]
+## Introduction ## {#chap3-introduction}
 
-But I must explain to you how all this mistaken idea of denouncing
-pleasure and praising pain was born and I will give you a complete
-account of the system, and expound the actual teachings of the great
-explorer of the truth, the master-builder of human happiness. No one
-rejects, dislikes, or avoids pleasure itself, because it is pleasure,
-but because those who do not know how to pursue pleasure rationally
-encounter consequences that are extremely painful. Nor again is there
-anyone who loves or pursues or desires to obtain pain of itself, because
-it is pain, but because occasionally circumstances occur in which toil
-and pain can procure him some great pleasure. To take a trivial example,
-which of us ever undertakes laborious physical exercise, except to
-obtain some advantage from it? But who has any right to find fault with
-a man who chooses to enjoy a pleasure that has no annoying consequences,
-or one who avoids a pain that produces no resultant pleasure?
+A análise de contagens é comumente realizada considerando a modelagem da
+média da variável resposta em termos de covariáveis, ou seja,
+$g(\mu_i) = \bm{x}_i^\top \bm{\beta}$, em que $g(\cdot)$ é uma função
+monótona e diferenciável,
+$\bm{x}_i = (x_{i1}, x_{i2}, \ldots x_{ip})^\top$ é o vetor de de
+covariáveis da $i$-ésima observação e $\bm{\beta}$ é o vetor de
+parâmetros a serem estimados [@Pregibon1984].
 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui
-blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-et quas molestias excepturi sint occaecati cupiditate non provident,
-similique sunt in culpa qui officia deserunt mollitia animi, id est
-laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-cumque nihil impedit quo minus id quod maxime placeat facere possimus,
-omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-voluptatibus maiores alias consequatur aut perferendis doloribus
-asperiores repellat.
+Sob a abordagem paramétrica, obtém-se a relação entre média e variância
+a partir da especificação da distribuição da variável reposta. Por
+exemplo, para as distribuições Poisson, Poisson generalizada e
+Poisson-Tweedie as variâncias são $\mu_i$, $\mu_i(1+\phi\mu_i)^2$ e
+$\mu_i(1+\phi\mu_i^p)$, respectivamente. Outras distribuições como
+COM-Poisson e \textit{Gamma-Count}, também são flexíveis para modelar
+sub e superdispersão, porém, não têm formas fechadas para a média ou
+para a variância.
 
-On the other hand, we denounce with righteous indignation and dislike
-men who are so beguiled and demoralized by the charms of pleasure of the
-moment, so blinded by desire, that they cannot foresee the pain and
-trouble that are bound to ensue; and equal blame belongs to those who
-fail in their duty through weakness of will, which is the same as saying
-through shrinking from toil and pain. These cases are perfectly simple
-and easy to distinguish. In a free hour, when our power of choice is
-untrammelled and when nothing prevents our being able to do what we like
-best, every pleasure is to be welcomed and every pain avoided. But in
-certain circumstances and owing to the claims of duty or the obligations
-of business it will frequently occur that pleasures have to be
-repudiated and annoyances accepted. The wise man therefore always holds
-in these matters to this principle of selection: he rejects pleasures to
-secure other greater pleasures, or else he endures pains to avoid worse
-pains.
+Apesar da flexilidade induzida pela especificação da distribuição, a
+variância da variável resposta depende das covariáveis apenas por meio
+de $\mu_i$. Nesse artigo, propõem-se os modelos duplos COM-Poisson, em
+que se modela a média e a dispersão em termos de covariáveis. Dessa
+forma, garante-se flexibilidade para modelar, por exemplo, casos em que
+covariáveis levam a um acréscimo da média e decréscimo da
+dispersão. Esse abordagem é similar à proposta de @Smyth1988, no
+entanto, para a distribuição COM-Poisson as expressões dos modelos de
+média e de dispersão não podem ser obtidos em forma fechada.
+
+## Case study ## {#chap3-case:study}
+
+Para preservar os recursos de ecossistemas de água sobre os efluentes
+industriais, estudos em biometria avaliam os efeitos de poluentes de
+diversas fontes, tais como fertilizantes e pesticidas, sobre o
+crescimento e a reprodução de determinada espécie. @Bailer1994 avaliaram
+o impacto de diferentes doses de nitrofeno (herbicida usado para
+controle de ervas daninhas) na reprodução de uma espécie de zooplâncton
+de água doce. Na Figura \ref{fig:chap3-desc-nitrofen}(a), são
+apresentados os dados observados, notando-se o decréscimo na reprodução
+do zooplâncton para concentrações maiores de nitrofeno. Na Figure
+\ref{fig:chap3-desc-nitrofen}(b), tem-se o gráfico de dispersão das
+médias e variâncias, além da reta identidade, representando a
+equidispersão. Para as três primeiras concentrações experimentadas, há a
+indicação de subdispersão, no entanto, para as duas maiores
+concentrações, a variância amostral é maior que a respectiva média,
+sugerindo uma variabilidade extra-Poisson. Esse é um exemplo em que a
+modelagem da variabilidade considerando apenas a relação
+média--variância da distribuição adotada, pode não ser adequada.
+
+```{r chap3-desc-nitrofen, results="asis", fig.width=9, fig.height=4, fig.cap="(a) Número de ovos eclodidos para cada dosagen de nitrofen e (b) dispersão das médias e variâncias amostrais para cada dose. As linhas representam (a) a curva de suavização estimada pelo algoritmo \\textit{lowess} e (b) a reta identidade, representando a equidispersão."}
+knitr::include_graphics("chapter3-figure/desc-nitrofen-1")
+```
+
+## Modelos duplos de regressão COM-Poisson ## {#chap2-double-com-poisson-regression-models}
+
+A distribuição COM-Poisson é uma generalização biparamétrica da Poisson
+que contempla sub e superdispersão, conforme descrito no Capítulo
+\ref{chap1-reparcmp} e Seção \ref{chap2-weigted-poisson-distribution},
+sua função massa de probabilidade é dada por
+\begin{equation}
+  \label{eqn:chap3-pmf-cmp}
+  \Pr(Y=y \mid \lambda, \nu) = \frac{\lambda^y}{(y!)^\nu Z(\lambda, \nu)},
+  \qquad y = 0, 1, 2, \ldots
+\end{equation}
+em que $\lambda > 0$, $\nu \geq 0$ e
+$Z(\lambda, \nu) = \sum_{j=0}^\infty\lambda^j/(j!)^\nu$ é uma constante
+de normalização. Esse modelo possui as distribuições Poisson ($\nu = 1$)
+e geométrica ($\nu=0$ e $\lambda < 1$) como casos particulares e permite
+super e subdispersão quando $0 < \nu < 1$ e $\nu > 1$, respectivamente.
+
+Para definição dos modelos duplos COM-Poisson, considere um conjunto de
+dados $(y_i, \bm{x}_i, \bm{z}_i)$, $i=1,2,\ldots,n$, em que $y_i$ são
+realizações independentes do modelo COM-Poisson e $\bm{x}_i$ e
+$\bm{z}_i$ são subvetores do vetor de covariáveis. Sob a parametrização
+proposta por @RibeiroJr2018, $\text{CMP}_\mu(\mu_i, \nu)$, em que $\mu =
+\lambda^{1/\nu} - (\nu - 1)/2\nu$, propõe-se a modelagem conjunta da
+média e dispersão pela especificação
+$$
+  Y_i \sim \text{CMP}_\mu(\mu_i, \nu_i), \quad \text{em que} \quad
+  g(\mu_i) = \bm{x}_i^\top \bm{\beta} \quad \text{e} \quad
+  g(\nu_i) = \bm{z}_i^\top \bm{\gamma},
+$$
+ou seja, ambos os parâmetros de média e dispersão são modelados com
+covariáveis.
+
+A estimação do vetor de parâmetros $(\bm{\beta}^\top,\,
+\bm{\gamma}^\top)^\top$ é realizada pelo método de máxima
+verossimilhança, utilizando o algoritmo \texttt{BFGS} implementado pelo
+função \texttt{optim} do software \texttt{R}.  Standard errors for
+regression coefficients (for mean and dispersion) are obtained based on
+the observed information matrix, $\bm{V}_{\beta \mid \gamma} =
+\bm{V}_{\beta} - (\bm{V}_{\beta, \gamma} \bm{V}_{\gamma}^{-1})^\top
+\bm{V}_{\beta, \gamma}$ and $\bm{V}_{\gamma \mid \beta} =
+\bm{V}_{\gamma} - (\bm{V}_{\gamma, \beta} \bm{V}_{\beta}^{-1})^\top
+\bm{V}_{\gamma, \beta}$. Os códigos para ajuste e análise dos dados
+nesse artigo são disponibilizados em material suplementar
+online^[Disponível em http://www.leg.ufpr.br/~eduardojr/papercompanions/rbras2018].
+
+## Results and discussion ## {#chap3-results-and-discussion}
+
+Para análise da reprodução do zooplâncton sob diferentes concentrações
+de nitrofeno, consideram-se os preditores
+  \begin{tabular}{ll}
+    Escalar:    & $\log(\nu_i) = \gamma_0$,\\
+    Linear:     & $\log(\nu_i) = \gamma_0 + \gamma_1 \texttt{dose}_i$,\\
+    Quadrático: & $\log(\nu_i) = \gamma_0 + \gamma_1 \texttt{dose}_i +
+                  \gamma_2 \texttt{dose}_i^2$ e\\
+    Cúbico:     & $\log(\nu_i) = \gamma_0 + \gamma_1 \texttt{dose}_i +
+                  \gamma_2 \texttt{dose}_i^2 + \gamma_3 \texttt{dose}_i^3$,
+  \end{tabular}
+\noindent
+para dispersão e cúbico para a média.
+
+Na Tabela \ref{tab:chap3-coef}, são apresentadas estimativas e erros
+padrões para os parâmetros de cada modelo considerado. Note que as
+estimativas para a estrutura da média são bastante similares para as
+diferentes estruturas de dispersão. Esse resultado é esperado, uma vez
+que os parâmetros $\mu$ e $\nu$ se mostram ortogonais no modelo
+COM-Poisson$_\mu$ @RibeiroJr2018.
+
+\begin{table}[ht]
+  \centering
+  \caption{Estimativas e erros padrões dos parâmetros do modelo duplo
+    COM-Poisson ajustados aos dados do estudo sobre o nitrofeno.}
+  \label{tab:chap3-coef}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}crrrr}
+    \toprule
+    & \multicolumn{4}{c}{Estimativa (Erro Padrão)} \\
+    \cmidrule(lr){2-5}
+% latex table generated in R 3.4.3 by xtable 1.8-2 package
+% Sun Mar 11 17:28:05 2018
+\multicolumn{1}{c}{Parâmetro} & \multicolumn{1}{c}{Escalar} & \multicolumn{1}{c}{Linear} & \multicolumn{1}{c}{Quadrático} & \multicolumn{1}{c}{Cúbico} \\
+  \midrule
+$\beta_0$ &  2,981 (0,035)$^\text{a}$ &  2,978 (0,042)$^\text{a}$ &  2,972 (0,049)$^\text{a}$ &  2,975 (0,047)$^\text{a}$ \\
+  $\beta_1$ & $-$3,952 (0,287)$^\text{a}$ & $-$3,980 (0,365)$^\text{a}$ & $-$4,041 (0,447)$^\text{a}$ & $-$4,013 (0,418)$^\text{a}$ \\
+  $\beta_2$ & $-$2,131 (0,260)$^\text{a}$ & $-$2,161 (0,311)$^\text{a}$ & $-$2,218 (0,351)$^\text{a}$ & $-$2,197 (0,330)$^\text{a}$ \\
+  $\beta_3$ & $-$0,543 (0,221)$^\text{a}$ & $-$0,573 (0,212)$^\text{a}$ & $-$0,604 (0,206)$^\text{a}$ & $-$0,597 (0,195)$^\text{a}$ \\
+   \specialrule{0pt}{0.2em}{0.3em}
+$\gamma_0$ & 0,048 (0,205)\textcolor{white}{$^\text{a}$} &  0,295 (0,211)\textcolor{white}{$^\text{a}$} &  0,243 (0,259)\textcolor{white}{$^\text{a}$} &  0,353 (0,227)\textcolor{white}{$^\text{a}$} \\
+  $\gamma_1$ & \multicolumn{1}{c}{$-$} & $-$5,244 (1,363)$^\text{a}$ & $-$7,013 (2,307)$^\text{a}$ & $-$5,729 (1,844)$^\text{a}$ \\
+  $\gamma_2$ & \multicolumn{1}{c}{$-$} & \multicolumn{1}{c}{$-$} & $-$3,984 (2,444)\textcolor{white}{$^\text{a}$} & $-$2,918 (1,904)\textcolor{white}{$^\text{a}$} \\
+  $\gamma_3$ & \multicolumn{1}{c}{$-$} & \multicolumn{1}{c}{$-$} & \multicolumn{1}{c}{$-$} &  1,522 (1,412)\textcolor{white}{$^\text{a}$} \\
+    \bottomrule
+  \end{tabular*}
+  \\ \vspace{0.2cm}
+  \scriptsize \raggedright Est (EP)$^\text{a}$ indica que
+  $|$Est$/$EP$|$ $> 1,96$.
+\end{table}
+
+Na Tabela \ref{tab:chap3-anova}, são apresentadas algumas medidas de
+qualidade de ajuste seguidas de testes de razão de verossimilhanças
+entre os modelos considerados. Os resultados indicam que há uma
+importante melhoria no ajuste ao considerar as estruturas linear e
+quadrática para modelagem da dispersão. Para a hipótese $\gamma_2=0$, no
+modelo quadrático, os testes assintóticos de Wald e de razão de
+verossimilhanças apresentaram valores de p iguais a $0,103$ e $0,057$,
+respectivamente.
+
+\begin{table}[ht]
+  \centering
+  \caption{Medidas de qualidade de ajuste e testes de razão de
+    verossimilhança para os modelos ajustados.}
+  \label{tab:chap3-anova}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccrl}
+    \toprule
+% latex table generated in R 3.4.3 by xtable 1.8-2 package
+% Sun Mar 11 17:28:05 2018
+ & G.l & Deviance & AIC & $\rchi^2$ & $\Pr(>\rchi^2$) \\
+  \midrule
+Escalar & 45 & 288,127 & 298,127 & \multicolumn{1}{c}{$-$} & \multicolumn{1}{c}{$-$} \\
+  Linear & 44 & 274,111 & 286,111 & 14,0163 & 0,0002 \\
+  Quadrático & 43 & 270,493 & 284,493 & 3,6179 & 0,0572 \\
+  Cúbico & 42 & 269,503 & 285,503 & 0,9898 & 0,3198 \\
+   \bottomrule
+  \end{tabular*}
+\end{table}
+
+Na Figura \ref{fig:chap3-fit-values}(a), são apresentados os valores
+ajustados $\hat{\nu}_i$ com bandas de confiança de 95\% para os quatro
+preditores. Com exceção do preditor escalar, todos os modelos apresentam
+uma variação da dispersão extra relação média--variância do modelo. Uma
+constatação desse fato se dá, aproximadamente para concentração de
+nitrofeno de 2$\mu$g$/10^2$litros, em que o o número de ovos eclodidos
+passam de superdispersos para equidispersos.
+
+```{r chap3-fit-values, results="asis", cache=TRUE, fig.width=8, fig.height=4, fig.cap="(a) Valores ajustados para o parâmetro de dispersão $\\nu$ com bandas de confiança de 95\\% e (b) médias e variâncias obtidas a partir do modelo ajustado. A linha horizontal pontilhada em (a) representa a modelo de poisson ($\\nu=1$)."}
+knitr::include_graphics("chapter3-figure/fit-values-1")
+```
+
+As correspondentes médias e variâncias obtidas dos modelos ajustados são
+apresentadas na Figure \ref{fig:chap3-fit-values}(b). Note que a ordem do
+polinômio adotado para $\log(\nu_i)$ não representa a ordem da curva
+para a variância da variável resposta. Isso se dá tanto devido à função
+de ligação, quanto à relação média--variância da própria distribuição.
+
+## Final remarks ## {#chap3-final-remarks}
+
+Nesse artigo, foram propostos os modelos duplos COM-Poisson para
+modelagem conjunta da média e dispersão na análise de contagens com
+diferentes níveis de dispersão. Essa classe de modelos permite modelar a
+dispersão por covariáveis. Os parâmetros são estimados pelo método da
+máxima verossimilhança e inferências são realizadas com base nas
+distribuições assintóticas dos estimadores. A metodologia é aplicada
+para análise do número de ovos eclodidos sob dosagens de herbicida em um
+estudo de biometria. A proposta apresentou melhorias em termos do ajuste
+quando comparada ao modelo de regressão COM-Poisson convencional. As
+análises sugerem que melhorias no processo de estimação podem ser
+feitas, aproveitando a propriedade de ortogonalidade da parametrização
+utilizada. Para trabalhos futuros, estudos de simulação se fazem
+necessários a fim de avaliar as propriedades dos estimadores e a
+robustez do modelo. Deseja-se, também, comparar os resultados com
+abordagens similares como os DGLM's [@Lee2006] e GAMLSS
+[@Rigby2005]. Além disso, como melhoria na análise do estudo de caso,
+considerar preditores não lineares para a média pode ser útil a fim de
+evitar o uso de polinômios cúbicos.
+
 \printbibliography[segment=\therefsegment,heading=subbibliography]
