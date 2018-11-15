@@ -62,7 +62,7 @@ opts_chunk$set(
 
 ```
 
-# Preface {-}
+<!-- # Preface {-} -->
 
 ```{block2, type="main_abstract_en", latex.options='{Contributions to the Analysis of Dispersed Count Data}'}
 

@@ -15,7 +15,7 @@ of a real count data.
 
 ```
 
-## Weigthed Poisson distributions ## {#chap2-weighted-poisson}
+## Weighted Poisson distributions ## {#chap2-weighted-poisson-distributions}
 
 The family of weighted Poisson distributions (WPD) @[DelCastillo1998]
 weights the Poisson probability function by a suitable function,

@@ -1,4 +1,4 @@
-# Reparametrization of COM-Poisson Regression Models # {#chapter2}
+# Reparametrization of COM-Poisson Regression Models # {#chap1-reparcmp}
 
 ```{block2, results="asis", echo=TRUE, type="abstract_en"}
 

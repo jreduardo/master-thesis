@@ -67,11 +67,11 @@ média--variância da distribuição adotada, pode não ser adequada.
 knitr::include_graphics("chapter3-figure/desc-nitrofen-1")
 ```
 
-## Modelos duplos de regressão COM-Poisson ## {#chap2-double-com-poisson-regression-models}
+## Modelos duplos de regressão COM-Poisson ## {#chap3-double-com-poisson-regression-models}
 
 A distribuição COM-Poisson é uma generalização biparamétrica da Poisson
 que contempla sub e superdispersão, conforme descrito no Capítulo
-\ref{chap1-reparcmp} e Seção \ref{chap2-weigted-poisson-distribution},
+\ref{chap1-reparcmp} e Seção \ref{chap2-weighted-poisson-distributions},
 sua função massa de probabilidade é dada por
 \begin{equation}
   \label{eqn:chap3-pmf-cmp}
