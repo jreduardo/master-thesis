@@ -140,4 +140,4 @@ This data set is presented and analysed by @Ribeiro2013, original work,
 and used by @Demetrio2014 for illustrating the quasi-Poisson approach
 for modelling overdispersed count data.
 
-\printbibliography[segment=\therefsegment,heading=subbibliography]
+\printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

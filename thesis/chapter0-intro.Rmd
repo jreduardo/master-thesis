@@ -92,4 +92,4 @@ reparametrized COM-Poisson models where the mean and the dispersion
 parameters may be allowed to depend on covariates. Final considerations
 are given in Chapter \@ref(chapterX-final).
 
-\printbibliography[segment=\therefsegment,heading=subbibliography]
+\printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

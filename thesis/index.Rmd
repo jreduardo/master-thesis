@@ -11,6 +11,7 @@ classoption:
   - oldfontcommands
 bibliography: [../bibliography.bib]
 biblio-style: authoryear
+biblio-title: '\numberline{}Bibliography'
 biblatexoptions:
   - refsegment=chapter
   - giveninits=true

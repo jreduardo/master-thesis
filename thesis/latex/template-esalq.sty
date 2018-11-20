@@ -77,8 +77,8 @@
   \let\oldcftchapterfillnum\cftchapterfillnum
   \renewcommand*{\changetocdepth}[1]{}
   \setcounter{tocdepth}{0}% chapters
-  \renewcommand*{\cftchapterfont}{\hfill\sffamily}
-  \renewcommand*{\cftchapterpagefont}{\sffamily}
+  \renewcommand*{\cftchapterfont}{\hfill\sffamily\bfseries}
+  \renewcommand*{\cftchapterpagefont}{\sffamily\bfseries}
   \renewcommand*{\cftchapterleader}{ \textperiodcentered\space}
   \renewcommand*{\cftchapterafterpnum}{\cftparfillskip}
   \renewcommand*{\cftchapterfillnum}[1]{%
@@ -113,8 +113,8 @@
   \let\precistoctext\oldprecistoctext
   \let\cftchapterfillnum\oldcftchapterfillnum
   \addtodef{\cftchapterbreak}{\par}{}
-  \renewcommand*{\cftchapterfont}{\normalfont\sffamily}
-  \renewcommand*{\cftchapterleader}{\sffamily\cftdotfill{\cftchapterdotsep}}
+  \renewcommand*{\cftchapterfont}{\normalfont\sffamily\bfseries}
+  \renewcommand*{\cftchapterleader}{\sffamily\bfseries\cftdotfill{\cftchapterdotsep}}
   \renewcommand*{\cftchapterafterpnum}{}
   \renewcommand{\cftchapterbreak}{\par\addpenalty{-\@highpenalty}}
   \setpnumwidth{2.55em}
