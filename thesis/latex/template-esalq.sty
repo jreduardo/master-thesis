@@ -70,7 +70,7 @@
 %%%% Short/long ToC
 \makeatletter
 \newcommand*{\setupshorttoc}{%
-  \renewcommand*{\contentsname}{\hspace{7cm}CONTENTS}
+  \renewcommand*{\contentsname}{\hspace{\fill}CONTENTS\hspace*{\fill}}
   \let\oldchangetocdepth\changetocdepth
   \let\oldprecistoctext\precistoctext
   \renewcommand{\precistoctext}[1]{}

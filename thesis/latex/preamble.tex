@@ -4,12 +4,29 @@
 \setlength{\bibitemsep}{2pt}
 
 %-------------------------------------------
+\usepackage{bm}
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{makecell}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{M}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% For graphics and floats enviroments
+\usepackage{graphicx}
+\usepackage{float}
+
+%-------------------------------------------
 % Environments for blocks
 \newenvironment{main_abstract_en}[1]
 {
   \setlength{\parindent}{0pt}
-  \chapter*{\hspace{7.45cm}{ABSTRACT}}
-  \addcontentsline{toc}{chapter}{Abstract}
+  \chapter*{\hspace{\fill}ABSTRACT\hspace*{\fill}}
+  \addcontentsline{toc}{chapter}{\numberline{}Abstract}
   \begin{center}
     {\bfseries \sffamily \fontsize{12}{12} #1}
     \vspace*{-0.8cm}
@@ -23,7 +40,7 @@
 
 \newenvironment{main_abstract_pt}[1]
 {
-  \chapter*{\hspace{7.45cm}{RESUMO}}
+  \chapter*{\hspace{\fill}RESUMO\hspace*{\fill}}
   \addcontentsline{toc}{chapter}{Resumo}
   \begin{center}
     {\bfseries \sffamily \fontsize{12}{12} #1}
@@ -64,19 +81,3 @@
     \end{abstract}
   \end{center}
 }
-
-
-\usepackage{bm}
-\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
-\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
-
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{makecell}
-\newcolumntype{C}{>{\centering\arraybackslash}X}
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{M}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-\usepackage{graphicx}
-\usepackage{float}
