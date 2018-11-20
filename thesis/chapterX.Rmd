@@ -1,0 +1,14 @@
+# Final considerations # {#chapterX-final}
+
+Count data arise from random variables that take non-negative integer
+values and typically represent the number of times an event occurs in an
+observation period or region. This kind of data is also common in crop
+sciences, examples including the number of grains produced by a plant,
+the number of fruits on a tree, the number of insects captured by a
+trap, etc.  Since the seminal paper of @Nelder1972, where the class of
+the generalized linear models (GLMs) was introduced, the analysis of
+count data often uses a Poisson regression model. This model provides a
+suitable strategy for the analysis of count data and an efficient Newton
+scoring algorithm that can be used for fitting.
+
+\printbibliography[segment=\therefsegment,heading=subbibliography]

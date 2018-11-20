@@ -4,9 +4,12 @@ output_dir: book-dir
 delete_merged_file: true
 rmd_files: [
     "index.Rmd",
-    "chapter1.Rmd",
-    "chapter2.Rmd",
-    "chapter3.Rmd",
+    "chapter0-intro.Rmd",
+    "chapter0-data.Rmd",
+    # "chapter1.Rmd",
+    # "chapter2.Rmd",
+    # "chapter3.Rmd",
     # "chapter4.Rmd",
+    "chapterX.Rmd",
     "references.Rmd"
 ]

@@ -1,0 +1,95 @@
+# General introduction # {#chapter0-intro}
+
+Count data arise from random variables that take non-negative integer
+values and typically represent the number of times an event occurs in an
+observation period or region. This kind of data is also common in crop
+sciences, examples including the number of grains produced by a plant,
+the number of fruits on a tree, the number of insects captured by a
+trap, etc.  Since the seminal paper of @Nelder1972, where the class of
+the generalized linear models (GLMs) was introduced, the analysis of
+count data often uses a Poisson regression model. This model provides a
+suitable strategy for the analysis of count data and an efficient Newton
+scoring algorithm that can be used for fitting.
+
+In spite of the advantages of the Poisson regression model, the Poisson
+distribution has only one parameter that represents both the expectation
+and variance of the count random variable.  This equality restriction on
+the relationship between the expectation and variance of the Poisson
+distribution is referred as equidispersion.  However, in practical data
+analysis such restriction can be unsuitable, since the observed data can
+present variance both smaller or larger than the mean, leading to under-
+and overdispersion, respectively.  While applying the Poisson regression
+model to non-equidispersed count data can give consistent parameter
+estimates, the associated standard errors are inconsistently estimated,
+which in turn can lead to misleading inferences
+[@Winkelmann1995; @Bonat2018].
+
+In practice, overdispersion is widely reported in the literature and may
+occur due to the absence of relevant covariates, heterogeneity of
+sampling units, different observational periods/regions not being
+considered in the analysis, and excess zeros [@Hinde1998].  The case of
+underdispersion is less often reported in the literature, however, it
+has been of increasing interest in the statistical community. The
+processes that reduce the variability are not as well-known as those
+leading to extra variability.  For this reason, there are few models to
+deal with underdispersed count data. Possible explanatory mechanisms
+leading to underdispersion may be related to the underlying stochastic
+process generating the count data.  For example, when the time between
+events is not exponentially distributed, the number of events can be
+over or underdispersed; a process that motivated the class of duration
+dependence models [@Winkelmann1995].  Another possible explanation
+for underdispersion is when the responses correspond to order statistics
+of component observations, such as maxima of Poisson distributed
+counts [@Steutel1989].
+
+Strategies for constructing alternative count distributions are related
+to the causes of the non-equidispersion. Specifically for
+overdispersion, Poisson mixture (compound) models are widely applied.
+One popular example of this approach is the negative-binomial model,
+where the expectation of the Poisson distribution is assumed to be gamma
+distributed [@Hinde1998].  However, other distributions can also be used
+to represent this additional random variation.  For example the
+Poisson-Tweedie model [@Bonat2018] and its special cases Poisson
+inverse-Gaussian and Neyman-Type A models assume that the random effects
+are Tweedie, inverse Gaussian or Poisson distributed, respectively.  The
+Gamma-Count distribution assumes a gamma distribution for the time
+between events and it can deal with underdispersed as well as
+overdispersed count data [@Zeviani2014]. The COM-Poisson distribution,
+is obtained by a generalization of the Poisson distribution that allows
+for a non-linear decrease in the ratios of successive probabilities
+[@Shmueli2005] and can be seen as a particular case of the weigthed
+Poisson distribution [@DelCastillo1998]. Related to negative binomial
+distribution, the generalized Poisson is obtained as a limiting form of
+generalized negative binomial distribution [@Consul1973]. A
+comprehensive discussion on other generalizations of the Poisson
+distribution can be found in @Winkelmann2008.
+
+The classical regression model for the models from the exponential
+family (generalized linear models) and for the aforementioned models is
+linked to the mean (or expectation-related) parameter. Thereby, the
+variance of the response variable is completely specified by the
+variance function (be it known or not). However, this assumption cannot
+be reasonable. For example, when there is an effect of a covariate
+(treatment, dose, etc.) in both expectation and dispersion of
+count. @Smyth1988 shows how to include a linear predictor for the
+dispersion as well as for the mean in the generalized linear models. In
+his paper, Smyth illustrates this with continuous data, but for discrete
+data, his proposal can be extended by using quasi-likelihoods
+[@Wedderburn1974]. For count data, a full parametric approach is
+presented by @Rigby2005 using the so-called generalized additive models
+for location, scale, and shape (GAMLSS).
+
+The main objective of this thesis consists of exploring novel modeling
+approaches for the analysis of count data. The remainder of the text is
+organized as follow. In Chapter \@ref(chapter0-data), the motivating
+datasets, mostly from biological experiments, and its challenges for
+analysis are presented. Chapter \@ref(chapter1-reparcmp) is devoted to
+present and study our novel reparametrization of COM-Poisson models. An
+overview and comparison of some flexible probability distributions for
+count data are addressed in Chapter \@ref(chapter2-models).  In Chapter
+\@ref(chapter3-doublecmp) we consider double regression in the
+reparametrized COM-Poisson models where the mean and the dispersion
+parameters may be allowed to depend on covariates. Final considerations
+are given in Chapter \@ref(chapterX-final).
+
+\printbibliography[segment=\therefsegment,heading=subbibliography]
