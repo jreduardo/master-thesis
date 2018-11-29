@@ -1,4 +1,4 @@
-# Reparametrization of COM-Poisson Regression Models # {#chap1-reparcmp}
+# Reparametrization of COM-Poisson regression models # {#chapter1-reparcmp}
 
 ```{block2, results="asis", echo=TRUE, type="abstract_en"}
 
@@ -39,65 +39,6 @@ material.
 
 ## Introduction ## {#chap1-introduction}
 
-Count data arise from random variables that take non-negative integer
-values and typically represent the number of times an event occurs in an
-observation period or region. This kind of data is also common in crop
-sciences, examples including the number of grains produced by a plant,
-the number of fruits on a tree, the number of insects captured by a
-trap, etc.  Since the seminal paper of @Nelder1972, where the class of
-the generalized linear models (GLMs) was introduced, the analysis of
-count data often uses a Poisson regression model. This model provides a
-suitable strategy for the analysis of count data and an efficient Newton
-scoring algorithm that can be used for fitting.
-
-In spite of the advantages of the Poisson regression model, the Poisson
-distribution has only one parameter that represents both the expectation
-and variance of the count random variable.  This equality restriction on
-the relationship between the expectation and variance of the Poisson
-distribution is referred as equidispersion.  However, in practical data
-analysis such restriction can be unsuitable, since the observed data can
-present variance both smaller or larger than the mean, leading to under-
-and overdispersion, respectively.  While applying the Poisson regression
-model to non-equidispersed count data can give consistent parameter
-estimates, the associated standard errors are inconsistently estimated,
-which in turn can lead to misleading inferences
-[@Winkelmann1995; @Bonat2018].
-
-In practice, overdispersion is widely reported in the literature and may
-occur due to the absence of relevant covariates, heterogeneity of
-sampling units, different observational periods/regions not being
-considered in the analysis, and excess zeros [@Hinde1998].  The case of
-underdispersion is less often reported in the literature, however, it
-has been of increasing interest in the statistical community. The
-processes that reduce the variability are not as well-known as those
-leading to extra variability.  For this reason, there are few models to
-deal with underdispersed count data. Possible explanatory mechanisms
-leading to underdispersion may be related to the underlying stochastic
-process generating the count data.  For example, when the time between
-events is not exponentially distributed, the number of events can be
-over or underdispersed; a process that motivated the class of duration
-dependence models [@Winkelmann1995].  Another possible explanation
-for underdispersion is when the responses correspond to order statistics
-of component observations, such as maxima of Poisson distributed
-counts [@Steutel1989].
-
-Strategies for constructing alternative count distributions are related
-to the causes of the non-equidispersion. Specifically for
-overdispersion, Poisson mixture (compound) models are widely applied.
-One popular example of this approach is the negative-binomial model,
-where the expectation of the Poisson distribution is assumed to be gamma
-distributed.  However, other distributions can also be used to represent
-this additional random variation.  For example the Poisson-Tweedie
-model [@Bonat2018] and its special cases Poisson
-inverse-Gaussian and Neyman-Type A models assume that the random effects
-are Tweedie, inverse Gaussian or Poisson distributed, respectively.  The
-Gamma-Count distribution assumes a gamma distribution for the time
-between events and it can deal with underdispersed as well as
-overdispersed count data [@Zeviani2014]. The subject of this chapter,
-the COM-Poisson distribution, is obtained by a generalization of the
-Poisson distribution that allows for a non-linear decrease in the ratios
-of successive probabilities [@Shmueli2005].
-
 The COM-Poisson distribution includes the Poisson and geometric
 distributions as special cases, as well as the Bernoulli distribution as
 a limiting case. It can deal with both under- and overdispersed count
@@ -119,7 +60,7 @@ obtained as the solution of a non-linear equation defined as an infinite
 sum, which is computationally demanding and liable to numerical
 problems.
 
-The main goal of this article is to propose a novel COM-Poisson
+The main goal of this chapter is to propose a novel COM-Poisson
 parametrization based on the mean approximation presented by
 @Shmueli2005. In this parametrization, the probability mass function is
 written in terms of $\mu$ and $\phi$, where $\mu$ is the approximate
@@ -456,7 +397,7 @@ representing the levels of $\bm{x}_2$.  The regression coefficients were
 fixed at the values, $\beta_0 = 2$, $\beta_1 = 0.5$, $\beta_{21} = 0.8$
 and $\beta_{22} = -0.8$.
 
-```{r chap1-justpars, fig.pos="H", results="asis", fig.height=4, fig.width=9, fig.cap="Average counts (left) and dispersion indexes (right) for each scenario considered in the simulation study."}
+```{r chap1-justpars, fig.pos="htb", results="asis", fig.height=4, fig.width=9, fig.cap="Average counts (left) and dispersion indexes (right) for each scenario considered in the simulation study."}
 knitr::include_graphics("chapter1-figure/justpars-1")
 ```
 
@@ -484,6 +425,10 @@ standard error. The scales are standardized for each parameter by
 dividing the average bias by the average standard error obtained for the
 sample of size $50$.
 
+```{r chap1-bias-plot, results="asis", fig.height=6.5, fig.width=8.5, fig.cap="Distributions of standardized bias (gray box-plots) and average with confidence intervals (black segments) by different sample sizes and dispersion levels."}
+knitr::include_graphics("chapter1-figure/bias-plot-1")
+```
+
 The results in Figure \ref{fig:chap1-bias-plot} show that for all
 dispersion levels, both the average bias and standard errors tend to $0$
 as the sample size increases. Thus the estimators for the regression
@@ -491,10 +436,6 @@ parameters are unbiased, consistent and their empirical distributions
 are symmetric. For the dispersion parameter, the estimator is
 asymptotically unbiased; in small samples the parameter is overestimated
 and the empirical distribution is slightly right-skewed.
-
-```{r chap1-bias-plot, results="asis", fig.height=6.5, fig.width=8.5, fig.cap="Distributions of standardized bias (gray box-plots) and average with confidence intervals (black segments) by different sample sizes and dispersion levels."}
-knitr::include_graphics("chapter1-figure/bias-plot-1")
-```
 
 ```{r chap1-coverage-plot, results="asis", fig.height=4, fig.width=9, fig.cap="Coverage rate based on confidence intervals obtained by quadratic approximation for different sample sizes and dispersion levels."}
 knitr::include_graphics("chapter1-figure/coverage-plot-1")
@@ -557,18 +498,8 @@ are available as supplementary material.
 
 ### Artificial defoliation in cotton phenology ###
 
-This example relates to cotton plants (\textit{Gossypium hirsutum})
-subjected to five levels of artificial defoliation (\texttt{des}) at
-each of five different growth stages (\texttt{est}). The main goal of
-this study was to assess the effect of defoliation levels at the
-different growth stages on the cotton production, measured by the number
-of bolls produced. The experimental study was conducted in a greenhouse
-and used a completely randomized design with five replicates. This data
-set was previously analyzed by @Zeviani2014 using the Gamma-Count
-distribution.
-
-Following @Zeviani2014, the linear predictor is given by $$\eta_{ij} =
-\beta_0 + \beta_{1j} \texttt{def}_i + \beta_{2j} \texttt{def}_i^2$$
+Following @Zeviani2014, the linear predictor is given by $\eta_{ij} =
+\beta_0 + \beta_{1j} \texttt{def}_i + \beta_{2j} \texttt{def}_i^2$,
 where $\eta_{ij} = \log(\lambda_{ij})$ for the original COM-Poisson and
 $\eta_{ij} = \log(\mu_{ij})$ for COM-Poisson$_\mu$. The parameter
 $\mu_{ij}$ is the (approximated) expected number of cotton bolls for the
@@ -597,7 +528,8 @@ Table \ref{tab:chap1-coef-cotton}.
 % Tue Aug 21 01:13:34 2018
  & Est & Est/SE & Est & Est/SE & Est & Est/SE & Est & Est/SE \\
   \midrule
-$\phi\,,\,\sigma$ &  &  & 1.5847 & 12.4166 & 1.5817 & 12.3922 & 0.2410 &  \\
+  $\sigma$ & -- & -- & -- & -- & -- & -- & 0.2410 & --\\
+  $\phi$ & -- & -- & 1.5847 & 12.4166 & 1.5817 & 12.3922 & -- & -- \\
   $\beta_0$ & 2.1896 & 34.5724 & 10.8967 & 7.7594 & 2.1905 & 74.6397 & 2.1896 & 70.4205 \\
   $\beta_{11}$ & 0.4369 & 0.8473 & 2.0187 & 1.7696 & 0.4350 & 1.8194 & 0.4369 & 1.7260 \\
   $\beta_{12}$ & 0.2897 & 0.5706 & 1.3431 & 1.2109 & 0.2876 & 1.2227 & 0.2897 & 1.1622 \\
@@ -704,29 +636,8 @@ COM-Poisson & $-$0.3496 & $-$0.2276 & 0.2629 & $-$0.4578 & $-$0.0095 &  \\
 
 ### Soil moisture and potassium doses on soybean culture ###
 
-In this second example we consider a study of potassium doses and soil
-moisture levels on soybean (\emph{Glicine Max}) production. This was set
-up as a $5\times 3$ factorial experiment in a randomized complete block
-design with 5 replicates.  Five different potassium doses (\texttt{K})
-(0, 0.3, 0.6, 1.2 and 1.8 $\times$ 100mg dm$^{-3}$) were applied to the
-soil and soil moisture (\texttt{umid}) levels were controlled at (37.5,
-50, 62.5\%) . The experiment was carried out in a greenhouse and the
-experimental units were pots with two plants in each. The count response
-measured was the total number of bean seeds per pot [@Serafim2012].
-Figure \ref{fig:chap1-desc-soy} (left) shows the number of bean seeds
-recorded for each combination of potassium dose and moisture level; it
-is important to note the indication of a quadratic effect of the
-potassium levels, as indicated by the smoothers. Most points in the
-sample variance \textit{versus} sample means dispersion diagram (right)
-are above the identity line, suggesting overdispersion (block effect not
-yet removed).
-
-```{r chap1-desc-soy, results="asis", fig.height=4, fig.width=8, fig.cap="Number of bean seeds per pot for each potassium dose and moisture level (left) and sample mean against sample variance of the five replicates for each experimental treatment (right). Solid lines are smoothing curves (left) and the least-squares line (right)."}
-knitr::include_graphics("chapter1-figure/desc-soy-1")
-```
-
-For the analysis of this data set, based on the descriptive analysis
-(Figure \ref{fig:chap1-desc-soy}), we proposed the following linear
+In this second example, based on the descriptive analysis (Section
+\ref{chap0-soy}), we considered the following linear
 predictor
 $$
 \eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
@@ -763,7 +674,8 @@ models.
 % Tue Aug 21 01:17:36 2018
  & Est & Est/SE & Est & Est/SE & Est & Est/SE & Est & Est/SE \\
   \midrule
-$\phi\,,\,\sigma$ &  &  & $-$0.7785 & $-$4.7208 & $-$0.7821 & $-$4.7371 & 2.6151 &  \\
+$\sigma$ & -- & -- & -- & -- & -- & -- & 2.6151 & -- \\
+$\phi$ & -- & -- & $-$0.7785 & $-$4.7208 & $-$0.7821 & $-$4.7371 & -- & -- \\
   $\beta_0$ & 4.8666 & 144.2886 & 2.2320 & 6.0415 & 4.8666 & 97.7808 & 4.8666 & 89.2254 \\
   $\gamma_{1}$ & $-$0.0194 & $-$0.7302 & $-$0.0089 & $-$0.4939 & $-$0.0194 & $-$0.4950 & $-$0.0194 & $-$0.4516 \\
   $\gamma_{2}$ & $-$0.0366 & $-$1.3733 & $-$0.0169 & $-$0.9212 & $-$0.0366 & $-$0.9306 & $-$0.0366 & $-$0.8492 \\
@@ -867,16 +779,10 @@ to cladoceran zooplankton. Nitrofen is no longer in commercial use in
 the U.S., having been the first pesticide to be withdrawn due to
 tetragenic effects [@Bailer1994].
 
-This data set comes from an experiment to measure the reproductive
-toxicity of the herbicide, nitrofen, on a species of zooplankton
-(\textit{Ceriodaphnia dubia}). Fifty animals were randomized into
-batches of ten and each batch was put in a solution with a measured
-concentration of nitrofen ($0, 0.8, 1.6, 2.35$ and $3.10$
-$\mu$g$/10^2$litre) (\texttt{dose}). Subsequently, the number of live
-offspring was recorded.
-
-For this data set we consider three models with linear
-predictors,
+This data set comes from an completely randomized experiment to measure
+the reproductive toxicity of the herbicide nitrofen on a species of
+zooplankton (Section \ref{chap0-nitrofen}). Here, we consider three
+models with linear predictors,
 \begin{tabular}{ll}
   Linear:     & $\eta_i = \beta_0 + \beta_1 \texttt{dose}_i$,\\
   Quadratic: & $\eta_i = \beta_0 + \beta_1 \texttt{dose}_i +
@@ -899,16 +805,16 @@ $\eta_i = \log(\mu_i)$ for COM-Poisson$_\mu$.
  \midrule
 % latex table generated in R 3.4.4 by xtable 1.8-2 package
 % Tue Aug 21 01:20:34 2018
- Preditor 1 & 2 & $-$180.667 & 365.335 &  &  &  &  \\
-  Preditor 2 & 3 & $-$147.008 & 300.016 & 67.319 & 1 & 2.31E$-$16 &  \\
-  Preditor 3 & 4 & $-$144.090 & 296.180 & 5.835 & 1 & 1.57E$-$02 &  \\
+ Preditor 1 & 2 & $-$180.667 & 365.335 & -- & -- & -- & -- \\
+  Preditor 2 & 3 & $-$147.008 & 300.016 & 67.319 & 1 & 2.31E$-$16 & -- \\
+  Preditor 3 & 4 & $-$144.090 & 296.180 & 5.835 & 1 & 1.57E$-$02 & -- \\
 \specialrule{0em}{0.5em}{0em} %% Apenas para espaçamento
   COM-Poisson & $\#p$ & $\ell$ & AIC & 2(diff $\ell$) & diff $\#p$ &
   P($>\rchi^2$) & $\hat{\phi}$ \\
   \midrule
 % latex table generated in R 3.4.4 by xtable 1.8-2 package
 % Tue Aug 21 01:20:34 2018
- Preditor 1 & 3 & $-$167.954 & 341.908 &  &  &  & $-$0.893 \\
+ Preditor 1 & 3 & $-$167.954 & 341.908 & -- & -- & -- & $-$0.893 \\
   Preditor 2 & 4 & $-$146.964 & 301.929 & 41.980 & 1 & 9.22E$-$11 & $-$0.059 \\
   Preditor 3 & 5 & $-$144.064 & 298.129 & 5.800 & 1 & 1.60E$-$02 & 0.048 \\
 \specialrule{0em}{0.5em}{0em} %% Apenas para espaçamento
@@ -917,7 +823,7 @@ $\eta_i = \log(\mu_i)$ for COM-Poisson$_\mu$.
   \midrule
 % latex table generated in R 3.4.4 by xtable 1.8-2 package
 % Tue Aug 21 01:20:35 2018
- Preditor 1 & 3 & $-$167.652 & 341.305 &  &  &  & $-$0.905 \\
+ Preditor 1 & 3 & $-$167.652 & 341.305 & -- & -- & -- & $-$0.905 \\
   Preditor 2 & 4 & $-$146.950 & 301.900 & 41.405 & 1 & 1.24E$-$10 & $-$0.069 \\
   Preditor 3 & 5 & $-$144.064 & 298.127 & 5.773 & 1 & 1.63E$-$02 & 0.047 \\
 \specialrule{0em}{0.5em}{0em} %% Apenas para espaçamento
@@ -925,9 +831,9 @@ $\eta_i = \log(\mu_i)$ for COM-Poisson$_\mu$.
   \midrule
 % latex table generated in R 3.4.4 by xtable 1.8-2 package
 % Tue Aug 21 01:21:16 2018
- Preditor 1 & 3 & 123.929 &  &  &  &  & 2.262 \\
-  Preditor 2 & 4 & 56.610 &  & 60.840 & 1 & 5.07E$-$10 & 1.106 \\
-  Preditor 3 & 5 & 50.774 &  & 5.659 & 1 & 2.16E$-$02 & 1.031 \\
+ Preditor 1 & 3 & 123.929 & -- & -- & -- & -- & 2.262 \\
+  Preditor 2 & 4 & 56.610 & -- & 60.840 & 1 & 5.07E$-$10 & 1.106 \\
+  Preditor 3 & 5 & 50.774 & -- & 5.659 & 1 & 2.16E$-$02 & 1.031 \\
  \bottomrule
 \end{tabularx}
 %\vspace{-1mm}
