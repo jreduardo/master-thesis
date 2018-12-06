@@ -110,14 +110,14 @@ influenced by the nitrofen concentration level (doses up to
 $1.6\mu$g$/10^2$litre suggesting underdispersion while doses between
 $1.6$ and $3.1\mu$g$/10^2$litre suggesting overdispersion).
 
-## Evaluation of \textit{Annona mucosa} for control of maize pest ## {#chap0-sitophilus}
+## Evaluation of \textit{Annona mucosa} for control of \textit{Sitophilus zeamaus} ## {#chap0-sitophilus}
 
 New control methods are necessary for stored grain pest management
 programs due to both the widespread problems of insecticide-resistance
 populations and the increasing concerns of consumers regarding pesticide
 residues in food products. @Ribeiro2013 carried out a experiment to
 assess the bioactivity of extracts of _Annona mucosa_ (Annonaceae) for
-control _Sitophilus zeamaus_ (Coleoptera: Curculionidae), A major pest
+control _Sitophilus zeamaus_ (Coleoptera: Curculionidae), a major pest
 of stored maize in Brazil. Petri dishes containing 10g of corn were
 treated with extracts prepared with different parts of _Annona mucosa_
 (seeds, leaves and branches) or just water (control) were completely
@@ -136,8 +136,38 @@ treatment is greater than their respective sample average, a strong
 indication of overdispersion. For leaf extract, the sample variance is
 three times higher than the mean.
 
-This data set is presented and analysed by @Ribeiro2013, original work,
-and used by @Demetrio2014 for illustrating the quasi-Poisson approach
-for modelling overdispersed count data.
+This data set is presented and analysed by @Ribeiro2013 and later used
+by @Demetrio2014 for illustrating the quasi-Poisson approach for
+modelling overdispersed count data.
 
+## Alternative substrats for bromeliad production ##
+
+Xaxim is a substrate used in the cultivation of bromeliads and orchids,
+whose commercialization was prohibited in 2001. Since then, there has
+been researching in botany to propose alternative substrates to Xaxim in
+the cultivation of bromeliads, orchids, and other epiphytes
+[@Salvador2008]. This dataset comes from a randomized experiment
+conducted in a greenhouse in four blocks design with objective of
+evaluate five different recipients of alternative substrates for
+bromeliads. All treatments contained peat and perlite and differed in
+the third component: Pinus bark, Eucalyptus bark, Cushion, coconut fiber
+and Xaxim. The variable of interest was the number of leaves per
+experimental unit (pot with initially eight plants), which was
+registered at 4, 173, 229, 285, 341, and 435 days after planting.
+
+```{r chap0-plot-bromelia, fig.width=8.7, fig.height=4, fig.cap="(a) Number of leaves for each treatment and day after planting (solid lines represent loess curves) and (b) sample variance against the sample mean per block (dotted line is the identity line and solid line is the least square line). "}
+```
+
+The observed number of leaves per each combination of days after
+planting and treatments are shown in Figure
+\@ref(fig:chap0-plot-bromelia)(a). There is a clear nonlinear
+(sigmoidal) relationship between counts and days, mainly due to the low
+number of leaves observed at 4 days (as expected). Figure
+\@ref(fig:chap0-plot-bromelia)(b) shows the sample mean and sample
+variances per block on the logarithm scale. All sample variances are
+much smaller than their sample means, even on the logarithm scale,
+indicating a strong evidence of underdispersion.
+
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

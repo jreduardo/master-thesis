@@ -270,7 +270,6 @@ xy2 <-
 print(xy1, position = c(0, 0, 0.55, 1), more = TRUE)
 print(xy2, position = c(0.55, 0, 1, 1), more = FALSE)
 
-
 ## ---- chap0-table-sitophilus
 
 # Load data
@@ -306,3 +305,67 @@ sitophilus_summary %>%
            align = "clcccc") %>%
     print.xtable(size = "normalsize",
                  table.placement = "htb")
+
+#-----------------------------------------------------------------------
+# Descriptive analysis of the nitrofen data set
+## ---- chap0-plot-bromelia
+
+bromelia <- read_delim("data/bromelia.txt", delim = "\t") %>%
+    mutate(treat = fct_relevel(factor(treat), "Xaxim"))
+bromelia
+
+bromelia_summary <-
+    bromelia %>%
+    group_by(treat, time) %>%
+    summarise(me = mean(nleaves),
+              va = var(nleaves),
+              di = va/me) %>%
+    ungroup()
+bromelia_summary
+
+xy1 <-
+    xyplot(nleaves ~ time | treat,
+           layout = c(3, NA),
+           as.table = TRUE,
+           grid = TRUE,
+           type = c("p", "smooth"),
+           xlab = "Days after planting",
+           ylab = "Number of leaves",
+           sub = "(a)",
+           spread = 10,
+           scales = list(
+               x = list(at = unique(bromelia$time),
+                        rot = 30)
+           ),
+           panel = panel.beeswarm,
+           data = bromelia)
+
+lim <-
+    bromelia_summary %>%
+    dplyr::select(me, va) %>%
+    filter(va > 0) %>%
+    unlist() %>%
+    log() %>%
+    extendrange()
+
+xy2 <-
+    bromelia_summary %>%
+    filter(va > 0) %>%
+    xyplot(log(va) ~ log(me),
+           xlim = lim,
+           ylim = lim,
+           jitter.x = TRUE,
+           jitter.y = TRUE,
+           factor = 2,
+           type = c("g", "p", "r"),
+           sub = "(b)",
+           xlab = "Logarithm of sample mean",
+           ylab = "Logarithm of sample variance",
+           panel = function(...) {
+               panel.xyplot(...)
+               panel.abline(a = 0, b = 1, lty = 2)
+           },
+           data = .)
+
+print(xy1, position = c(0, 0, 0.6, 1), more = TRUE)
+print(xy2, position = c(0.6, 0, 1, 0.96), more = FALSE)
