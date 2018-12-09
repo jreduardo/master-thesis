@@ -1,4 +1,4 @@
-# Flexible probability distributions for count data # {#chap2-rmodels}
+# A review of flexible models for dispersed count data # {#chapter2-models}
 
 ```{block2, result="asis", echo=TRUE, type="abstract_en"}
 
@@ -15,11 +15,77 @@ of a real count data.
 
 ```
 
-## Weighted Poisson distributions ## {#chap2-weighted-poisson-distributions}
+## Introduction ## {#introduction}
 
-The family of weighted Poisson distributions (WPD) @[DelCastillo1998]
+Important advances for count data analysis have been reported in the
+literature. Among them, we mention, mainly, methods to model different
+levels of dispersion, since the standard Poisson generalized linear
+model supposes that the variance equals the mean, referred to as
+equidispersion, which rarely occurs in real data. A comprehensive review
+of new methods for modeling count data can be found in the recent
+monographs by  @Winkelmann2008, @Cameron2013, and @Hilbe2014.
+
+The most common failure of the equidispersion assumption is the
+overdispersion (or extra-Poisson dispersion) when the variance exceeds
+the mean. Overdispersion count data has been well studied by the
+statistical community and there is a wide range of models to deal
+with. @Hinde1998, for example, discussed models and estimation
+algorithms for overdispersed discrete data, as the common choices
+negative binomial and quasi-Poisson. On the other hand, underdispersion,
+when the variance is less than the mean, is less often reported in the
+literature. However, in the last decade, it has been of increasing
+interest.
+
+@Shmueli2005 brought back the COM-Poisson model and supported several
+further research like as @Lord2008, @Sellers2010, @Huang2017, and
+@RibeiroJr2018. @Zeviani2014 discussed the analysis of experimental data
+based on the Gamma-count distribution. @Klakattawi2018 discussed the
+properties and application of the discrete-Weibull distribution and
+@Luyts2018 extend it to model longitudinal/clustered data. @Zamani2012
+presented an extension for the generalized Poisson regression
+model. Double Poisson distribution proposed by @Efron1986 is used as the
+random component in general purposed class of models GAMLSS (generalized
+additive models for location, scale, and shape) [@Rigby2005]. @Bonat2018
+proposed the extended Poisson-Tweedie for handling under- and
+overdispersion count data based on moments of the Poisson-Tweedie
+family.
+
+The main objective of this chapter is compare several model strategies
+for analysis of dispersed count data, namely COM-Poisson, Gamma-Count,
+discrete-Weibull, generalized Poisson, double Poisson, and
+Poisson-Tweedie in terms of characteristic indexes (dispersion,
+zero-inflation, and heavy-tail) and real applications. Related work can
+be found in @Kokonendji2014 who did a well-documented discussion of
+count statistical models, but without applications or model comparisons,
+and @ Sellers2017 who discussed the causes of underdispersion and
+presented some count distributions with two applications.
+
+The considered model strategies and their main properties are presented
+in Section \@ref(chap2-background). In Section
+\@ref(chap2-comparing-distributions), we presented the characteristic
+index and use them to compare the models. The regression models and
+estimation are presented in Section
+\@ref{chap2-models-and-estimation}. Section \@ref(chap2-data-analyses)
+is devoted to illustrating the application of the models to two real
+experimental datasets and compare the results. Finally, discussion and
+direction for future work are given in Section
+\@ref(chap2-discussion). The computational routines used in this chapter
+are available in the supplementary material.
+
+## Background ## {#chap2-background}
+
+In this section, we shall introduced some count distributions take into
+account dispersed count data. Namely, we consider the COM-Poisson,
+Gamma-Count, discrete-Weibull, generalized Poisson, double Poisson, and
+Poisson-Tweedie distributions. We focused on the genesis of generating
+probability distributions and their main properties.
+
+### COM-Poisson distribution ### {#chap2-com-poisson}
+
+The COM-Poisson distribution is an important member of the family of
+weighted Poisson distributions (WPD) [@DelCastillo1998]. The WPD family
 weights the Poisson probability function by a suitable function,
-relaxing the assumption of linearity of the ratios of successive
+allowing for a non-linear decrease in ratios of successive
 probabilities. A random variable $Y$ is a weighted Poisson distribution
 if its probability mass function can be written in the form
 \begin{equation*}
@@ -28,14 +94,13 @@ if its probability mass function can be written in the form
     y! \text{E}_\lambda[w(Y)]}, \quad y \in \mathbb{N},
 \end{equation*}
 where $\text{E}_\lambda(\cdot)$ denotes the mean value with respect to
-the Poisson random variable with parameter $\lambda$ and $w(\cdot)$ is a
-weight function. The weight function may depend on an extra parameter to
-ensure more flexibility to the distribution.
+the Poisson random variable with parameter $\lambda \geq 0$ and
+$w(\cdot)$ is a weight function. The weight function may depend on an
+extra parameter to ensure more flexibility.
 
-An important member of this family is the COM-Poisson distribution,
-which is obtained when $w(y) \equiv w(y, \nu) = (y!)^{1-\nu}$ for
-$\nu \geq 0$ [@Sellers2012]. Its probability mass function takes the
-form
+The COM-Poisson distribution arises when $w(y) \equiv w(y, \nu) =
+(y!)^{1-\nu}$ for $\nu \geq 0$ [@Kokonendji2014]. Its probability mass
+function takes the form
 \begin{equation}
   \label{eqn:chap2-pmf-compoisson}
   \Pr(Y = y) = \frac{\lambda^y \exp(-\lambda)}{
@@ -44,27 +109,47 @@ form
   \quad \text{where} \quad
   \text{Z}(\lambda,\nu) = \sum_{j=0}^\infty \frac{\lambda^j}{(j!)^\nu}.
 \end{equation}
-The series $\text{Z}(\lambda, \nu)$ is a normalizing constant that
-cannot be expressed in closed form unless for special cases. As the
-dispersion parameter, for $0 < \nu < 1$ and $\nu > 1$ we have the
-overdispersed and undersipersed cases, respectively. When $\nu=1$ we
-have Poisson distribution as a special case. Another special case is
-geometric distribution, when $\nu=0$ and $\lambda<1$, and as a limiting
-case the Bernoulli distribution arises when $\nu\to \infty$, with
-probability of success equal to $\lambda/(\lambda+1)$.
 
-Despite the nice properties of COM-Poisson distribution, its major
-limitation is that the location parameter $\lambda$ does not represent
-the expectation of the distribution and has no direct
-interpretation. Under this motivation, in Chapter \@ref(chap1-reparcmp)
-we showed the @Huang2017 and @RibeiroJr2018 proposals of mean
-parametrizations of COM-Poisson distribution. The distribution now is
-indexed by mean parameter $\mu$, where $\mu$ is obtained by the solution
-for $\sum_{j=0}^{\infty} (j-\mu)\lambda^j/(j!)^\nu = 0$ in the Huang's
+The series $\text{Z}(\lambda, \nu)$ is a normalizing constant that
+cannot be expressed in closed form unless for special cases. The
+parameters $\lambda$ and $\nu$ are interpreted through ratios of
+successive probabilities which is given, for the WPD family and
+particularly for the COM-Poisson distribution, by
+$$
+\frac{\Pr(Y = y - 1)}{\Pr(Y = y)} =
+    \frac{y}{\lambda}\frac{w(y-1)}{w(y)} \overset{\text{CMP}}{\equiv}
+        \frac{y^\nu}{\lambda},
+$$
+a nonlinear function of $y$. As the dispersion parameter, for $0 < \nu <
+1$ and $\nu > 1$ we have the over- and undersipersion,
+respectively. When $\nu=1$ the Poisson distribution results as a special
+case. Another special case is geometric distribution, when $\nu=0$ and
+$\lambda<1$ ($P(Y=y) = \lambda^y(1-\lambda)$). As a limiting case, the
+Bernoulli distribution arises when $\nu\to \infty$, with probability of
+success equal to $\lambda/(\lambda+1)$.
+
+The COM-Poisson also belongs to the family of two-parameter power series
+distributions [@Johnson2005] and using the properties for this family,
+the mean and variance of COM-Poisson distributions are given by
+$$
+  \text{E}(Y)   = \lambda
+    \frac{d}{d\lambda} [\log Z(\lambda, \nu)]\quad\text{and}\quad
+  \text{Var}(Y) = \lambda^2
+  \frac{d^2}{d\lambda^2} [\log Z(\lambda, \nu)] + \text{E}(Y),
+$$
+respectively, but cannot be solved in closed form. Therefore, despite
+the nice properties of COM-Poisson distribution, its major limitation is
+that the location parameter $\lambda$ does not represent the expectation
+of the distribution and has no direct interpretation. Under this
+motivation we showed in Chapter \@ref(chap1-reparcmp) the @Huang2017
+and @RibeiroJr2018 proposals of new parametrizations of COM-Poisson
+distribution related to the expectation. The distribution is now indexed
+by parameter $\mu$, where $\mu$ is obtained by the solution for
+$\sum_{j=0}^{\infty} (j-\mu)\lambda^j/(j!)^\nu = 0$ in the Huang's
 proposal and $\mu = \lambda^{1/\nu} -(\nu-1)/2\nu$ in the Ribeiro Jr's
 proposal.
 
-## Duration dependence ## {#chap2-duration-dependence}
+### Gamma-Count distribution ### {#chap2-duration-dependence}
 
 Another straightforward flexible distribution arises from the
 relationship between Poisson and exponential distribution. Following
@@ -84,41 +169,48 @@ events within a $(0, T)$ interval. Following the definitions, we have
   \end{aligned}
 \end{equation}
 where $\text{F}_{\vartheta_n}(T)$ is the cumulative density function of
-$\vartheta_n$ and $T$ is the interval of the counting. This process is
-called by renewal process [@Cox1962; @Winkelmann2008, p.54].
+$\vartheta_n$ and $T$ is the interval of the counting (_offset_). This
+process is called by renewal process [@Cox1962; @Winkelmann2008, p.54].
 
 From the renewal process Equation \ref{eqn:chap2-renewal}, Poisson
 distribution is obtained by assuming $\tau_k$ exponentially
 distributed. Consequently, $\vartheta_n$ drawn from an Erlang
-distribution (a special case of gamma distribution) and $\Pr(Y_T = y) =
-\text{F}_{\vartheta_y}(T) - \text{F}_{\vartheta_{y+1}}(T)$ has closed
-form. @Winkelmann1995 proposed a more general distribution for the
+distribution (a special case of gamma distribution) and $\Pr(Y_T = y)$
+has closed form
+$$
+\Pr(Y_T = y) = \text{F}_y(T) - \text{F}_{y+1}(T) =
+  \sum_{j=0}^{y-1}\frac{\exp(-\lambda T)(\lambda T)^j}{j!} -
+  \sum_{j=0}^{  y}\frac{\exp(-\lambda T)(\lambda T)^j}{j!} =
+  \frac{\exp(-\lambda T)(\lambda T)^j}{y!}.
+$$
+
+@Winkelmann1995 proposed to use a more general distribution for the
 waiting times $\tau_k$.  The Gamma-Count distribution assumes that
 $\tau_k$ is independently gamma distributed, i.e $\tau_k
-\overset{\textit{\tiny iid}}{\sim} \text{Gamma}(\alpha, \kappa)$.  Due
+\overset{\textit{\tiny iid}}{\sim} \text{Gamma}(\alpha, \beta)$. Due
 to reproductive property of gamma random variables, $\vartheta_n \sim
-\text{Gamma}(y\alpha, \kappa)$. Thereby, the Gamma-Count probability
+\text{Gamma}(y\alpha, \beta)$. Thereby, the Gamma-Count probability
 mass function takes the form
 \begin{equation}
-  \label{eqn:chap2-pmf-gammacount}
+  \label{eqn:chap2-pmf-gct0}
   \Pr(Y_T = y) =
-  \int_0^T \frac{\kappa^{y\alpha} t^{y\alpha -1}}{\Gamma(y\alpha)
-    \exp(\kappa t)} dt -
-  \int_0^T \frac{\kappa^{(y+1)\alpha} t^{(y+1)\alpha - 1}}{
-    \Gamma[(y+1)\alpha] \exp(\kappa t)} dt,
+  \int_0^T \frac{\beta^{y\alpha} t^{y\alpha -1}}{\Gamma(y\alpha)
+    \exp(\beta t)} dt -
+  \int_0^T \frac{\beta^{(y+1)\alpha} t^{(y+1)\alpha - 1}}{
+    \Gamma[(y+1)\alpha] \exp(\beta t)} dt,
 \end{equation}
-a difference bettwen two Gamma cumulative density functions,
-$\text{G}(y\alpha, \kappa) - \text{G}((y+1)\alpha, \kappa)$, where
-$\text{G}(\alpha, \kappa)$ is the cumulative function $\text{F}_y(T)$
-for the Gamma variable with parameters $\alpha$ and $\kappa$.
+a difference bettwen two Gamma cumulative density functions, $G(y\alpha,
+\beta) - G((y+1)\alpha, \beta)$, where $G(a, b)$ is the cumulative
+function $\text{F}_y(T)$ for the Gamma variable with parameters $a$ and
+$b$.
 
 As in the COM-Poisson distribution, the moments cannot be obtained in
-closed form. However, @Winkelmann1995 showed for increasing
-$T$, i.e. high counts, it holds that
+closed form. However, @Winkelmann1995 using the results from @Cox1962,
+showed for increasing $T$, i.e. high counts, it holds that
 $$
 Y_T \overset{\textit{\tiny asy}}{\sim}
   \mathcal{N}\left (
-    \frac{\kappa T}{\alpha}, \frac{\kappa T}{\alpha^2}
+    \frac{\beta T}{\alpha}, \frac{\beta T}{\alpha^2}
   \right ),
 $$
 thus the limiting variance-mean ratio equals a constant
@@ -126,9 +218,65 @@ $1/\alpha$. Consequently, the Gamma-Count distribution displays
 overdispersion for $0 < \alpha < 1$ and underdispersion for
 $\alpha > 1$.
 
-## Discretization process ## {#chap2-discretization-process}
+In order to have a mean-type parameterization, we rewrite the Equation
+\@ref(eqn:chap2-pmf-gct0) in terms of $\kappa = \beta/\alpha$, thus the
+probability mass function is given by
+\begin{equation}
+  \label{eqn:chap2-pmf-gct}
+  \Pr(Y = y) = G(y\alpha, \kappa\alpha) -
+    G((y+1)\alpha, \kappa\beta).
+\end{equation}
+In this parametrization, the parameter $\kappa$ is the expected value
+for the waiting times $\tau_k$ and not for the counts, unless
+$\alpha=1$. However, for large $T$, the asymptotic distribution of $Y$
+holds that the expected value $\text{E(Y)} = \kappa$.
 
-## Generalized Poisson ## {#chap2-generalized-poisson}
+### Discrete Weibull distribution ### {#chap2-discrete-weibull}
+
+The discrete weibull distribution comes from a discretization process of
+the continuous Weibull distribution [@Nakagawa1975]. Let $T$ a
+continuous Weibull distributed random variable with parameters
+$\lambda>0$ and $\rho>0$. The density function and cumulative density
+function are, respectively, given by
+$$
+f_T(t) = \lambda\rho t^{\rho-1}\exp(-\lambda t^\rho)
+  \quad\text{and}\quad
+F_T(t) = 1 - \exp(-\lambda t^\rho).
+$$
+The discrete Weibull distribution (type 1) by [@Nakagawa1975] is
+obtained by the probability between two integer values on the suporte of
+continuous Weibull distribution. Let $Y \in \mathbb{N}$ follows a
+discrete Weibull distribution, then its probability mass function is
+given by
+\begin{equation}
+  \label{eqn:chap2-pmf-dweibull}
+  \begin{aligned}
+  \Pr(Y = y) &= \int_{y}^{y+1} f_T(t)dt = F_T(y+1) - F_T(y)\\
+             &= \exp(-\lambda y^\rho) - \exp(-\lambda (y+1)^\rho)\\
+             &= q^{y^\rho} - q^{(y+1)^\rho},
+  \end{aligned}
+\end{equation}
+where $q = \exp(-\lambda) \in (0,1)$ and $\rho>0$.
+
+The mean and variance of a discrete Weibull distribution are given by
+$$
+\text{E}(Y) = \sum_{j=1}^{\infty} q^{j^\rho} \quad\text{and}\quad
+\text{Var}(Y) = 2\sum_{j=1}^{\infty} j q^{j^\rho} -
+  \text{E}(Y) - \text{E}(Y)^2,
+$$
+for which there are no closed expressions [@Klakattawi2018].
+
+This discretization method can be used to discrete any continuous
+distribution. From the special cases of Weibull, we have correspondents
+specials cases discrete exponential when $\rho=1$ (the popular geometric
+distribution) and discrete Rayleigh ($\rho=2$).
+
+The main disadvantage of the discrete Weibull is that there is no easy
+interpretation of the model parameters $q$ and $\rho$. In fact, there is
+no genuine dispersion and location parameter. The dispersion is
+controlled by both $q$ and $\rho$.
+
+### Generalized Poisson distribution ### {#chap2-generalized-poisson}
 
 Another generalization of Poisson distribution resulting from the
 limiting form of the generalized negative binomial distribution
@@ -140,7 +288,7 @@ Poisson distribution, then its probability mass function is given by
   \begin{cases}
     \left [ \lambda (\lambda + y\gamma)^{y-1}
       \exp(-\lambda - y\gamma) \right ] / y!, & y =0, 1,2,\ldots \\
-    0 & \text{para } y > m, \text{quando } \gamma < 0,
+    0 & y > m, \text{when } \gamma < 0,
   \end{cases}
 \end{equation}
 where $\lambda>0$, max$(-1, -\lambda/4) \leq \gamma \leq 1$ e $m$ is the
@@ -151,23 +299,77 @@ Poisson distribution is a particular case when $\gamma=0$.
 
 To obtain the model in mean parametrization, let
 $$
-\lambda = \frac{\mu}{1 + \alpha \mu} \quad \text{ and } \quad
-\gamma = \frac{\alpha \mu}{ 1 + \alpha \mu},
+\lambda = \frac{\mu}{1 + \sigma \mu} \quad \text{ and } \quad
+\gamma = \frac{\sigma \mu}{ 1 + \sigma \mu},
 $$
 \noindent now, the probability mass function can be written as
 \begin{equation}
-  \label{eqn:chap2-pmf-gpoisson}
-  \Pr(y) = \left ( \frac{\mu}{1+\alpha \mu} \right )^y
-    \frac{(1+\alpha y)^{y-1}}{y!}
-    \exp \left [ - \mu \frac{(1 + \alpha y)}{( 1 + \alpha \mu)}
+  \label{eqn:chap2-pmf-gpo}
+  \Pr(y) = \left ( \frac{\mu}{1+\sigma \mu} \right )^y
+    \frac{(1+\sigma y)^{y-1}}{y!}
+    \exp \left [ - \mu \frac{(1 + \sigma y)}{( 1 + \sigma \mu)}
     \right ],
 \end{equation}
-\noindent where $\alpha >
-\text{min}[ -\text{max}(y_i^{-1}), -\text{max}(\mu_i^{-1})]$, when
-$\alpha<0$. The moments are given by $\text{E}(Y) = \mu$ and
-$\text{Var}(Y) = \mu (1 + \mu\alpha)^2$.
+\noindent where $\sigma > \text{min}(-1/y, -1/\mu)$, when
+$\sigma<0$. The moments under this parametrization are given by
+\begin{equation}
+  \label{eqn:chap2-moments-gpo}
+\text{E}(Y) = \mu\quad \text{and}\quad
+\text{Var}(Y) = \mu (1 + \mu\sigma)^2.
+\end{equation}
+Thus, this distribution can model under-, when $\text{min}(-1/y,
+-1/\mu)<\sigma<0$ and overdispersion, when $\sigma>0$.  The Equation
+\@ref(eqn:chap2-pmf-gpo) reduces to the Poisson distribution when
+$\sigma=0$. Regression models based on the generalized Poisson are
+challenged by the presence of unusual parameter space for
+underdispersion.
 
-## Poisson mixture models ## {#chap2-poisson-mixture-models}
+### Double Poisson distribution ###
+
+The double Poisson distribution has been proposed by @Efron1986 based on
+the double exponential family. Double exponential families allow the
+introduction of a second parameter that controls variance independently
+of the mean. Following @Efron1986, a random variable $Y$ double Poisson
+distributed has the exact probability mass function given by
+\begin{equation}
+  \label{eqn:chap2-pmf-doublepo}
+  \Pr(Y=y) = \sqrt{\varphi ^{-1}}\exp\left( -\frac{\mu}{\varphi }\right)
+    \left ( \frac{\exp(-y) y^y}{y!} \right )
+    \left ( \frac{e \mu}{y} \right )^{y/\varphi }
+    \frac{1}{K(\mu,\varphi )},
+\end{equation}
+where $\mu>0$, $\varphi >0$ and $K(\mu, \varphi )$ is a normalizing constant
+that can be calculated as
+\begin{equation}
+  \label{eqn:chap2-constant-dpo}
+  K(\mu,\varphi ) = \sum_{j=0}^{\infty}
+  \sqrt{\varphi ^{-1}}\exp\left( -\frac{\mu}{\varphi }\right)
+    \left ( \frac{\exp(-j) j^j}{j!} \right )
+    \left ( \frac{e \mu}{j} \right )^{j/\varphi }\approx
+    1 + \frac{\varphi -1}{12\mu} \left( 1 + \frac{\varphi }{\mu} \right).
+\end{equation}
+
+The closed form approximation to the $K(\mu, \varphi )$ (Equation
+\@ref(eqn:chap2-constant-dpo)) demostrated by @Efron1986 is reasonable
+for large values of $\mu$, but is a poor approximation for small values
+[@Zou2013]. In this work, the normalizing constant is calculated by
+truncating the series (i.e., the sum of the first $k$ terms).
+
+The expected value and the variance referring to the double Poisson
+distribution has no closed form, but @Efron1986 shows that it can be
+approximated as
+$$
+\text{E}(Y) = \mu\quad \text{and}\quad
+\text{Var}(Y) = \varphi \mu.
+$$
+So, this distribution can model under- ($0<\varphi <1$), over-
+($\varphi >1$) and equidipersion ($\varphi =1$, special case Poisson). The
+disadvantages of applying double Poisson to count data analysis are
+related to the failure to obtain exact results and to the complexity of
+the normalizing constant
+[@Lindsey1996, Sec. 2.3.3; @Winkelmann2008, sec. 2.6.4].
+
+### Poisson-Tweedie distribution ### {#chap2-poisson-tweedie}
 
 Poisson mixture models
 [@Winkelmann2008, Sec.2.5; @Jorgensen1997, Sec.4.6.1], also called
@@ -186,11 +388,35 @@ hierarchical specification
     Z \sim \text{Tw}_p(\mu, \phi),
 \end{equation}
 \noindent where $\text{Tw}_p(\mu, \phi)$ denotes a Tweedie
-distribution. The probability mass function for the Poisson-Tweedie
-family cannot be written in a closed form, apart from the special case
-negative binomial distribution ($p=2$). However, due to hierarchical
-specification (Equation \ref{eqn:chap2-espec-ptw}), the moments mean and
-variance takes the form
+distribution, a proper exponential dispersion model [@Jorgensen1997]
+with probability function given by
+\begin{equation*}
+  f_{Z}(z; \mu, \phi, p) = a(z,\phi,p) \exp\{(z\psi - k_p(\psi))/\phi\}.
+\end{equation*}
+where $\mu = k^{\prime}_p(\psi)$ is the expectation, $\phi > 0$ is the
+dispersion parameter, $\psi$ is the canonical parameter and $k_p(\psi)$
+is the cumulant function.  Furthermore, $\mathrm{var}(Z) = \phi V(\mu)$
+where $V(\mu) = k^{\prime \prime}_p(\psi)$ is the variance
+function. Tweedie densities are characterized by power variance
+functions of the form $V(\mu) = \mu^p$, where
+INCLUDE PSPACE
+distribution. The support of the distribution depends on the value of
+the power parameter. For $p \geq 2$, $1 < p < 2$ and $p = 0$ the support
+corresponds to the positive, non-negative and real values, respectively.
+
+The probability mass function for the Poisson-Tweedie for $p>1$ is given
+by integrating out $z$,
+\begin{equation}
+  \label{eqn:chap2-pmf-ptw}
+  \Pr(Y = y) = \int_0^\infty \frac{z^y \exp{-z}}{y!}
+     a(z,\phi,p) \exp\{(z\psi - k_p(\psi))/\phi\} dz.
+\end{equation}
+
+The probability distribution \@ref(eqn:chap2-pmf-ptw) cannot be written
+in a closed form, apart from the special case negative binomial
+distribution ($p=2$). However, due to hierarchical specification
+(Equation \ref{eqn:chap2-espec-ptw}), the moments mean and variance
+takes the form
 \begin{equation}
   \label{eqn:chap2-moments-ptw}
   \begin{aligned}
@@ -200,73 +426,609 @@ variance takes the form
   \end{aligned}
 \end{equation}
 Besides the negative binomial ($p=2$), special cases include Hermite $(p
-= 0)$, Neymann tipo-A $(p=1)$, Pólya-Aeppli $(p=1,5)$, Poisson compound
+= 0)$, Neymann type-A $(p=1)$, Pólya-Aeppli $(p=1,5)$, Poisson compound
 Poisson ($1<p<2$) and Poisson-inverse Gaussian $(p = 3)$
-[@Bonat2018; @Bonat2018b].
+[@Bonat2018; @Bonat2017].
 
-## Regression models and estimation ## {#chap2-regression-models-and-estimation}
+The Poisson-Tweedie model can deal with only overdispersion
+($\omega>0$). However, @Bonat2018 noted that variance can be less than
+the expectation allowing $\omega<0$. So, they proposed the extended
+Poisson-Tweedie model, specified using only second-order moments
+assumptions. The extended Poisson-Tweedie model can deal with over-
+($\omega>0$), equi- ($\omega=0$) and underdispersion ($\omega<0$). The
+only restriction to  have a proper model is that $\text{Var}(Y)>0
+\implies \omega > -\mu^{(1-p)}$.
 
-The models presented are summarised in Table \ref{tab:chap2-models},
-where the notation, further results and the form of regression models
-are highlighted.
+## Comparing count distributions ## {#chap2-comparing-distributions}
+
+In order to explore and compare the flexibility of the models
+aforementioned to deal with real count data, we compute indexes for
+dispersion ($\text{DI}$), zero-inflation ($\text{ZI}$) and heavy-tail
+($\text{HI}$), which are respectively given by
+\begin{equation*}
+\text{DI} = \frac{\text{Var}(Y)}{\text{E}(Y)}, \quad
+\text{ZI} = 1 + \frac{\log \Pr(Y = 0)}{\text{E}(Y)}
+  \quad \text{and} \quad
+\text{HT} = \frac{\Pr(Y=y+1)}{\Pr(Y=y)}\quad \text{for} \quad y \to
+\infty.
+\end{equation*}
+
+As discussed in Chapter \@ref(chapter1-reparcmp), these indexes are
+defined in relation to the Poisson distribution. Thus, the dispersion
+index indicates overdispersion for $\text{DI} > 1$, underdispersion for
+$\text{DI} < 1$ and equidispersion for $\text{DI} = 1$; the
+zero-inflation index indicates zero-inflation for $\text{ZI} > 0$,
+zero-deflation for $\text{ZI} < 0$ and no excess of zeros for $\text{ZI}
+= 0$; and the heavy-tail index indicates a heavy-tail distribution for
+$\text{HT} \to 1$ when $y \to \infty$.  These indices have been widely
+applied to explore distributions. @Bonat2018 used them to study the
+Poisson-Tweedie family whereas @RibeiroJr2018 and @Luyts2018 used them
+to explore the reparametrized COM-Poisson distribution and the
+Discrete-Weibull distribution, respectively. A brief discussion of these
+indexes can be found in @Puig2006.
+
+Figures \@ref(fig:chap2-plot-dispersion-index),
+\@ref(fig:chap2-plot-zeroinflation-index) and
+\@ref(fig:chap2-plot-heavytail-index), display the indexes by different
+scenarios of dispersion and count distributions. We considered all
+two-parameter distributions described in Section \@ref(chap2-background)
+and three special cases of Poisson-Tweedie distribution: Poisson
+compound Poisson ($p=1.1$), negative binomial ($p=2$) and Poisson
+inverse-Gaussian ($p=3$). The dispersion parameters of the count
+distributions were set to have $\text{DI}=0.2, 0.5, 1,2, 5$ and $10$
+when the means equals 10 and the location parameters were considered as
+a sequence to have the expected values between 0 and 50. For the
+COM-Poisson (CMP), Gamma-Count (GCT), discrete-Weibull (DWe) and double
+Poisson (DPo) distribution, the expected values and the variances are
+computed numerically using
+$$
+\text{E}(Y)=\sum_{y=0}^{500} y\Pr(Y=y) \quad\text{and}\quad
+\text{E}(Y)=\sum_{y=0}^{500} \{[y-\text{E}(Y)]^2\}\Pr(Y=y)
+$$
+For the generalized Poisson (GPo) and Poisson-Tweedie (PTw)
+distributions, the expected values and the variances have a closed form
+(Equation \@ref(eqn:chap2-moments-gpo) and Equation
+\@ref(eqn:chap2-moments-gpo)). To obtain the HT and ZI for the
+Poisson-Tweedie distributions, we approximate the value of integral
+\@ref(eqn:chap2-pmf-ptw) using the Gauss-Laguerre method with 100 nodes,
+following the codes provide to @Bonat2018. For the CMP distribution, we
+could not find the parameter values to have dispersion index equals 10
+when the expected value is 10. Since the Poisson-Tweedie cannot deal
+with underdispersion, in this scenario we present only the other
+distributions.
+
+```{r chap2-plot-dispersion-index, results="asis", fig.width=9, fig.height=6, fig.cap="Dispersion index as function of expected values by different scenarios and count distributions. Dotted lines ($\\text{DI}=1$) represent the Poisson distribution."}
+knitr::include_graphics("chapter2-figure/plot-dispersion-index-1")
+```
+
+```{r chap2-plot-zeroinflation-index, results="asis", fig.width=9, fig.height=6, fig.cap="Zero-inflation index as function of expected values by different scenarios and count distributions. Dotted lines ($\\text{ZI}=0$) represent the Poisson distribution."}
+knitr::include_graphics("chapter2-figure/plot-zeroinflation-index-1")
+```
+
+```{r chap2-plot-heavytail-index, results="asis", fig.width=9, fig.height=6, fig.cap="Heavy-tail index for some extreme values of the random variable $Y$ considering $\\text{E}(Y)=10$ by different scenarios and count distributions. Dotted lines ($\\text{HT}=\\mu(y+1)^{-1}$) represent the Poisson distribution."}
+knitr::include_graphics("chapter2-figure/plot-heavytail-index-1")
+```
+
+The DIs in Figure \@ref(fig:chap2-plot-dispersion-index) show that the
+CMP, GCT, DPo, and PTw$_{1.1}$ (only for overdispersion) are quite
+similar. In general, for these distributions, the indexes slightly
+depend on the expected values and tend to stabilize for large values
+of. Consequently, the mean-variance relationship is proportional to the
+dispersion parameter value. In fact, if we look at the (approximate)
+variances for these distributions, they follow the same structure. The
+DIs for PTw$_3$ and GPo distributions shows that distributions are suitable
+to handle with very strong overdispersion. For the DWe distribution, the
+$x$-axis is the $q$ parameter, so the interpretations are not
+straightforward.
+
+The ZIs in Figure \@ref(fig:chap2-plot-zeroinflation-index) show that
+CMP, GCT, DWe, GPo, and DPo can handle a limited amount of
+zero-inflation, in cases of overdispersion ($\text{DI}<1$) and is
+suitable to zero-deflation, in cases of underdispersion
+($\text{DI}>1$). For the GCT distribution on the underdispersion
+scenarios ($\text{DI}=0.5$ and $\text{DI}=0.5$), the probability at zero
+tends to 0 with increasing the mean, hence the $\text{ZI}\to -Inf$. That
+is why the curves are dropped for the GCT distribution. Also in the
+underdispersion scenarios, the shape of the curves for the GPo
+distribution is interesting. Analytically, the $\text{ZI}$ for GPo
+distribution is $(-1-\sigma\mu)^{-1}$, which has a vertical asymptote at
+$\mu = -1/\sigma$, $\lim_{\mu\to-1/\sigma} \text{ZI}(\mu)$ is equals to
+$-\infty$ from the left and $\infty$ from the right. However, there is
+no distribution when $\mu > -1/\sigma$ (Equation
+\@ref(eqn:chap2-pmf-gpo)). The ZI's for PTw distributions increase
+quickly as the mean increases, indicating that distributions are is
+suitable to deal with zero-inflated count data.
+
+Finally, HTs in Figure \@ref(fig:chap2-plot-heavytail-index) indicates
+that CMP, GCT, DWe, DPo and PTw$_{1.1}$ distributions are in general
+light-tailed distributions i.e. $\text{HT} \to 0$ for $y \to
+\infty$. Actually, the HI for the DWe distributions tends to 1 for small
+values of the expectation [@Luyts2018]. The indexes for GPo and PTw$_p$
+($p=1, 2$) distributions increases with increasing mean, showing that
+the model is especially suitable to deal with heavy-tailed count data.
+
+## Regression models and estimation ## {#chap2-models-and-estimation}
+
+Suppose $y_i$, $i=1,\ldots,n$ a sample of independent counts according
+to a probabilistic distribution $\mathcal{D}(. ,.)$ and $\bm{x}_i$ a
+vector of known covariates. The regression models based on the
+distributions aformentioned is defined by
+$$
+Y_i \sim \mathcal{D}(g^{-1}(\eta_i), \theta), \quad\text{with}\quad
+\eta_i = g^{-1}(\bm{x}_i^\top\bm{\beta}),
+$$
+where $\theta$ is a general notation for the dispersion (or second)
+parameter of the distribution $\mathcal{D}$ and $g(.)$ is a suitable
+link function.
+
+Table \@ref(tab:chap2-models) summarizes the main properties of the
+count distributions considered, presents the link functions adopted, and
+establishes the notation. Similar results (exact, approximated or
+limiting) can be directly linked to the results presents in Figure
+\@ref(fig:chap2-plot-dispersion-index).
 
 \begin{table}[ht]
   \renewcommand{\arraystretch}{1.5}
   \centering \small
-  \caption{Summary of the regression models for analysis of count data..}
+  \caption{Summary of the considered regression models for analysis of
+  dispersed count data.}
   \label{tab:chap2-models}
-  \begin{tabularx}{\textwidth}{m{2.2cm}CCCCC}
+  \begin{tabularx}{\textwidth}{m{2.2cm}CCCC}
     \toprule
-    & COM-Poisson & Gamma-Count & Generalized Poisson &
-      Poisson-Tweedie \\
+    & COM-Poisson & Gamma-Count & Discrete Weibull \\
     \midrule
     Notation &
       CMP$(\mu_i, \nu)$ &
-      GCT$(\kappa_i, \gamma)$ &
-      GPo$(\mu_i, \sigma)$ &
-      PTw$_p(\mu_i, \omega)$ \\
+      GCT$(\kappa_i, \alpha)$ &
+      DWe$(q_i, \rho)$ \\
+    \makecell[l]{Linear \\[-.8mm] predictor} &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $\log(\kappa_i) = \bm{x}_i^\top \bm{\beta} $ &
+      $\log(-\log(q_i)) = \bm{x}_i^\top \bm{\beta}$ \\
     \makecell[l]{Dispersion \\[-.8mm] parameter} &
-      \makecell{$\phi = \log(\nu)$ \\ $\nu > 0$} &
-      \makecell{$\gamma = \log(\alpha)$ \\ $\alpha > 0$} &
-      \makecell{$\sigma$ \\ $\sigma > c^*$} &
-      \makecell{$\omega$ \\ $\omega > 0$} \\
+      \makecell{$\log(\nu)$; $\nu > 0$} &
+      \makecell{$\log(\alpha)$; $\alpha > 0$} &
+      \makecell{$\log(\rho)$; $\rho>0$} \\
     Expectation &
       $\approx \mu_i$ &
-      $\overset{a}{\approx} \kappa_i / \alpha$ &
-      $\mu_i$ &
-      $\mu_i$ \\
+      $\overset{a}{\approx} \kappa_i$ &
+      --- \\
     Variance &
       $\approx \mu_i / \nu$ &
-      $\overset{a}{\approx} \kappa_i / \alpha^2$ &
-      $\mu_i (1 + \sigma\mu_i)^2$ &
-      $\mu_i (1 + \omega\mu_i^{p-1})$ \\[0.1cm]
+      $\overset{a}{\approx} \kappa_i / \alpha$ &
+      --- \\[0.1cm]
     \makecell[l]{Dispersion \\[-.8mm] index (DI)} &
       $\approx 1 / \nu$ &
       $\overset{a}{\approx} 1 / \alpha$ &
-      $(1 + \sigma\mu_i)^2$ &
-      $1 + \omega\mu_i^{p-1}$ \\
+      --- \\
+    \midrule
+  \end{tabularx}\\[-0.17cm]
+  \begin{tabularx}{\textwidth}{m{2.2cm}CCCC}
+    \toprule
+    & Generalized Poisson & Double Poisson & Poisson-Tweedie \\
+    \midrule
+    Notation &
+      GPo$(\mu_i, \sigma)$ &
+      DPo$(\mu_i, \varphi)$ &
+      PTw$_p(\mu_i, \omega)$ \\
     \makecell[l]{Linear \\[-.8mm] predictor} &
-      $g(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
-      $g(\kappa_i \alpha^{-1}) = \bm{x}_i^\top \bm{\beta} $ &
-      $g(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
-      $g(\mu_i) = \bm{x}_i^\top \bm{\beta}$ \\
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ \\
+    \makecell[l]{Dispersion \\[-.8mm] parameter} &
+      \makecell{$\sigma$; $\sigma > c^*$} &
+      \makecell{$\log(\varphi)$; $\varphi > 0$} &
+      \makecell{$\omega$ \\ $\omega > 0$} \\
+    Expectation &
+      $\mu_i$ &
+      $\approx \mu_i$ &
+      $\mu_i$ \\
+    Variance &
+      $\mu_i (1 + \sigma\mu_i)^2$ &
+      $\approx \varphi \mu_i$ &
+      $\mu_i (1 + \omega\mu_i^{p-1})$ \\[0.1cm]
+    \makecell[l]{Dispersion \\[-.8mm] index (DI)} &
+      $(1 + \sigma\mu_i)^2$ &
+      $\approx \varphi$ &
+      $1 + \omega\mu_i^{p-1}$ \\
     \bottomrule
   \end{tabularx}
-  \footnotesize \raggedright
+\footnotesize \raggedright
   $c^* = \text{min}[ -\text{max}(y_i^{-1}),
   -\text{max}(\mu_i^{-1})]$;\; $\overset{a}{\approx}$ asymptotically
   when $T \to \infty$.
 \end{table}
 
-Besides the Table \ref{tab:chap2-models}, we compare the models in terms
-of mean-variance relationship. The Figure
-\ref{fig:chap2-plot-mean-variance} shows the mean-variance relationship
-for the COM-Poisson (CMP), Gamma-Count (GCT), Generalized Poisson (GPo),
-and Poisson-Tweedie, cases Neymann Type A ($p=1$, PTw$_1$), negative
-Binomial ($p=2$, PTw$_1$) and Poisson-inverse Gaussian ($p=2$, PTw$_3$).
+Except for the Poisson-Tweedie, the parameter estimation is based on the
+maximum likelihood method and the inference is done using the standard
+machinery of likelihood inference, including likelihood ratio tests for
+model comparison and Wald-tests for testing individual (or groups of)
+parameters. Since the derivatives of the log-likelihood function cannot
+be obtained analytically for any of this models, we compute them by
+central finite differences using the Richardson method as implemented in
+package `numDeriv` [@numDeriv-pkg] in `R` [@Rcore2018]. The
+computational routines for fitting these models are implemented in `R`,
+using `C++` to compute the normalizing constant for CMP and DPo, and
+organized in a `R` package
+(`flexcm`)^[Available on GitHub <https://github.com/jreduardo/flexcm>].
 
-```{r chap2-plot-mean-variance, results="asis", fig.width=9, fig.height=6.5, fig.cap="Mean-variance relationship for different parameters of the CMP, GCT, GPo and PTw$_p$ distributions. The parameters range are considered such that $\\text{DI}=4$ and $\\text{DI}=0.25$ when $\\text{E}(Y)=50$."}
-knitr::include_graphics("chapter2-figure/plot-mean-variance-1")
+For the Poisson-Tweedie, the non-trivial restriction on the power
+parameter space makes the estimation by maximum likelihood method hard
+to use. Furthermore, by using the maximum likelihood method we can model
+only overdispersed. Therefore, we use only the second-order moment
+assumptions for this class, i.e.
+$\text{E}(Y_i) = g^{-1}(\bm{x}_i^\top \bm{\beta}) = \mu_i$ and
+$\text{Var}(Y_i) = \mu_i + \omega\mu_i^p$.
+Note that this specification allows us to handle with under- and
+overdispersion and eliminate the non-trivial constraint in the power
+parameter space. The only restriction to have a proper model is that
+$\omega > -\mu_i^{1-p}$. This approach is called by extended
+Poisson-Tweedie [@Bonat2018].
+
+Estimation and inference for the extended Poisson-Tweedie model are
+based on the estimating function approach. Namely, quasi-score functions
+are used to estimate the regression parameters $\bm{\beta}$ and Pearson
+estimating function are used to estimate the variance parameters
+$\omega$ and $p$. This estimation method is implemented in the `mcglm`
+package [@Bonat2018b] as a special case of the multivariate covariance
+generalized linear models [@Bonat2016].
+
+## Data analyses ## {#chap2-data-analyses}
+
+In this section, we analyzed two data sets to illustrate and compare the
+applications of the flexible regression models.  The data sets and `R`
+code for their analysis are available in the supplementary material.
+
+### _Sitophilus zeamaus_ experiment ###
+
+As the first example, we analyse the _Sitophilus zeamaus_ data set
+introduced in Section \@ref{chap0-bromelia}. This dataset results from a
+completely randomized experiment with ten replicates and four
+treatments. To analyze the number of insects ($Y_{ij}$), we consider the
+linear predictor $\eta_{ij} = \beta_0 + \tau_i$, where $i$ indicates the
+repetition and $j$ the treatment.
+
+The parameter estimates, associated standard errors and goodness-of-fit
+measures (minus twice maximized log-likelihood and Akaike information
+criterion) are given in Table \@ref(tab:chap2-coeftable-sitophilus).
+Although the PTw model has being fitted using only second-order moments
+assumptions, the model parameters are estimated where the corresponding
+Tweedie distribution exist ($\hat{p}=1.4031$ and $\hat{\omega}=0.3476$)
+it being possible to calculate the log-likelihood and the AIC as
+shown. Furthermore, except for DWe model, all models have large
+improvements related to the classical Poisson model, whose maximum
+log-likelihood is equal to $-130.5828$. The likelihood ratio tests for
+H$_0: \log(\theta)=0$ (where $\theta$ is the associated dispersion
+parameter) for the models nested to the Poisson model (i.e. CMP, GCT,
+GPo, DPo and PTw) indicates strong evidence to reject the null
+hypothesis.
+
+In terms of practical inference, all models lead to the same conclusion
+-- the extract prepared with seeds of _Annano mucosa_ drastically
+decrease the _Sitophilus zeamais_ progeny while the other solutions
+(control, with leaves and with branch) had the same effect (see
+regression coefficients in Table \@ref(tab:chap2-coeftable-sitophilus).
+The same conclusion is reached by @Demetrio2014 using a quasi-Poisson
+specification [@Wedderburn1974].
+
+Table \@ref(tab:chap2-coeftable-sitophilus) also shows the disadvantage
+of the DWe model in terms of interpretation. Whereas the others models
+are parameterized in terms of mean, even approximately or
+asymptotically, the DWe model parameters are on a not easily interpreted
+scale.
+
+Fitted counts with 95\% confidence intervals for the six models are
+given in Figure \@ref(fig:chap2-fitted-plot-sitophilus). The results are
+practically identical for CMP, GCT, GPo, DPo and PTw. Only for DWe the
+results are slightly lower than the values reported for the
+others. Thus, along with the log-likelihoods presented in Table
+\@ref(tab:chap2-coeftable-sitophilus), it seems that the DWe model is
+not suitable to fit this data.
+
+\begin{table}[ht]
+\centering
+\caption{\textit{Sitophilus zeamais} data: Parameter estimates (Est) and standard errors (SEs) for the six fitted count models.}
+\label{tab:chap2-coeftable-sitophilus}
+\begingroup
+\begin{tabularx}{\textwidth}{m{2.6cm}m{1.2cm}R{3.4cm}R{3.4cm}R{3.4cm}}
+  \toprule
+           & & \multicolumn{3}{c}{Estimates (Standard Errors)} \\
+               \cmidrule(l{1em}){3-5}
+ Parameter & & COM-Poisson & Gamma-Count & Discrete Weibull \\
+  \midrule
+ Dispersion &  &  &  & \\
+  & $\log(\nu)$    & $-0.9272$ $(0.2628)^{\text{a}}$ & --                     & -- \\
+  & $\log(\alpha)$ & --                     & $-0.9273$ $(0.2635)^{\text{a}}$ & -- \\
+  & $\log(\rho)$   & --                     & --                     & $1.0348$ $(0.1361)^{\text{a}}$ \\
+ Regression &  &  &  &  \\
+   & $\beta_0$ & $3.4497$ $(0.0885)^{\text{a}}$ & $3.4255$ $(0.0911)^{\text{a}}$ & $-9.8805$ $(1.4027)^{\text{a}}$ \\
+   & $\tau_{\text{leaf}}$ & $-0.0064$ $(0.1254)^{\phantom{\text{a}}}$ & $-0.0066$ $(0.1281)^{\phantom{\text{a}}}$ & $-0.0487$ $(0.4478)^{\phantom{\text{a}}}$ \\
+   & $\tau_{\text{branch}}$ & $-0.0522$ $(0.1268)^{\phantom{\text{a}}}$ & $-0.0535$ $(0.1296)^{\phantom{\text{a}}}$ & $0.0717$ $(0.4474)^{\phantom{\text{a}}}$ \\
+   & $\tau_{\text{seed}}$ & $-3.2552$ $(0.2801)^{\text{a}}$ & $-4.0157$ $(0.6629)^{\text{a}}$ & $7.6069$ $(1.0371)^{\text{a}}$ \\
+ \specialrule{0.01em}{0.3em}{0.3em}
+   LogLik & & \multicolumn{1}{c}{$-121.6334$} & \multicolumn{1}{c}{$-121.6509$} & \multicolumn{1}{c}{$-128.7893$} \\
+   AIC & & \multicolumn{1}{c}{$\phantom{-}253.2668$} & \multicolumn{1}{c}{$\phantom{-}253.3017$} & \multicolumn{1}{c}{$\phantom{-}267.5787$} \\
+   \midrule
+ \end{tabularx}\\[-0.12cm]
+\begin{tabularx}{\textwidth}{m{2.6cm}m{1.2cm}R{3.4cm}R{3.4cm}R{3.4cm}}
+  \toprule
+           & & \multicolumn{3}{c}{Estimates (Standard Errors)} \\
+               \cmidrule(l{1em}){3-5}
+ Paramater & & Generalized Poisson & Double Poisson & Poisson-Tweedie \\
+  \midrule
+ Power & & & & \\
+   & $p$ & -- & -- & $1.4031$ $(0.5703)^{\text{a}}$ \\
+ Dispersion & & & & \\
+   & $\alpha$        & $0.0194$ $(0.0070)^{\text{a}}$ & --                           & -- \\
+   & $\log(\varphi)$ & --                           & $0.8659$ $(0.2444)^{\text{a}}$ & -- \\
+   & $\omega$        & --                           & --                           & $0.3476$ $(0.6699)^{\phantom{\text{a}}}$ \\
+ Regression & & & & \\
+   & $\beta_0$ & $3.4500$ $(0.0908)^{\text{a}}$ & $3.4503$ $(0.0868)^{\text{a}}$ & $3.4500$ $(0.0872)^{\text{a}}$ \\
+   & $\tau_{\text{leaf}}$ & $-0.0064$ $(0.1285)^{\phantom{\text{a}}}$ & $-0.0064$ $(0.1230)^{\phantom{\text{a}}}$ & $-0.0064$ $(0.1235)^{\phantom{\text{a}}}$ \\
+   & $\tau_{\text{branch}}$ & $-0.0521$ $(0.1289)^{\phantom{\text{a}}}$ & $-0.0521$ $(0.1244)^{\phantom{\text{a}}}$ & $-0.0521$ $(0.1246)^{\phantom{\text{a}}}$ \\
+   & $\tau_{\text{seed}}$ & $-3.3547$ $(0.3211)^{\text{a}}$ & $-3.5644$ $(0.5611)^{\text{a}}$ & $-3.3547$ $(0.3624)^{\text{a}}$ \\
+ \specialrule{0.01em}{0.3em}{0.3em}
+   LogLik & & \multicolumn{1}{c}{$-122.2840$} & \multicolumn{1}{c}{$-121.7930$} & \multicolumn{1}{c}{$-121.8466$} \\
+   AIC & & \multicolumn{1}{c}{$\phantom{-}254.5680$} & \multicolumn{1}{c}{$\phantom{-}253.5860$} & \multicolumn{1}{c}{$\phantom{-}255.6932$} \\
+   \bottomrule
+ \end{tabularx}
+ \endgroup
+ \scriptsize \raggedright
+ Est (SE)$^\text{a}$ indicates $|$Est$/$SE$|$ $> 1,96$.
+\end{table}
+
+```{r chap2-fitted-plot-sitophilus, results="asis", fig.width=9, fig.height=4.5, fig.cap="(a) Scatterplots of the observed data and fitted values with 95\\% confidence intervals and (b) Fitted mean and variance relationship for the six models."}
+knitr::include_graphics("chapter2-figure/fitted-plot-sitophilus-1")
 ```
 
-\printbibliography[segment=\therefsegment,heading=subbibliography]
+Figure \@ref(fig:chap2-fitted-plot-sitophilus)(b) shows the
+mean-variance relationship for the six fitted models. To obtain these
+curves, we computed the expected values and the the variances for the
+location parameter varying from $g^{-1}(\eta_{\text{lwr}})$ to
+$g^{-1}(\eta_{\text{upr}})$ (lower and upper of the confidence interval),
+and dispersion parameter fixed at the maximum likelihood estimate. The
+results show that the variance increases linearly for CMP, GCT and DPo
+and polynomially for DWe, GPo and PTw. In fact, the polynomials for GPo
+and PTw are $f(x)=x(1+x/50)^2$ and $f(x)=x+7x^{1.03}/20$, respectively.
+
+### Bromeliad experiment ###
+
+The second example relates to the bromeliad experiment of Section
+\@ref(chap0-bromelia). The number of leaves per experimental unit
+$Y_{ijk}$ was recorded for different treatments (Xaxim and alternative
+substrates) at six dates after planting. To analyze this data set, we
+dropped the data from the first date (4 days after planting) in order to
+avoid the non-linearity (sigmoidal) relationship between response and
+time (see Figure \@ref(fig:chap0-plot-bromelia)). In addition, the
+practical interest relies on the behavior of the plants close to the
+time when it is suitable for commercialization. We assumed $Y_ij$
+distributed according to the six flexible distributions and consider the
+following linear predictors
+\begin{tabular}{ll}
+Varying $\beta_0$:
+& $\eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
+   \beta_1 \texttt{x}_{1k} + \beta_2 \texttt{x}_{2k}$\\
+Varying $\beta_0$ and $\beta_1$:
+& $\eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
+   (\beta_1 + \delta_{1j}) \texttt{x}_{1k} +
+   \beta_2 \texttt{x}_{2k}$\\
+Varying $\beta_0$, $\beta_1$ and $\beta_2$:
+& $\eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
+   (\beta_1 + \delta_{1j}) \texttt{x}_{1k} +
+   (\beta_2 + \delta_{2j}) \texttt{x}_{2k},$
+\end{tabular}
+\noindent
+where $i$, $j$, and $k$ refers to the block, treatment and time,
+respectively. The covariates $\texttt{x}_{1k}$ and $\texttt{x}_{2k}$ are
+the orthogonal linear and quadratic polynomials of $\log(\text{time})$.
+
+Descriptive analysis of the number of leaves in the bromeliad experiment
+in Section \@ref(chap0-bromelia) suggesting strong
+underdispersion. Thus, Poisson-Tweedie is based only on the first and
+second moments. The estimation method implemented in `mcglm` package
+crashes to fit this data when considering free power parameter. However,
+to fixed power parameter between $0.93$ and $1.1$ we are able to
+estimate $\omega$ and $\bm{\beta}$. In Figure
+\@ref(fig:chap2-plot-ptwprofile-bromelia), we show the profile
+pseudo-log-likelihood for the power parameter $p$, considering the three
+linear predictors. The results suggest that a special case Neyman Type A
+(NTA) ($p=1$) can be a good choice to analyze this data.
+
+```{r chap2-plot-ptwprofile-bromelia, results="asis", out.width="80%", fig.width=8, fig.height=5, fig.cap="Profile pseudo-likelihood for the power parameter of the extended Poisson-Tweedie model with different linear predictors."}
+knitr::include_graphics("chapter2-figure/plot-ptwprofile-bromelia-1")
+```
+
+The maximum likelihood achieved by the full parametric model is given in
+Table in terms of global deviance (minus twice log-likelihood). The
+global deviance obtained from the Poisson model with the linear
+predictor varying the quadratic term is equal to $439.4984$ with 82
+degrees of fredoom and the usual deviance is equal to $1.82$. Here there
+is clearly overwhelming evidence against the Poisson assumption. The
+CMP, GCT and DPo models fit the data better than the DWe and GPo models
+in terms of likelihood. The latter model gives a poor fit for the
+underdispersion. In practical terms, this leads to different conclusions
+about the hypothesis H$_0$: $\beta_{1j}=0$. For CMP, GCT, DWe and DPo
+models there is evidence to reject this hypothesis whereas for GPo there
+is no evidence to reject H$_0$.
+
+\begin{table}[ht]
+\centering
+\caption{Bromelia data: likelihoods ($-2\times$logLik) and number of parameters ($\#p$) for the three predictors and five full parametric flexible models fitted to the data set.}
+\label{tab:chap2-deviance-table-bromelia}
+\begingroup
+\begin{tabularx}{\textwidth}{m{3cm}XXXXX}
+  \toprule
+  & \multicolumn{5}{c}{Minus twice log-likelihood $(\#p)$}\\
+  \cmidrule(lr){2-6}
+  Term varying & CMP & GCT & DWe & GPo & DPo \\
+  \midrule
+  Intercept ($\beta_{0j}$) & $169.50$ $(11)^{\text{a}}$ & $168.16$ $(11)^{\text{a}}$ & $178.03$ $(11)^{\text{a}}$ & $216.90$ $(11)^{\text{a}}$ & $169.71$ $(11)^{\text{a}}$ \\
+  Slope ($\beta_{1j}$) & $143.93$ $(15)^{\text{a}}$ & $143.15$ $(15)^{\text{a}}$ & $150.53$ $(15)^{\text{a}}$ & $211.34$ $(15)$ & $144.03$ $(15)^{\text{a}}$ \\
+  Quadratic ($\beta_{2j}$) & $135.97$ $(19)$ & $136.30$ $(19)$ & $144.57$ $(19)$ & $209.98$ $(19)$ & $135.98$ $(19)$ \\
+   \bottomrule
+\end{tabularx}
+\endgroup
+\footnotesize \raggedright
+\hspace*{0.2cm}$^\text{a}$ indicates the coefficients are significantly different from 0 in the
+likelihood ratio test at 5\% level.
+\end{table}
+
+The estimated parameters and associated standard errors for the full
+parametric models and for the NTA models (Poisson-Tweedie with fixed
+power parameter at 1 are presented in Table
+\@ref{tab:chap2-coef-table-bromelia}. All models indicate strong
+underdispersion confirming the findings in the descriptive
+analysis. Therefore, since the CMP, GCT, and DPo models are
+approximately indistinguishable in terms of moments, it is interesting
+to note that $\hat{\nu} \approx 1/\hat{\phi} \approx \hat{\alpha}$.
+
+\begin{table}[ht]
+\centering
+\caption{Bromelia data: Parameter estimates (Est) and standard errors (SEs) for the six fitted count models.}
+\label{tab:chap2-coef-table-bromelia}
+\begingroup\small
+\begin{tabularx}{\textwidth}{m{0.5cm}lR{3.8cm}R{3.8cm}R{3.8cm}}
+  \toprule
+ Paramater & & COM-Poisson & Gamma-Count & Discrete Weibull \\
+  \midrule
+ Dispersion &  &  &  &  \\
+   & $\log(\nu)$    & $3.9689$ $(0.1430)^{\text{a}}$ & --                           & --                           \\
+   & $\log(\alpha)$ & --                           & $4.4197$ $(0.2097)^{\text{a}}$ &                              \\
+   & $\log(\rho)$   & --                           & --                           & $3.5722$ $(0.0885)^{\text{a}}$ \\
+ Regression &  &  &  &  \\
+   & $\beta_0$ & $2.5865$ $(0.0110)^{\text{a}}$ & $2.6224$ $(0.0102)^{\text{a}}$ & $-93.9304$ $(8.3372)^{\text{a}}$ \\
+   & $\gamma_{\text{II}}$ & $0.0217$ $(0.0110)^{\text{a}}$ & $0.0233$ $(0.0103)^{\text{a}}$ & $-0.8595$ $(0.4016)^{\text{a}}$ \\
+   & $\gamma_{\text{III}}$ & $-0.0285$ $(0.0113)^{\text{a}}$ & $-0.0271$ $(0.0106)^{\text{a}}$ & $1.1354$ $(0.4084)^{\text{a}}$ \\
+   & $\gamma_{\text{IV}}$ & $0.0400$ $(0.0111)^{\text{a}}$ & $0.0397$ $(0.0103)^{\text{a}}$ & $-1.2435$ $(0.4140)^{\text{a}}$ \\
+   & $\tau_{\text{Pinus}}$ & $-0.0070$ $(0.0122)^{\phantom{\text{a}}}$ & $-0.0068$ $(0.0115)^{\phantom{\text{a}}}$ & $0.2847$ $(0.4283)^{\phantom{\text{a}}}$ \\
+   & $\tau_{\text{Eucaliptos}}$ & $-0.1415$ $(0.0125)^{\text{a}}$ & $-0.1347$ $(0.0119)^{\text{a}}$ & $4.7957$ $(0.5927)^{\text{a}}$ \\
+   & $\tau_{\text{Coxim}}$ & $-0.0855$ $(0.0127)^{\text{a}}$ & $-0.0818$ $(0.0120)^{\text{a}}$ & $2.9691$ $(0.5097)^{\text{a}}$ \\
+   & $\tau_{\text{Coconut}}$ & $-0.1099$ $(0.0128)^{\text{a}}$ & $-0.1047$ $(0.0119)^{\text{a}}$ & $3.5371$ $(0.5007)^{\text{a}}$ \\
+   & $\beta_1$ & $1.9182$ $(0.0881)^{\text{a}}$ & $1.8552$ $(0.0838)^{\text{a}}$ & $-64.9765$ $(6.6555)^{\text{a}}$ \\
+   & $\delta_{\text{Pinus}}$ & $0.5193$ $(0.1252)^{\text{a}}$ & $0.4987$ $(0.1194)^{\text{a}}$ & $-17.7658$ $(4.6140)^{\text{a}}$ \\
+   & $\delta_{\text{Eucaliptos}}$ & $0.6251$ $(0.1268)^{\text{a}}$ & $0.5704$ $(0.1223)^{\text{a}}$ & $-21.3382$ $(4.9066)^{\text{a}}$ \\
+   & $\delta_{\text{Coxim}}$ & $0.4874$ $(0.1305)^{\text{a}}$ & $0.4492$ $(0.1243)^{\text{a}}$ & $-18.1868$ $(4.8095)^{\text{a}}$ \\
+   & $\delta_{\text{Coconut}}$ & $0.4789$ $(0.1319)^{\text{a}}$ & $0.4526$ $(0.1234)^{\text{a}}$ & $-14.8219$ $(4.4322)^{\text{a}}$ \\
+   & $\beta_2$ & $-0.5064$ $(0.0403)^{\text{a}}$ & $-0.4861$ $(0.0384)^{\text{a}}$ & $17.2198$ $(2.1367)^{\text{a}}$ \\
+ \midrule
+ \end{tabularx}\\[-0.12cm]
+ \begin{tabularx}{\textwidth}{m{0.5cm}lR{3.8cm}R{3.8cm}R{3.8cm}}
+  \toprule
+ Paramater & & Generalized Poisson & Double Poisson & Neymann type-A$^1$ \\
+  \midrule
+ Dispersion & & & & \\
+   & $\sigma$        & $-0.0540$ $(0.0007)^{\text{a}}$ & --                            & --                            \\
+   & $\log(\varphi)$ & --                            & $-3.9280$ $(0.1430)^{\text{a}}$ & --                            \\
+   & $\omega$        & --                            & --                            & $-0.9769$ $(0.0040)^{\text{a}}$ \\
+ Regression & & & & \\
+   & $\beta_0$ & $2.5831$ $(0.0207)^{\text{a}}$ & $2.5864$ $(0.0110)^{\text{a}}$ & $2.5865$ $(0.0119)^{\text{a}}$ \\
+   & $\gamma_{\text{II}}$ & $0.0239$ $(0.0135)^{\phantom{\text{a}}}$ & $0.0215$ $(0.0110)^{\phantom{\text{a}}}$ & $0.0217$ $(0.0120)^{\phantom{\text{a}}}$ \\
+   & $\gamma_{\text{III}}$ & $-0.0465$ $(0.0171)^{\text{a}}$ & $-0.0286$ $(0.0113)^{\text{a}}$ & $-0.0286$ $(0.0121)^{\text{a}}$ \\
+   & $\gamma_{\text{IV}}$ & $0.0276$ $(0.0144)^{\phantom{\text{a}}}$ & $0.0399$ $(0.0111)^{\text{a}}$ & $0.0399$ $(0.0119)^{\text{a}}$ \\
+   & $\tau_{\text{Pinus}}$ & $0.0053$ $(0.0235)^{\phantom{\text{a}}}$ & $-0.0070$ $(0.0122)^{\phantom{\text{a}}}$ & $-0.0068$ $(0.0133)^{\phantom{\text{a}}}$ \\
+   & $\tau_{\text{Eucaliptos}}$ & $-0.1302$ $(0.0304)^{\text{a}}$ & $-0.1417$ $(0.0125)^{\text{a}}$ & $-0.1420$ $(0.0138)^{\text{a}}$ \\
+   & $\tau_{\text{Coxim}}$ & $-0.0760$ $(0.0276)^{\text{a}}$ & $-0.0856$ $(0.0127)^{\text{a}}$ & $-0.0861$ $(0.0136)^{\text{a}}$ \\
+   & $\tau_{\text{Coconut}}$ & $-0.1047$ $(0.0290)^{\text{a}}$ & $-0.1099$ $(0.0128)^{\text{a}}$ & $-0.1096$ $(0.0136)^{\text{a}}$ \\
+   & $\beta_1$ & $2.1015$ $(0.1865)^{\text{a}}$ & $1.9188$ $(0.0880)^{\text{a}}$ & $1.9185$ $(0.0964)^{\text{a}}$ \\
+   & $\delta_{\text{Pinus}}$ & $0.4217$ $(0.1963)^{\text{a}}$ & $0.5188$ $(0.1252)^{\text{a}}$ & $0.5141$ $(0.1363)^{\text{a}}$ \\
+   & $\delta_{\text{Eucaliptos}}$ & $0.3998$ $(0.2692)^{\phantom{\text{a}}}$ & $0.6279$ $(0.1265)^{\text{a}}$ & $0.6296$ $(0.1413)^{\text{a}}$ \\
+   & $\delta_{\text{Coxim}}$ & $0.3227$ $(0.2425)^{\phantom{\text{a}}}$ & $0.4888$ $(0.1307)^{\text{a}}$ & $0.4932$ $(0.1391)^{\text{a}}$ \\
+   & $\delta_{\text{Coconut}}$ & $0.4313$ $(0.2539)^{\phantom{\text{a}}}$ & $0.4783$ $(0.1320)^{\text{a}}$ & $0.4713$ $(0.1400)^{\text{a}}$ \\
+   & $\beta_2$ & $-0.6186$ $(0.0853)^{\text{a}}$ & $-0.5063$ $(0.0403)^{\text{a}}$ & $-0.5053$ $(0.0435)^{\text{a}}$ \\
+ \bottomrule
+ \end{tabularx}
+ \endgroup
+ \scriptsize \raggedright
+ Est (SE)$^\text{a}$ indicates $|$Est$/$SE$|$ $> 1,96$;
+ $^1$second-order moments assumptions (extended Poisson-Tweedie) with
+ power parameter fixed at 1.
+\end{table}
+
+The regression coefficients are quite similar among the CMP, GCT, GPo,
+DPo and NTA. The standard errors obtained from the GPO model are larger
+than the others, indicating that this model does not fit well to the
+underdispersion of this data. Therefore, except for the GPo models, the
+individual Wald tests indicate that intercept, linear and quadratic
+terms are different for each substrate.
+
+```{r chap2-fitted-plot-bromelia, results="asis", fig.width=9, fig.height=4.5, fig.cap="(a) Scatterplots of the observed data and fitted values with 95\\% confidence bands and (b) Fitted curves for each treatment.."}
+knitr::include_graphics("chapter2-figure/fitted-plot-bromelia-1")
+```
+
+```{r chap2-compare-bands-bromelia, results="asis", fig.width=7, fig.height=5.5, fig.cap="Pairwise plot of the differences between the upper and lower limits of 95\\% confidence bands for all considered models. Symbols refer to the treatments and colors refer to the fitted values."}
+knitr::include_graphics("chapter2-figure/compare-bands-bromelia-1")
+```
+
+Figure \@ref(fig:chap2-fitted-plot-bromelia)(a) presents the fitted
+curves with 95\% confidence bands for the six modeling strategies and
+Figure \@ref(fig:chap2-fitted-plot-bromelia)(b) the fitted curves for
+each alternative substrate. The results support that the growth rate of
+the expected number of leaves is higher for the bromeliads grown with
+the substrate composite with \textit{Pinus} bark, being this the
+preferred substrate to replace the composite with Xaxim.
+
+In Figure \@ref(fig:chap2-compare-bands-bromelia), we show the
+differences between the upper and lower limits of 95% confidence bands
+for all considered models in order to compare them. The confidence bands
+are, in general, larger for GPo model. For CMP, GCT, DWe, DPo, and NTA,
+the confidence intervals are quite similar, with small differences for
+DWe. The NTA gives slightly larger intervals than others, this is
+because we made only mean-variance assumptions to fit this model.
+
+## Discussion ## {#chap2-discussion}
+
+In this chapter, we presented six model strategies for analysis of
+dispersed count data and compare them throughout characteristic indexes
+and applications to the analysis of two experimental data. The genesis
+of generating probability distributions and the main properties is
+presented. Although some results are obtained only approximately or
+asymptotically, it is noted that the COM-Poisson, Gamma-count, and
+double Poisson models are indistinguishable in terms of mean-variance
+relationship. Moreover, the study of zero-inflation and heavy-tail
+indexes confirm the similarity. The COM-Poisson and double Poisson
+models are weighted-type distributions, so the computation of
+probabilities requires the computation of a normalization constant that
+makes the time-to-fit slow for big datasets. On the other hand, the
+Gamma-count distribution has a simple form for a probability function
+but the interpretation remains on the scale of waiting times. The
+parametrization of discrete Weibull distribution complicates the study
+of your flexibility; it seems that is a distribution useful for small
+counts. In the two applications, the discrete Weibull model did not fit
+well compared to the competitive models. The generalized Poisson model,
+although it deals with underdispersion, its unusual parametric space
+complicates the fitting in these cases. However, it was the model that
+took less time to fit in both applications. Finally, the extended
+Poisson-Tweedie approach is fast to fit and very flexible. However, it
+is based only on second-order moments assumption and there is no
+distribution for underdispersion makes impossible to compute
+probabilities for example. Moreover, when analyzing equidispersion data
+there is no information about the power parameter which makes its
+estimation difficult. In such cases, the choice of power parameter can
+be made based on the profile (or pseudo-profile) log-likelihood.
+
+Regarding the analysis of experimental data, for the first experiment
+does, it is clear that the extract prepared with seeds is different from
+the others and the other solution has no difference even without fit any
+model. On the other hand, the second application presents several
+statistical challenges. This is a longitudinal experiment -- the same
+plot was evaluated at different times with a clear evidence of strong
+underdispersion and nonlinear response over time. To analyze this data,
+we selected the data only from the region of practical interest and for
+this region, a polynomial approximation was a good choice. To address
+the correlated counts, we try to fit mixed models, however, although the
+observations are from the same individual, there is no evidence of
+dependence, the values predicted for the random effects were very close
+to zero.
+
+For further research, we are working to allow nonlinear predictors for
+the mean parameter of these models. There are many experiments in which
+there is a biological process leading to non-linear models, and the
+interpretation of the parameters becomes very useful for
+practitioners. Furthermore, the original parametrization of discrete
+Weibull not seems good to modeling, thus investigating new
+parametrizations can be useful. Finally, allow the dispersion parameter
+to be modeled to depend on covariates is a natural extension.
+
+\section*{References}
+\vspace{-1cm}
+\printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]
