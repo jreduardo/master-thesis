@@ -87,9 +87,11 @@ analysis are presented. Chapter \@ref(chapter1-reparcmp) is devoted to
 present and study our novel reparametrization of COM-Poisson models. An
 overview and comparison of some flexible probability distributions for
 count data are addressed in Chapter \@ref(chapter2-models).  In Chapter
-\@ref(chapter3-doublecmp) we consider double regression in the
+\@ref(chapter3-cmpvarying) we consider double regression in the
 reparametrized COM-Poisson models where the mean and the dispersion
 parameters may be allowed to depend on covariates. Final considerations
 are given in Chapter \@ref(chapterX-final).
 
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

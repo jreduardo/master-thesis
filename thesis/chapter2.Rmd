@@ -2,12 +2,19 @@
 
 ```{block2, result="asis", echo=TRUE, type="abstract_en"}
 
-In the analysis of count data often the equidispersion
-assumption is not suitable, hence the Poisson regression model is
-inappropriate. In this work, we review and compare the use of
-COM-Poisson, Gamma-Count, generalized Poisson and Poisson-Tweedie
-models. The application of these models is illustrated with the analysis
-of a real count data.
+In the analysis of count data often the equidispersion assumption is not
+suitable, hence the Poisson regression model is inappropriate. Several
+count distributions that can handle both under- and overdispersion has
+been proposed in the literature. However, a comparison of these
+distributions in the context of regression models has not yet been
+performed. In this chapter, we reviewed and compared the use of
+COM-Poisson, Gamma-count, generalized Poisson, and Poisson-Tweedie
+distributions for practical data analysis. The main properties of the
+distributions are highlighted and compared considering the dispersion,
+zero-inflation, and heavy tail indexes. The application of these models
+is illustrated with the analysis of two experimental data. The
+computational routines for fitting the models and the data sets are
+available in the supplementary material.
 \vspace*{0.3cm}
 
 **Keywords:** COM-Poisson, Gamma-Count, Generalized Poisson,
@@ -43,21 +50,21 @@ based on the Gamma-count distribution. @Klakattawi2018 discussed the
 properties and application of the discrete-Weibull distribution and
 @Luyts2018 extend it to model longitudinal/clustered data. @Zamani2012
 presented an extension for the generalized Poisson regression
-model. Double Poisson distribution proposed by @Efron1986 is used as the
-random component in general purposed class of models GAMLSS (generalized
-additive models for location, scale, and shape) [@Rigby2005]. @Bonat2018
-proposed the extended Poisson-Tweedie for handling under- and
-overdispersion count data based on moments of the Poisson-Tweedie
-family.
+model. Double Poisson distribution proposed by @Efron1986, is used as
+the random component in general purposed class of models GAMLSS
+(generalized additive models for location, scale, and shape)
+[@Rigby2005]. @Bonat2018 proposed the extended Poisson-Tweedie for
+handling under- and overdispersion count data based on moments of the
+Poisson-Tweedie family.
 
-The main objective of this chapter is compare several model strategies
-for analysis of dispersed count data, namely COM-Poisson, Gamma-Count,
+The main goal of this chapter is to compare several model strategies for
+analysis of dispersed count data, namely COM-Poisson, Gamma-Count,
 discrete-Weibull, generalized Poisson, double Poisson, and
-Poisson-Tweedie in terms of characteristic indexes (dispersion,
+Poisson-Tweedie, in terms of characteristic indexes (dispersion,
 zero-inflation, and heavy-tail) and real applications. Related work can
 be found in @Kokonendji2014 who did a well-documented discussion of
 count statistical models, but without applications or model comparisons,
-and @ Sellers2017 who discussed the causes of underdispersion and
+and @Sellers2017 who discussed the causes of underdispersion and
 presented some count distributions with two applications.
 
 The considered model strategies and their main properties are presented
@@ -65,7 +72,7 @@ in Section \@ref(chap2-background). In Section
 \@ref(chap2-comparing-distributions), we presented the characteristic
 index and use them to compare the models. The regression models and
 estimation are presented in Section
-\@ref{chap2-models-and-estimation}. Section \@ref(chap2-data-analyses)
+\@ref(chap2-models-and-estimation). Section \@ref(chap2-data-analyses)
 is devoted to illustrating the application of the models to two real
 experimental datasets and compare the results. Finally, discussion and
 direction for future work are given in Section
@@ -141,13 +148,12 @@ respectively, but cannot be solved in closed form. Therefore, despite
 the nice properties of COM-Poisson distribution, its major limitation is
 that the location parameter $\lambda$ does not represent the expectation
 of the distribution and has no direct interpretation. Under this
-motivation we showed in Chapter \@ref(chap1-reparcmp) the @Huang2017
-and @RibeiroJr2018 proposals of new parametrizations of COM-Poisson
-distribution related to the expectation. The distribution is now indexed
-by parameter $\mu$, where $\mu$ is obtained by the solution for
-$\sum_{j=0}^{\infty} (j-\mu)\lambda^j/(j!)^\nu = 0$ in the Huang's
-proposal and $\mu = \lambda^{1/\nu} -(\nu-1)/2\nu$ in the Ribeiro Jr's
-proposal.
+motivation, @Huang2017 and @RibeiroJr2018 proposed new
+parametrizations of COM-Poisson distribution related to the
+expectation. The distribution is now indexed by parameter $\mu$, where
+$\mu$ is obtained by the solution for $\sum_{j=0}^{\infty}
+(j-\mu)\lambda^j/(j!)^\nu = 0$ in the Huang's proposal and $\mu =
+\lambda^{1/\nu} -(\nu-1)/2\nu$ in the Ribeiro Jr's proposal.
 
 ### Gamma-Count distribution ### {#chap2-duration-dependence}
 
@@ -273,8 +279,8 @@ distribution) and discrete Rayleigh ($\rho=2$).
 
 The main disadvantage of the discrete Weibull is that there is no easy
 interpretation of the model parameters $q$ and $\rho$. In fact, there is
-no genuine dispersion and location parameter. The dispersion is
-controlled by both $q$ and $\rho$.
+no genuine dispersion and location parameter. The dispersion as well as
+the expectation is controlled by both $q$ and $\rho$.
 
 ### Generalized Poisson distribution ### {#chap2-generalized-poisson}
 
@@ -399,8 +405,8 @@ is the cumulant function.  Furthermore, $\mathrm{var}(Z) = \phi V(\mu)$
 where $V(\mu) = k^{\prime \prime}_p(\psi)$ is the variance
 function. Tweedie densities are characterized by power variance
 functions of the form $V(\mu) = \mu^p$, where
-INCLUDE PSPACE
-distribution. The support of the distribution depends on the value of
+$p \in (-\infty  ,0] \cup
+[1,\infty)$. The support of the distribution depends on the value of
 the power parameter. For $p \geq 2$, $1 < p < 2$ and $p = 0$ the support
 corresponds to the positive, non-negative and real values, respectively.
 
@@ -408,7 +414,7 @@ The probability mass function for the Poisson-Tweedie for $p>1$ is given
 by integrating out $z$,
 \begin{equation}
   \label{eqn:chap2-pmf-ptw}
-  \Pr(Y = y) = \int_0^\infty \frac{z^y \exp{-z}}{y!}
+  \Pr(Y = y) = \int_0^\infty \frac{z^y \exp(-z)}{y!}
      a(z,\phi,p) \exp\{(z\psi - k_p(\psi))/\phi\} dz.
 \end{equation}
 
@@ -416,7 +422,7 @@ The probability distribution \@ref(eqn:chap2-pmf-ptw) cannot be written
 in a closed form, apart from the special case negative binomial
 distribution ($p=2$). However, due to hierarchical specification
 (Equation \ref{eqn:chap2-espec-ptw}), the moments mean and variance
-takes the form
+can easily be obtained,
 \begin{equation}
   \label{eqn:chap2-moments-ptw}
   \begin{aligned}
@@ -483,7 +489,7 @@ Poisson (DPo) distribution, the expected values and the variances are
 computed numerically using
 $$
 \text{E}(Y)=\sum_{y=0}^{500} y\Pr(Y=y) \quad\text{and}\quad
-\text{E}(Y)=\sum_{y=0}^{500} \{[y-\text{E}(Y)]^2\}\Pr(Y=y)
+\text{Var}(Y)=\sum_{y=0}^{500} \{[y-\text{E}(Y)]^2\}\Pr(Y=y)
 $$
 For the generalized Poisson (GPo) and Poisson-Tweedie (PTw)
 distributions, the expected values and the variances have a closed form
@@ -682,7 +688,7 @@ code for their analysis are available in the supplementary material.
 ### _Sitophilus zeamaus_ experiment ###
 
 As the first example, we analyse the _Sitophilus zeamaus_ data set
-introduced in Section \@ref{chap0-bromelia}. This dataset results from a
+introduced in Section \@ref(chap0-bromelia). This dataset results from a
 completely randomized experiment with ten replicates and four
 treatments. To analyze the number of insects ($Y_{ij}$), we consider the
 linear predictor $\eta_{ij} = \beta_0 + \tau_i$, where $i$ indicates the
@@ -773,7 +779,7 @@ not suitable to fit this data.
    \bottomrule
  \end{tabularx}
  \endgroup
- \scriptsize \raggedright
+ \footnotesize \raggedright
  Est (SE)$^\text{a}$ indicates $|$Est$/$SE$|$ $> 1,96$.
 \end{table}
 
@@ -876,7 +882,7 @@ likelihood ratio test at 5\% level.
 The estimated parameters and associated standard errors for the full
 parametric models and for the NTA models (Poisson-Tweedie with fixed
 power parameter at 1 are presented in Table
-\@ref{tab:chap2-coef-table-bromelia}. All models indicate strong
+\@ref(tab:chap2-coef-table-bromelia). All models indicate strong
 underdispersion confirming the findings in the descriptive
 analysis. Therefore, since the CMP, GCT, and DPo models are
 approximately indistinguishable in terms of moments, it is interesting
@@ -938,7 +944,7 @@ to note that $\hat{\nu} \approx 1/\hat{\phi} \approx \hat{\alpha}$.
  \bottomrule
  \end{tabularx}
  \endgroup
- \scriptsize \raggedright
+ \footnotesize \raggedright
  Est (SE)$^\text{a}$ indicates $|$Est$/$SE$|$ $> 1,96$;
  $^1$second-order moments assumptions (extended Poisson-Tweedie) with
  power parameter fixed at 1.

@@ -6,7 +6,7 @@ The COM-Poisson distribution is a two-parameter generalization of the
 Poisson distribution that can deal with under-, equi- and overdispersed
 count data. Unfortunately, its location parameter does not correspond to
 the expectation, which complicates the interpretation of regression
-models specified using this distribution. In this chapter, we propose a
+models specified using this distribution. In this chapter, we proposed a
 straightforward reparametrization of the COM-Poisson distribution based
 on an approximation to the expectation. The main advantage of our new
 parametrization is the interpretation of the regression coefficients in
@@ -21,7 +21,7 @@ and dispersion parameters. The empirical correlation between the
 regression and dispersion parameter estimators and nature of the
 deviance surfaces suggests that these parameters are also approximately
 orthogonal, which is advantageous for interpretation, inference, and
-computational efficiency. We illustrate the application of the proposed
+computational efficiency. We illustrated the application of the proposed
 model through the analysis of three data sets with over-, under- and
 equidispersed count data. The study of the distribution's properties,
 through a consideration of dispersion, zero-inflation and heavy tail
@@ -219,7 +219,7 @@ underdispersed cases, respectively.  When $\phi=0$ we have the Poisson
 distribution as a special case.
 
 In order to assess the accuracy of the moment approximations (Equation
-\ref{eqn:chap1-mean-approx}), Figure \@ref(fig:chap1-fig:approx-plot}
+\@ref(eqn:chap1-mean-approx)), Figure \@ref(fig:chap1-approx-plot)
 presents the errors for (a) expectation ($\mu - \text{E}(Y)$) and (b)
 variance ($\mu \exp(-\phi) - \text{Var}(Y)$). In both cases
 $\text{E}(Y)$ and Var$(Y)$ were computed numerically using 500
@@ -228,7 +228,7 @@ terms^[E$(Y) \approx \sum_{y=0}^{500}yp(y)$ and E$(Y^2) \approx
 The dotted lines represent the border between the regions $\nu \leq 1$
 and $\lambda > 10^\nu$, in the $\mu$ and $\phi$ scale.
 
-```{r chap1-approx-plot, results="asis", fig.height=3, fig.width=6, out.width="80%", fig.cap="Squared errors for the approximation of the (a) expectation and (b) variance. Dotted lines represent the restriction for suitable approximations given by @Shmueli2005."}
+```{r chap1-approx-plot, results="asis", fig.height=3, fig.width=6, out.width="80%", fig.cap="Squared errors for the approximation of the (a) expectation and (b) variance. Dotted lines represent the restriction for suitable approximations given by \\autocite{Shmueli2005}."}
 knitr::include_graphics("chapter1-figure/approx-plot-1")
 ```
 
@@ -489,7 +489,7 @@ negative and associated with low counts.
 
 ## Case studies ## {#chap1-case-studies}
 
-In this section, we describe three illustrative examples of count data
+In this section, we presented three illustrative examples of count data
 analysis. For the analyses as alternative models we considered the
 standard Poisson regression model, the COM-Poisson model in the two
 forms (original and new parametrization), and the quasi-Poisson
@@ -987,4 +987,6 @@ computational routines for fitting the original and reparametrized
 COM-Poisson regression models are available in the supplementary
 material.
 
-\printbibliography[segment=\therefsegment,heading=subbibliography]
+\section*{References}
+\vspace{-1cm}
+\printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

@@ -35,11 +35,11 @@ growth stage. Figure \@ref(fig:chap0-plot-cotton)(b) show that all
 sample variances are smaller than the sample means, suggesting
 underdispersion.
 
-Alternatives analysis of this data set have been proposed in the
+Alternatives analysis of this data have been proposed in the
 literature. @Zeviani2014 analyzed it using the Gamma-Count
 distribution. @Bonat2018 used this data for illustrating the extension
-Poisson-Tweedie model. @Huang2017 and @RibeiroJr2018 analyzed this data
-set by using different mean-parametrizations of the COM-Poisson model.
+Poisson-Tweedie model. @Huang2017 and @RibeiroJr2018 analyzed it by
+using different mean-parametrizations of the COM-Poisson model.
 
 ## Soil moisture and potassium doses on soybean culture ## {#chap0-soy}
 
@@ -108,7 +108,12 @@ level. This descriptive analysis indicates the nitrofen reduce the
 number of live offspring however it seems like the dispersion is also
 influenced by the nitrofen concentration level (doses up to
 $1.6\mu$g$/10^2$litre suggesting underdispersion while doses between
-$1.6$ and $3.1\mu$g$/10^2$litre suggesting overdispersion).
+$1.6$ and $3.1\mu$g$/10^2$litre suggesting overdispersion). The Figure
+\@ref(fig:chap0-plot-nitrofen) shows a graphical representation of these
+results.
+
+```{r chap0-plot-nitrofen, fig.width=8, fig.height=3.5, out.width="90%", fig.cap="(a) Number of live offsprings observed for each nitrofen concentration level and (b) scatterplot of the sample means against sample variances (dotted line is the identity line and solid line is the least-squares line)."}
+```
 
 ## Evaluation of \textit{Annona mucosa} for control of \textit{Sitophilus zeamaus} ## {#chap0-sitophilus}
 
@@ -140,7 +145,7 @@ This data set is presented and analysed by @Ribeiro2013 and later used
 by @Demetrio2014 for illustrating the quasi-Poisson approach for
 modelling overdispersed count data.
 
-## Alternative substrats for bromeliad production ##
+## Alternative substrats for bromeliad production ## {#chap0-bromelia}
 
 Xaxim is a substrate used in the cultivation of bromeliads and orchids,
 whose commercialization was prohibited in 2001. Since then, there has
@@ -149,11 +154,12 @@ the cultivation of bromeliads, orchids, and other epiphytes
 [@Salvador2008]. This dataset comes from a randomized experiment
 conducted in a greenhouse in four blocks design with objective of
 evaluate five different recipients of alternative substrates for
-bromeliads. All treatments contained peat and perlite and differed in
-the third component: Pinus bark, Eucalyptus bark, Cushion, coconut fiber
-and Xaxim. The variable of interest was the number of leaves per
-experimental unit (pot with initially eight plants), which was
-registered at 4, 173, 229, 285, 341, and 435 days after planting.
+bromeliads [@Kanashiro2008]. All treatments contained peat and perlite
+and differed in the third component: _Pinus_ bark, _Eucalyptus_ bark,
+Coxim, coconut fiber and Xaxim. The variable of interest was the
+number of leaves per experimental unit (pot with initially eight
+plants), which was registered at 4, 173, 229, 285, 341, and 435 days
+after planting.
 
 ```{r chap0-plot-bromelia, fig.width=8.7, fig.height=4, fig.cap="(a) Number of leaves for each treatment and day after planting (solid lines represent loess curves) and (b) sample variance against the sample mean per block (dotted line is the identity line and solid line is the least square line). "}
 ```

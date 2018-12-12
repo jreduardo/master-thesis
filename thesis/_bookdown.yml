@@ -6,10 +6,9 @@ rmd_files: [
     "index.Rmd",
     "chapter0-intro.Rmd",
     "chapter0-data.Rmd",
-    # "chapter1.Rmd",
-    # "chapter2.Rmd",
-    # "chapter3.Rmd",
-    # "chapter4.Rmd",
+    "chapter1.Rmd",
+    "chapter2.Rmd",
+    "chapter3.Rmd",
     "chapterX.Rmd",
     "references.Rmd"
 ]
