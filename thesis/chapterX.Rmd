@@ -1,14 +1,52 @@
 # Final considerations # {#chapterX-final}
 
-Count data arise from random variables that take non-negative integer
-values and typically represent the number of times an event occurs in an
-observation period or region. This kind of data is also common in crop
-sciences, examples including the number of grains produced by a plant,
-the number of fruits on a tree, the number of insects captured by a
-trap, etc.  Since the seminal paper of @Nelder1972, where the class of
-the generalized linear models (GLMs) was introduced, the analysis of
-count data often uses a Poisson regression model. This model provides a
-suitable strategy for the analysis of count data and an efficient Newton
-scoring algorithm that can be used for fitting.
+In this thesis, we aimed to explore and extend statistical models for
+the analysis of dispersed count data. This was motivated by five
+datasets from planned experiments in the agricultural and biological
+contexts. Initially, we planned to work with the COM-Poisson
+distribution and propose a new parameterization only, reported in
+Chapter \@ref(chapter1-reparcmp). However, the study of the alternative
+models for the analysis of count data led us to deepen the comparison of
+these models in order to find in which situations each one would fit
+better, giving rise to Chapter \@ref(chapter2-models). Finally,
+motivated by the nitrofen data, we noticed that it was necessary to
+relax the assumption of constant dispersion and we developed the class
+of COM-Poisson with varying dispersion (Chapter
+\@ref(chapter3-cmpvarying)).
 
-\printbibliography[segment=\therefsegment,heading=subbibliography]
+The results of this thesis will be published in statistical journals to
+report our findings to the scientific community. Actually, the proposed
+new parametrization of the COM-Poisson model in Chapter
+\@ref(chapter1-reparcmp) was submitted to Statistical Modelling Journal
+in February 2018 [@RibeiroJr2018]. We also contributed to the paper by
+@Luyts2018, where some findings and extensions were reported in Chapter
+\@ref(chapter2-models).
+
+All computational routines and datasets used in this thesis are
+available in the respective GitHub
+repositories^[See all repositories in https://github.com/jreduardo]. We
+used mostly the statistical software `R` [@Rcore2018] and we are proud
+to have put some effort into organizing the functions into two `R`
+packages: `flexcm` and `cmpreg`. These packages contribute to the
+reproducible research as well as facilitate readers who wish to make
+further extensions and/or comparisons.
+
+There are many possibilities to further work. As highlighted in the data
+analysis, there are many datasets that present a nonlinear response over
+some covariate (time, dose, etc.). Therefore, a natural extension is to
+allow nonlinear predictors to models for dispersed count data. A started
+reference may be the generalized nonlinear models @Turner2007. Besides
+that, it is very common the collection of correlated data, such as
+resulting from multivariate, longitudinal, spatial, and clustered
+designs. Such designs motivate generalized linear mixed models (GLMMs)
+(Breslow and Clayton, 1993), where random effects are included at the
+group levels introducing correlation between these observations. So, to
+model the correlation in dispersed count we can incorporate random
+effects in the flexible models presented in Chapter 3. A related work
+can be found in @Brooks2017, @Lee2006 and @Rigby2005. Finally, taking
+advantage of the fully parametric specification, censoring can be
+incorporated easily in these models.
+
+\section*{References}
+\vspace{-1cm}
+\printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]
