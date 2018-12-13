@@ -1,5 +1,5 @@
 ---
-title: "Contributions to the Analysis of Dispersed Count Data"
+title: "Contributions to the analysis of dispersed count data"
 author: "Eduardo Elias Ribeiro Junior"
 date:  <span id="ftype">Master's thesis at ESALQ/USP</span><br>Updated `r format(Sys.Date(), "%B %d, %Y")`</span>
 documentclass: memoir
@@ -9,6 +9,7 @@ classoption:
   - 11pt
   - twoside
   - oldfontcommands
+  - openright
 bibliography: [../bibliography.bib]
 biblio-style: authoryear
 biblio-title: '\numberline{}Bibliography'
@@ -17,6 +18,7 @@ biblatexoptions:
   - giveninits=true
   - maxbibnames=99
   - maxcitenames=3
+  - dashed=false
 link-citations: yes
 colorlinks: yes
 esalq-informations: ./latex/informations.tex
@@ -75,76 +77,59 @@ opts_chunk$set(
 
 <!-- # Preface {-} -->
 
-```{block2, echo=TRUE, type="main_abstract_en", latex.options='{Contributions to the Analysis of Dispersed Count Data}'}
+```{block2, echo=TRUE, type="main_abstract_pt", latex.options='{Contribuições à análise de dados de contagem}'}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
-vestibulum nunc, ut elemen- tum sapien. Morbi sed efficitur lorem. Nunc
-tellus ex, pretium scelerisque consectetur ultrices, tincidunt at
-augue. Vestibulum laoreet augue in consequat gravida. Quisque molestie
-justo ac egestas pretium.  Maecenas viverra sapien vel purus ornare, sit
-amet eleifend leo auctor. Donec sed mollis ex, vitae mo- lestie
-ante. Morbi purus sapien, ullamcorper quis dui vitae, mollis ornare
-ipsum. Ut varius ultricies mauris, vel cursus enim elementum
-vulputate. Morbi felis sapien, tempor vitae urna non, vulputate sagittis
-felis. Proin malesuada orci euismod ipsum scelerisque condimentum non eu
-odio. Maecenas nisi nunc, dictum eu nisl id, bibendum sollicitudin
-ligula. Etiam congue, orci in placerat dictum, felis enim ultrices orci,
-at ultrices mauris nunc et turpis. Curabitur in consectetur nisi, quis
-viverra justo. Proin scelerisque tempor leo. Aliquam erat volutpat. Ut
-sodales congue quam consequat malesuada. Quisque lacinia ornare sem,
-volutpat fermentum felis faucibus sed. Ut aliquet arcu velit, sodales
-suscipit magna accumsan in. Suspendisse accumsan a nulla feugiat
-scelerisque. Praesent dignissim, nisi nec vehicula congue, felis ante
-rutrum orci, quis consequat risus tortor vel erat. Cras aliquet
-fringilla tincidunt. Nam auctor massa a convallis aliquet. Maecenas
-aliquet elementum sollicitudin. Integer vulputate quam erat, et
-ultricies orci lobortis in. Pellentesque fringilla, ante non semper
-tempus, arcu felis bibendum lacus, vel facilisis est tellus pretium
-odio. Proin commodo odio porta euismod egestas. In rhoncus nisi mi, in
-dictum augue tristique a. Morbi ut eros tincidunt, cursus mauris in,
-interdum urna. Lorem ipsum dolor sit amet, consectetur adipiscing
-elit. Integer ac cursus metus. Nam pretium ligula elementum aliquet
-blandit. Quisque dapibus sollicitudin velit.
+Em diversos estudos agrícolas e biológicos, a variável resposta de
+interesse é um número inteiro ou negativo não negativo que desejamos
+explicar ou analisar em termos de um conjunto de
+covariáveis. Diferentemente do modelo linear clássico, a variável de
+resposta é discreta com distribuição de probabilidade definida apenas em
+valores inteiros não negativos. O modelo linear generalizado Poisson é o
+modelo padrão para dados em forma de contagens. No entanto, suposições
+sobre o processo de geração dos dados podem ser implausíveis em muitas
+aplicações. Motivado por conjuntos de dados experimentais, este trabalho
+teve como objetivo desenvolver métodos mais realistas para a análise de
+contagens. Foi proposta uma nova reparametrização da distribuição
+COM-Poisson e explorados modelos de regressão baseados nela. Uma
+extensão desse modelo para permitir a dispersão, assim como a média,
+depender de covariáveis foi proposta. Um conjunto de modelos para
+contagens foi revisado e comparado, considerando os índices de
+dispersão, inflação de zero e cauda pesada, juntamente com os resultados
+das análises de dados. As rotinas computacionais desenvolvidas nesta
+tese foram organizadas em dois pacotes do R disponíveis no
+GitHub.
 \vspace*{0.3cm}
 
-**Keywords:** Aaaaaaaaa, Bbbbbbbbbb bbb, Ccccc, Dddddd eeeeeeee L.
+**Keywords:** Dados de contagens, Dispersão variável, Inferência baseada
+  em verossimilhança, Modelos probabilísticos discretos, Subdispersão,
+  Superdipersão.
 
 ```
 \clearpage
 
-```{block2, echo=TRUE, type="main_abstract_pt", latex.options='{Contribuições à Análise de Dados de Contagem}'}
+```{block2, echo=TRUE, type="main_abstract_en", latex.options='{Contributions to the analysis of dispersed count data}'}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
-vestibulum nunc, ut elemen- tum sapien. Morbi sed efficitur lorem. Nunc
-tellus ex, pretium scelerisque consectetur ultrices, tincidunt at
-augue. Vestibulum laoreet augue in consequat gravida. Quisque molestie
-justo ac egestas pretium.  Maecenas viverra sapien vel purus ornare, sit
-amet eleifend leo auctor. Donec sed mollis ex, vitae mo- lestie
-ante. Morbi purus sapien, ullamcorper quis dui vitae, mollis ornare
-ipsum. Ut varius ultricies mauris, vel cursus enim elementum
-vulputate. Morbi felis sapien, tempor vitae urna non, vulputate sagittis
-felis. Proin malesuada orci euismod ipsum scelerisque condimentum non eu
-odio. Maecenas nisi nunc, dictum eu nisl id, bibendum sollicitudin
-ligula. Etiam congue, orci in placerat dictum, felis enim ultrices orci,
-at ultrices mauris nunc et turpis. Curabitur in consectetur nisi, quis
-viverra justo. Proin scelerisque tempor leo. Aliquam erat volutpat. Ut
-sodales congue quam consequat malesuada. Quisque lacinia ornare sem,
-volutpat fermentum felis faucibus sed. Ut aliquet arcu velit, sodales
-suscipit magna accumsan in. Suspendisse accumsan a nulla feugiat
-rutrum orci, quis consequat risus tortor vel erat. Cras aliquet
-scelerisque. Praesent dignissim, nisi nec vehicula congue, felis ante
-fringilla tincidunt. Nam auctor massa a convallis aliquet. Maecenas
-aliquet elementum sollicitudin. Integer vulputate quam erat, et
-ultricies orci lobortis in. Pellentesque fringilla, ante non semper
-tempus, arcu felis bibendum lacus, vel facilisis est tellus pretium
-odio. Proin commodo odio porta euismod egestas. In rhoncus nisi mi, in
-dictum augue tristique a. Morbi ut eros tincidunt, cursus mauris in,
-interdum urna. Lorem ipsum dolor sit amet, consectetur adipiscing
-elit. Integer ac cursus metus. Nam pretium ligula elementum aliquet
-blandit. Quisque dapibus sollicitudin velit.
+In many agricultural and biological contexts, the response variable of
+interest is a nonnegative integer or count which we wish to explain or
+analyze in terms of a set of covariates. Unlike the classical linear
+model, the response variable is discrete with a distribution that places
+probability mass at nonnegative integer values only. The Poisson
+regression is the standard model for count data. However, assumptions on
+the generating process which may be implausible in many
+applications. Motivated by experimental data sets, this work intended to
+develop more realistic methods for the analysis of count data. We
+proposed a novel parametrization of the COM-Poisson distribution and
+explored the regression models based on it. We extended the model to
+allow the dispersion, as well as the mean, depending on covariates. A
+set of count statistical models was reviewed and compared, considering
+the dispersion, zero-inflation, and heavy tail indexes, together with
+the results of data analyzes. The computational routines developed in
+this thesis were organized in two R packages available on GitHub.
 \vspace*{0.3cm}
 
-**Keywords:** Aaaaaaaaa, Bbbbbbbbbb bbb, Ccccc, Dddddd eeeeeeee L.
+**Keywords:** Count data, Discrete probability models, Likelihood-based
+  inference, Overdispersion, , Underdispersion, Varying dispersion.
 
 ```
 \clearpage
+\openright
