@@ -13,8 +13,9 @@ bookdown::pdf_book:
     in_header: latex/preamble.tex
     before_body: latex/before.tex
   latex_engine: xelatex
+  highlight: monochrome
   citation_package: biblatex
-  toc_unnumbered: yes
+  toc_unnumbered: no
   keep_tex: true
 bookdown::epub_book:
   stylesheet: css/style.css

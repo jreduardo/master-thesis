@@ -20,7 +20,7 @@ biblatexoptions:
   - maxcitenames=3
   - dashed=false
 link-citations: yes
-colorlinks: yes
+colorlinks: no
 esalq-informations: ./latex/informations.tex
 esalq-cover: ./latex/cover.tex
 esalq-record: ./latex/record.tex
