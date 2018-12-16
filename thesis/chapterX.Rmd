@@ -15,7 +15,7 @@ of COM-Poisson with varying dispersion (Chapter
 \@ref(chapter3-cmpvarying)).
 
 The results of this thesis will be published in statistical journals to
-report our findings to the scientific community. Actually, the proposed
+report our findings to the scientific community. The proposed
 new parametrization of the COM-Poisson model in Chapter
 \@ref(chapter1-reparcmp) was submitted to Statistical Modelling Journal
 in February 2018 [@RibeiroJr2018]. We also contributed to the paper by
@@ -34,19 +34,19 @@ further extensions and/or comparisons.
 There are many possibilities to further work. As highlighted in the data
 analysis, there are many datasets that present a nonlinear response over
 some covariate (time, dose, etc.). Therefore, a natural extension is to
-allow nonlinear predictors to models for dispersed count data. A started
-reference may be the generalized nonlinear models @Turner2007. Besides
-that, it is very common the collection of correlated data, such as
-resulting from multivariate, longitudinal, spatial, and clustered
-designs. Such designs motivate generalized linear mixed models (GLMMs)
-(Breslow and Clayton, 1993), where random effects are included at the
-group levels introducing correlation between these observations. So, to
-model the correlation in dispersed count we can incorporate random
-effects in the flexible models presented in Chapter 3. A related work
-can be found in @Brooks2017, @Lee2006 and @Rigby2005. Finally, taking
-advantage of the fully parametric specification, censoring can be
-incorporated easily in these models.
+allow nonlinear predictors for dispersed count data. A initial reference
+may be the generalized nonlinear models by @Turner2007. Besides that, it
+is very common the collection of correlated data, such as resulting from
+multivariate, longitudinal, spatial, and clustered designs
+[@Molenberghs2005]. Such designs motivate generalized linear mixed
+models (GLMMs) (Breslow and Clayton, 1993), where random effects are
+included at the group levels introducing correlation between
+observations. So, to model the correlation in dispersed count we can
+incorporate random effects in the flexible models presented in
+Chapter 3. A related work can be found in @Brooks2017, @Lee2006 and
+@Rigby2005. Finally, taking advantage of the fully parametric
+specification, censoring can be incorporated easily in these models.
 
-\section*{References}
-\vspace{-1cm}
+<!-- \section*{References} -->
+<!-- \vspace{-1cm} -->
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

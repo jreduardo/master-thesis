@@ -111,31 +111,39 @@ xy1 <-
                             lty = ltys[1:2],
                             cex = 0.8),
                text = list(c("Number of bean seeds",
-                             "Number of viable pods"))),
+                             "Number of pods"))),
            data = soybean)
 
-lim <- extendrange(unlist(soybean_summary[, c("me", "va")]))
+# lim <- extendrange(unlist(soybean_summary[, c("me", "va")]))
 xy2 <-
     xyplot(va ~ me | var,
-           xlim = lim,
-           ylim = lim,
-           type = c("g", "p", "r"),
+           # xlim = lim,
+           # ylim = lim,
+           groups = var,
+           type = c("g", "p"),
            sub = "(b)",
            xlab = "Sample mean",
            ylab = "Sample variance",
            layout = c(NA, 2),
+           scales = "free",
            strip = strip.custom(
                factor.levels = c("Number of bean seeds",
                                  "Number of viable pods")
            ),
-           panel = function(...) {
-               panel.xyplot(...)
+           panel = function(subscripts, x, y, ...) {
+               panel.xyplot(subscripts = subscripts, x, y, ...)
+               panel.lmline(x, y)
                panel.abline(a = 0, b = 1, lty = 2)
+           },
+           prepanel = function(x, y, subscripts) {
+               rr <- extendrange(c(x[subscripts],
+                                   y[subscripts]))
+               list(xlim = rr, ylim= rr)
            },
            data = soybean_summary)
 
 print(xy1, position = c(0, 0, 0.63, 1), more = TRUE)
-print(xy2, position = c(0.63, 0, 1, 0.98), more = FALSE)
+print(xy2, position = c(0.63, 0, .98, 0.98), more = FALSE)
 
 #-----------------------------------------------------------------------
 # Descriptive analysis of the nitrofen data set

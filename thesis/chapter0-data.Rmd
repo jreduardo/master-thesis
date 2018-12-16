@@ -2,8 +2,8 @@
 
 In this chapter, we present a number of data sets to illustrate some
 scientific and statistical issues which arise from count data. These
-data sets will be used throughout the text for illustration of proposed
-methodology.
+data sets will be used throughout the text for illustration of the
+proposed methodology.
 
 ```{r chapter0}
 knitr::read_chunk("script-chapter0.R")
@@ -15,13 +15,13 @@ knitr::read_chunk("script-chapter0.R")
 ## Artificial defoliation in cotton phenology ## {#chap0-cotton}
 
 Cotton production can be drastically reduced by attack of defoliating
-insects. Depending on the growth stage, the plant can recover from the
-caused damage and keeps production not affected or can have the
+insects. Depending on the growth stage, the plants can recover from the
+caused damage and keep production not affected or can have the
 production reduced by low intensity defoliation. In order to study the
 recovery of cotton plants (_Gossypium hirsutum_) in terms of production,
 @Silva2012 conducted a greenhouse experiment under a completely
 randomized design with five replicates. The experimental unity was a pot
-with two plants and was recorded the number of cotton bolls at five
+with two plants and it was recorded the number of cotton bolls at five
 artificial defoliation levels (0%, 25%, 50%, 75%, and 100%) and five
 growth stages: vegetative, flower-bud, blossom, fig and cotton boll.
 
@@ -29,15 +29,14 @@ growth stages: vegetative, flower-bud, blossom, fig and cotton boll.
 ```
 
 Figure \@ref(fig:chap0-plot-cotton)(a) shows the number of cotton bolls
-recorded recorded for each combination of defoliation level and growth
-stage; the smoothers indicate that are different quadratic effects by
-growth stage. Figure \@ref(fig:chap0-plot-cotton)(b) show that all
-sample variances are smaller than the sample means, suggesting
-underdispersion.
+recorded for each combination of defoliation level and growth stage; the
+smoothers indicate that are different quadratic effects by growth
+stage. Figure \@ref(fig:chap0-plot-cotton)(b) show that all sample
+variances are smaller than the sample means, suggesting underdispersion.
 
 Alternatives analysis of this data have been proposed in the
 literature. @Zeviani2014 analyzed it using the Gamma-Count
-distribution. @Bonat2018 used this data for illustrating the extension
+distribution. @Bonat2018 used this data for illustrating the extended
 Poisson-Tweedie model. @Huang2017 and @RibeiroJr2018 analyzed it by
 using different mean-parametrizations of the COM-Poisson model.
 
@@ -49,14 +48,15 @@ soils are usually poor in potassium (K) and demand potassium
 fertilization when cultivated with soybean to obtain satisfactory
 yields. Soybean production is affected by long exposition to water
 deficit. As potassium is a nutrient involved in the water balance in
-plant, by hyphotesis, a good supply of potassium avoids lose production.
+plant, by hyphotesis, a good supply of potassium avoids to reduce
+production.
 
 To evaluate the effects of K doses and soil humidity levels on soybean
 production, @Serafim2012 conducted a $5\times 3$ factorial experiment in
 a randomized complete block design with 5 replicates. Five different
 potassium doses (0, 0.3, 0.6, 1.2 and 1.8 $\times$ 100mg dm$^{-3}$) were
 applied to the soil and soil moisture levels were controlled at (37.5,
-50, 62.5\%) . The experiment was carried out in a greenhouse and the
+50, and 62.5\%) . The experiment was carried out in a greenhouse and the
 experimental units were pots with two plants in each. The count
 responses measured were the total number of bean seeds per pot and the
 number of viable pods.
@@ -105,7 +105,7 @@ Table \@ref(tab:chap0-table-nitrofen) shows the sample mean, sample
 variance and sample dispersion index of the number of live offspring
 obtained from the batches with different nitrofen concentration
 level. This descriptive analysis indicates the nitrofen reduce the
-number of live offspring however it seems like the dispersion is also
+number of live offsprings however it seems like the dispersion is also
 influenced by the nitrofen concentration level (doses up to
 $1.6\mu$g$/10^2$litre suggesting underdispersion while doses between
 $1.6$ and $3.1\mu$g$/10^2$litre suggesting overdispersion). The Figure
@@ -120,14 +120,14 @@ results.
 New control methods are necessary for stored grain pest management
 programs due to both the widespread problems of insecticide-resistance
 populations and the increasing concerns of consumers regarding pesticide
-residues in food products. @Ribeiro2013 carried out a experiment to
+residues in food products. @Ribeiro2013 carried out an experiment to
 assess the bioactivity of extracts of _Annona mucosa_ (Annonaceae) for
 control _Sitophilus zeamaus_ (Coleoptera: Curculionidae), a major pest
 of stored maize in Brazil. Petri dishes containing 10g of corn were
 treated with extracts prepared with different parts of _Annona mucosa_
 (seeds, leaves and branches) or just water (control) were completely
 randomized with 10 replicates. Then 20 _Sitophilus zeamaus_ adults were
-placed in each Petri dish and the number of emerged insects (progeny)
+placed in each Petri dish and the numbers of emerged insects (progeny)
 after 60 days were recorded.
 
 ```{r chap0-plot-sitophilus, include=FALSE, fig.width=9, fig.height=4.5, out.width="90%"}
@@ -174,6 +174,6 @@ variances per block on the logarithm scale. All sample variances are
 much smaller than their sample means, even on the logarithm scale,
 indicating a strong evidence of underdispersion.
 
-\section*{References}
-\vspace{-1cm}
+<!-- \section*{References} -->
+<!-- \vspace{-1cm} -->
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

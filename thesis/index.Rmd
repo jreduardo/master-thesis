@@ -79,25 +79,24 @@ opts_chunk$set(
 
 ```{block2, echo=TRUE, type="main_abstract_pt", latex.options='{Contribuições à análise de dados de contagem}'}
 
-Em diversos estudos agrícolas e biológicos, a variável resposta de
-interesse é um número inteiro ou negativo não negativo que desejamos
-explicar ou analisar em termos de um conjunto de
-covariáveis. Diferentemente do modelo linear clássico, a variável de
-resposta é discreta com distribuição de probabilidade definida apenas em
-valores inteiros não negativos. O modelo linear generalizado Poisson é o
-modelo padrão para dados em forma de contagens. No entanto, suposições
-sobre o processo de geração dos dados podem ser implausíveis em muitas
-aplicações. Motivado por conjuntos de dados experimentais, este trabalho
-teve como objetivo desenvolver métodos mais realistas para a análise de
-contagens. Foi proposta uma nova reparametrização da distribuição
-COM-Poisson e explorados modelos de regressão baseados nela. Uma
-extensão desse modelo para permitir a dispersão, assim como a média,
-depender de covariáveis foi proposta. Um conjunto de modelos para
-contagens foi revisado e comparado, considerando os índices de
-dispersão, inflação de zero e cauda pesada, juntamente com os resultados
-das análises de dados. As rotinas computacionais desenvolvidas nesta
-tese foram organizadas em dois pacotes do R disponíveis no
-GitHub.
+Em diversos estudos agrícolas e biológicos, a variável resposta é um
+número inteiro não negativo que desejamos explicar ou analisar em termos
+de um conjunto de covariáveis. Diferentemente do modelo linear clássico,
+a variável de resposta é discreta com distribuição de probabilidade
+definida apenas em valores inteiros não negativos. O modelo Poisson é o
+modelo padrão para dados em forma de contagens. No entanto, as
+suposições desse modelo forçam que a média seja igual a variância, o que
+pode ser implausível em muitas aplicações. Motivado por conjuntos de
+dados experimentais, este trabalho teve como objetivo desenvolver
+métodos mais realistas para a análise de contagens. Foi proposta uma
+nova reparametrização da distribuição COM-Poisson e explorados modelos
+de regressão baseados nela. Uma extensão desse modelo para permitir que
+a dispersão, assim como a média, dependa de covariáveis, foi
+proposta. Um conjunto de modelos para contagens foi revisado e
+comparado, considerando os índices de dispersão, inflação de zero e
+cauda pesada, juntamente com os resultados de análises de dados. As
+rotinas computacionais desenvolvidas nesta dissertação foram organizadas
+em dois pacotes do R disponíveis no GitHub.
 \vspace*{0.3cm}
 
 **Keywords:** Dados de contagens, Dispersão variável, Inferência baseada
@@ -109,13 +108,13 @@ GitHub.
 
 ```{block2, echo=TRUE, type="main_abstract_en", latex.options='{Contributions to the analysis of dispersed count data}'}
 
-In many agricultural and biological contexts, the response variable of
-interest is a nonnegative integer or count which we wish to explain or
-analyze in terms of a set of covariates. Unlike the classical linear
-model, the response variable is discrete with a distribution that places
-probability mass at nonnegative integer values only. The Poisson
-regression is the standard model for count data. However, assumptions on
-the generating process which may be implausible in many
+In many agricultural and biological contexts, the response variable is a
+nonnegative integer value which we wish to explain or analyze in terms
+of a set of covariates. Unlike the classical linear model, the response
+variable is discrete with a distribution that places probability mass at
+nonnegative integer values only. The Poisson regression is the standard
+model for count data. However, assumptions of this model forces the
+equality between mean and variance, which may be implausible in many
 applications. Motivated by experimental data sets, this work intended to
 develop more realistic methods for the analysis of count data. We
 proposed a novel parametrization of the COM-Poisson distribution and
@@ -124,7 +123,7 @@ allow the dispersion, as well as the mean, depending on covariates. A
 set of count statistical models was reviewed and compared, considering
 the dispersion, zero-inflation, and heavy tail indexes, together with
 the results of data analyzes. The computational routines developed in
-this thesis were organized in two R packages available on GitHub.
+this dissertation were organized in two R packages available on GitHub.
 \vspace*{0.3cm}
 
 **Keywords:** Count data, Discrete probability models, Likelihood-based

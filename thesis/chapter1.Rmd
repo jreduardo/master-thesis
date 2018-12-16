@@ -987,6 +987,6 @@ computational routines for fitting the original and reparametrized
 COM-Poisson regression models are available in the supplementary
 material.
 
-\section*{References}
-\vspace{-1cm}
+<!-- \section*{References} -->
+<!-- \vspace{-1cm} -->
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]
