@@ -10,5 +10,6 @@ rmd_files: [
     "chapter2.Rmd",
     "chapter3.Rmd",
     "chapterX.Rmd",
+    "appendix.Rmd",
     "references.Rmd"
 ]

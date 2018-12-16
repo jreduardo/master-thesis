@@ -1,0 +1,126 @@
+# Appendix # {-}
+
+\addtotoc{chapter}{Appendix}
+
+\section*{\texttt{R} packages and computational routines}
+\addtotoc{section}{\texttt{R} packages and computational routines}
+
+In this dissertation, we implemented two packages, `cmpreg` and` flexcm`
+for the statistical software `R` @Rcore2018. The packages are available
+on GitHub and are still under development.
+
+The `cmpreg` package includes functions to fit COM-Poisson models using
+the parametrization proposed in Chapter 1. In this package, we can
+specify a regression model for both the mean and dispersion parameter,
+as discussed in Chapter 3. Several methods are provided for fitted model
+objects.
+
+The `flexcm` package includes functions to fit the COM-Poisson,
+Gamma-count, discrete Weibull, generalized Poisson, double Poisson and
+Poisson-Tweedie, but regression models are allowed for the location
+parameter only. Actually, for the Poisson-Tweedie model, we implemented
+a wrapper for the `mcglm::mcglm(..., variance = "poisson_tweedie")`.
+
+The codes below illustrate how to use the functions of these
+packages. All datasets are included in the packages.
+
+```{r echo=TRUE, eval=FALSE}
+
+#-----------------------------------------------------------------------
+# Install packages from GitHub (devtools is needed)
+#-----------------------------------------------------------------------
+devtools::install_github("jreduardo/flexcm")
+devtools::install_github("jreduardo/cmpreg")
+
+#-----------------------------------------------------------------------
+# Analysis of Sitophilus experiment (Section 4.5.1)
+#-----------------------------------------------------------------------
+data(sitophilus, package = "flexcm")
+
+# Fit all flexible models
+form <- ninsect ~ extract
+mcmp <- flexcm(form, data = sitophilus, model = "compoisson")
+mgct <- flexcm(form, data = sitophilus, model = "gammacount")
+mdwe <- flexcm(form, data = sitophilus, model = "discreteweibull")
+mgpo <- flexcm(form, data = sitophilus, model = "generalizedpoisson")
+mdpo <- flexcm(form, data = sitophilus, model = "doublepoisson")
+mptw <- flexcm(form, data = sitophilus, model = "poissontweedie")
+
+# Organize in a list
+models <- list(mcmp, mgct, mdwe, mgpo, mdpo, mptw)
+names(models) <- c("CMP", "GCT", "DWe", "GPo", "DPo", "PTw")
+
+# Methods for objects for the class 'flexcm'
+lapply(models, print)
+lapply(models, summary)
+lapply(models, lrtest)
+lapply(models, logLik)
+lapply(models, AIC)
+lapply(models, fitted)
+
+# Prediction intervals
+newdata <- unique(sitophilus[, "extract", drop = FALSE])
+lapply(models, function(model) {
+    predict(model,
+            newdata = newdata,
+            type = "response",
+            interval = "confidence",
+            level = 0.95,
+            augment_data = TRUE)
+})
+
+#-----------------------------------------------------------------------
+# Analysis of nitrofen experiment (Sections 3.6.3 and 5.6.1)
+#-----------------------------------------------------------------------
+data(nitrofen, package = "cmpreg")
+
+# Linear predictors
+po <- function(x, degree) c(poly(x, degree, raw = FALSE)[, degree])
+form0 <-  ~ 1
+form1 <-  ~ po(dose, 1)
+form2 <-  ~ po(dose, 1) + po(dose, 2)
+form3 <-  ~ po(dose, 1) + po(dose, 2) + po(dose, 3)
+
+# Organize in a list
+formulas <- list(form0, form1, form2, form3)
+names(formulas) <- c("Constant", "Linear", "Quadratic", "Cubic")
+
+# Fit CMP models using joint strategy
+modelscmp <-
+    lapply(formulas, function(form) {
+        cmp(novos ~ dose + I(dose^2) + I(dose^3),
+            dformula = form,
+            strategy = "joint",
+            data = nitrofen)
+    })
+
+# Fit double Poisson models (gamlss and gamlss.dist are needed)
+modelsdpo <-
+    map(formulas, function(form) {
+        gamlss::gamlss(novos ~ dose + I(dose^2) + I(dose^3),
+                       sigma.formula = form,
+                       family = gamlss.dist::DPO,
+                       data = nitrofen,
+                       trace = FALSE)
+    })
+
+# Fit double Generalized Linear Poisson model (dglm is needed)
+modelsglm <-
+    map(formulas, function(form) {
+        dglm::dglm(novos ~ dose + I(dose^2) + I(dose^3),
+                   dformula = form,
+                   family = poisson,
+                   data = nitrofen)
+    })
+
+# Methods for objects of class 'cmpreg'
+lapply(modelscmp, summary)
+lapply(modelscmp, logLik)
+anova(modelscmp)
+
+# Some type of residuals
+model <- modelscmp[[2]]
+plot(fitted(model), residuals(model))
+plot(fitted(model), residuals(model, type = "pearson"))
+
+```
