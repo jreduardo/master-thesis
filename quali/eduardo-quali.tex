@@ -16,7 +16,58 @@
     a4paper,
     english,
     brazil
-]{abntex2}
+]{abntex2}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{amsmath}
+\usepackage{alltt}
 \usepackage[margin=2cm]{geometry}
 \usepackage{bookman}
 
@@ -136,6 +187,7 @@
 
 %-------------------------------------------
 % Início do documento
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \selectlanguage{brazil}
 
@@ -156,11 +208,8 @@
 \cleardoublepage
 % ---
 
-<<read, include=FALSE>>=
-knitr::read_chunk("eduardo-quali.R")
-@
-<<setup, include=FALSE>>=
-@
+
+
 
 
 % ----------------------------------------------------------
@@ -247,8 +296,18 @@ repulsa, ou seja, uma ocorrência causa a repulsa de outras ocorrências
 em seu redor (e.g. contagem de árvores) ou ainda a competição
 (e.g. contagem de animais territoriais ou que disputam por território).
 
-<<processo-pontual, fig.width=8, fig.height=3.5, fig.cap="Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.">>=
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htb]
+
+{\centering \includegraphics[width=\textwidth]{figure/processo-pontual-1} 
+
+}
+
+\caption[Ilustração de diferentes tipos de processos pontuais]{Ilustração de diferentes tipos de processos pontuais. Da direita para esquerda têm-se processos sob padrões aleatório, aglomerado e uniforme.}\label{fig:processo-pontual}
+\end{figure}
+
+
+\end{knitrout}
 
 As alternativas paramétricas para análise de dados na forma de contagens
 não equidipersas estão, geralmente, relacionadas às causas da não
@@ -366,8 +425,18 @@ unidade experimental (vaso com duas plantas). Na
 observados em cada combinação entre estágio fenológico e nível de
 desfolha.
 
-<<desc-cotton, fig.width=8.5, fig.height=3.3, fig.cap="Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta. As linhas contínuas são curvas suaves estimadas pelo algoritmo \\textit{lowess}.">>=
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htb]
+
+{\centering \includegraphics[width=\textwidth]{figure/desc-cotton-1} 
+
+}
+
+\caption[Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta]{Dispersão do número de capulhos observados para cada nível de desfolha artificial e estágio fenológico da planta. As linhas contínuas são curvas suaves estimadas pelo algoritmo \textit{lowess}.}\label{fig:desc-cotton}
+\end{figure}
+
+
+\end{knitrout}
 
 Diversas alternativas já foram propostas para análise desse conjunto de
 dados. \citet{Zeviani2014} utilizaram o modelo \textit{Gamma-Count},
@@ -393,8 +462,7 @@ cada variável de interesse, grãos de soja e vagens viáveis, para cada um
 dos tratamentos, combinação entre umidade do solo e adubação com
 potássio.
 
-<<desc-soybean, fig.width=9, fig.height=4, fig.cap="Dispersão do número de grão e de vagens viáveis observado para cada nível de umidade do solo e de adubação potássica. As linhas contínuas ligam os pontos médios de cada tratamento.">>=
-@
+
 
 \citet{RibeiroJr2018} analisaram o número de grãos por parcela com sua
 proposta de reparametrização do modelo COM-Poisson. A característica
@@ -410,8 +478,7 @@ influência de adubação potássica nas contagens.
 \section{Ensaio clínico em pacientes epilépticos}
 \label{sec:epilepsy}
 
-<<load-epilepsy, include=FALSE>>=
-@
+
 
 Epilepsia é uma doença que se manifesta por crises de perda da
 consciência, acompanhadas de convulsões, que ocorrem em intervalos
@@ -433,11 +500,21 @@ presença de valores extremos e a redução no número de pacientes
 acompanhados no decorrer do estudo. Além disso, observa-se que há
 excesso de contagens nulas (semanas em que não foram observadas
 convulsões epilépticas em um determinado paciente) que representam
-\Sexpr{sum(epilepsy$nseizw == 0) / length(epilepsy$nseizw)*100}\% dos
+\text{33,122}\% dos
 dados observados.
 
-<<desc-epilepsy, fig.width=9, fig.height=4, fig.cap="Perfis do número de convulções de cada paciente dos grupos tratamento e placebo. As linhas em preto representam os perfis médio (linha contínua) e mediano (linha pontilhada).">>=
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htb]
+
+{\centering \includegraphics[width=\textwidth]{figure/desc-epilepsy-1} 
+
+}
+
+\caption[Perfis do número de convulções de cada paciente dos grupos tratamento e placebo]{Perfis do número de convulções de cada paciente dos grupos tratamento e placebo. As linhas em preto representam os perfis médio (linha contínua) e mediano (linha pontilhada).}\label{fig:desc-epilepsy}
+\end{figure}
+
+
+\end{knitrout}
 
 Esse conjunto de dados é interessante, pois traz observações
 multivariadas para cada indivíduo, isto é, para cada $i$-ésimo indivíduo
@@ -473,8 +550,18 @@ Xaxim. A variável de interesse foi o número de folhas por unidade
 experimental (pote com inicialmente 8 plantas), que foi registrado
 diariamente durante 6 dias após a plantação.
 
-<<desc-bromelia, fig.width=9, fig.height=4, fig.cap="(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala logarítmica, calculadas sobre os blocos em cada tempo e tratamento, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htb]
+
+{\centering \includegraphics[width=\textwidth]{figure/desc-bromelia-1} 
+
+}
+
+\caption[(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios]{(a) Perfis do número de folhas observadas para cada bloco em cada componente dos substratos alternativos, as linhas em preto representam os perfis médios. (b) Dispersão das médias e variâncias amostrais, na escala logarítmica, calculadas sobre os blocos em cada tempo e tratamento, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.}\label{fig:desc-bromelia}
+\end{figure}
+
+
+\end{knitrout}
 
 Na \Cref{fig:desc-bromelia}(a), são apresentados os perfis
 individuais do número de folhas para cada bloco em cada tratamento e
@@ -500,8 +587,18 @@ inseticidas e de fungicidas não selecionados afetaram seus inimigos
 naturais e, consequentemente, contribuíram para o aumento da importância
 econômica dessa praga em agronomia.
 
-<<desc-whitefly, fig.width=9, fig.height=6, fig.cap="(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias (eixo $x$) e variâncias (eixo $y$) amostrais, na escala logarítmica, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.">>=
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htb]
+
+{\centering \includegraphics[width=\textwidth]{figure/desc-whitefly-1} 
+
+}
+
+\caption[(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios]{(a) Perfis das contagens de ninfas observadas para cada bloco em cada uma das quatro cultivares BRS, as linhas em preto representam os perfis médios. (b) Dispersão das médias (eixo $x$) e variâncias (eixo $y$) amostrais, na escala logarítmica, calculadas sobre os blocos em cada tempo e cultivar para cada variável de interesse, a linha pontilhada representa a reta média $=$ variância (equidispersão) e a contínua representa um ajuste de mínimos quadrados.}\label{fig:desc-whitefly}
+\end{figure}
+
+
+\end{knitrout}
 
 Sob essa motivação, \citet{Suekane2013} conduziram um experimento sob o
 delineamento de blocos para avaliar o número de ninfas de mosca-branca
@@ -1061,11 +1158,16 @@ distribuições de probabilidade para diferentes parâmetros ilustrando a
 flexibilidade da distribuição. As distribuições para $\phi=0$
 representam o caso particular Poisson.
 
-<<pmf-cmp, results="asis", fig.height=3, fig.width=7, fig.cap="Probabilidades pela distribuição COM-Poisson$_\\mu$ para diferentes parâmetros.">>=
+\begin{figure}[!htb]
 
-include_graphics("images/pmf-cmp-1", auto_pdf = TRUE)
+{\centering \includegraphics[width=\textwidth]{images/pmf-cmp-1} 
 
-@
+}
+
+\caption[Probabilidades pela distribuição COM-Poisson$_\mu$ para diferentes parâmetros]{Probabilidades pela distribuição COM-Poisson$_\mu$ para diferentes parâmetros.}\label{fig:pmf-cmp}
+\end{figure}
+
+
 
 Uma avaliação da acurácia das aproximações apresentadas na
 \Cref{eqn:mean-aprox}) e, consequentemente, da reparametrização é
@@ -1085,11 +1187,16 @@ de $\nu$. A restrição que envolve a média da distribuição parece não ter
 relevância. De forma geral, para média e variância, os valores de $\nu$
 parecem ser mais influentes na acurácia do que os valores de $\mu$.
 
-<<approx-plot, results="asis", out.width=".8\\textwidth", fig.height=3, fig.width=6, fig.cap="Erros quadráticos das aproximações para (a) média e (b) variância.">>=
+\begin{figure}[!htb]
 
-include_graphics("images/approx-plot-1")
+{\centering \includegraphics[width=.8\textwidth]{images/approx-plot-1} 
 
-@
+}
+
+\caption[Erros quadráticos das aproximações para (a) média e (b) variância]{Erros quadráticos das aproximações para (a) média e (b) variância.}\label{fig:approx-plot}
+\end{figure}
+
+
 
 Os resultados apresentados na Figura \Cref{fig:approx-plot} mostram que
 a aproximação para o primeiro momento central da distribuição é acurada,
@@ -1118,11 +1225,16 @@ quando $y \to \infty$.  O uso desses índices é discutido por
 Poisson-Tweedie e por \citet{Puig2006} para descrever distribuição para
 dados de contagem.
 
-<<indexes-plot, results="asis", fig.width=9.5, fig.height=4, fig.cap="Índices para a distribuição COM-Poisson. (a) Relação média--variância, (b--d) Índices de dispersão, inflação de zeros e cauda pesada para diferentes parâmetros. As linhas tracejadas representam o caso especial Poisson.">>=
+\begin{figure}[!htb]
 
-include_graphics("images/indexes-plot-1")
+{\centering \includegraphics[width=\textwidth]{images/indexes-plot-1} 
 
-@
+}
+
+\caption[Índices para a distribuição COM-Poisson]{Índices para a distribuição COM-Poisson. (a) Relação média--variância, (b--d) Índices de dispersão, inflação de zeros e cauda pesada para diferentes parâmetros. As linhas tracejadas representam o caso especial Poisson.}\label{fig:indexes-plot}
+\end{figure}
+
+
 
 Os resultados apresentados na \Cref{fig:indexes-plot}, mostram que os
 índices são levemente dependentes dos respectivos valores esperados e
@@ -1214,11 +1326,16 @@ avaliação dos estimadores em situações extremas como contagens altas e
 baixa dispersão, e contagens baixas e alta dispersão, mas também em
 situação comuns como o caso de equidispersão.
 
-<<justpars, results="asis", fig.height=4, fig.width=9, fig.cap="Contagens médias (left) and índices de dispersão (right) para cada cenário considerado no estudo de simulação.">>=
+\begin{figure}[!htb]
 
-include_graphics("images/justpars-1")
+{\centering \includegraphics[width=\textwidth]{images/justpars-1} 
 
-@
+}
+
+\caption[Contagens médias (left) and índices de dispersão (right) para cada cenário considerado no estudo de simulação]{Contagens médias (left) and índices de dispersão (right) para cada cenário considerado no estudo de simulação.}\label{fig:justpars}
+\end{figure}
+
+
 
 Para avaliar a consistência dos estimados, considera-se quatro
 diferentes tamanhos de amostra: $50$, $100$, $300$ e $1000$; sendo
@@ -1230,11 +1347,16 @@ mais ou menos $\Phi(0.975)$ vezes a média dos desvios padrão
 observados. As escalas dos vieses são padronizadas pela média dos erros
 padrão obtidos para a amostra de tamanho $50$.
 
-<<bias-plot, results="asis", fig.height=6.5, fig.width=8.5, fig.cap="Distribuições dos viéses padronizadas (box-plots em cinza) e média com intervalos de confiança (segmentos em preto) de cada diferente tamanho de amostra e nível de dispersão.">>=
+\begin{figure}[!htb]
 
-include_graphics("images/bias-plot-1")
+{\centering \includegraphics[width=\textwidth]{images/bias-plot-1} 
 
-@
+}
+
+\caption[Distribuições dos viéses padronizadas (box-plots em cinza) e média com intervalos de confiança (segmentos em preto) de cada diferente tamanho de amostra e nível de dispersão]{Distribuições dos viéses padronizadas (box-plots em cinza) e média com intervalos de confiança (segmentos em preto) de cada diferente tamanho de amostra e nível de dispersão.}\label{fig:bias-plot}
+\end{figure}
+
+
 
 Os resultados na \Cref{fig:bias-plot}, mostram que para todos os níveis
 de dispersão, ambos média dos vieses e desvios padrão tendem a $0$
@@ -1245,10 +1367,16 @@ assintoticamente não-viesado; em pequenas amostras o parâmetro é
 superestimado e sua respectiva distribuição empírica é levemente
 assimétrica à direita.
 
-<<coverage-plot, results="asis", fig.height=4, fig.width=9, fig.cap="Taxas de cobertura dos intervalos de confiança obtidos por aproximação quadrática da verossimilhança para diferentes tamanhos de amostra e níveis de dispersão.">>=
-include_graphics("images/coverage-plot-1")
+\begin{figure}[!htb]
 
-@
+{\centering \includegraphics[width=\textwidth]{images/coverage-plot-1} 
+
+}
+
+\caption[Taxas de cobertura dos intervalos de confiança obtidos por aproximação quadrática da verossimilhança para diferentes tamanhos de amostra e níveis de dispersão]{Taxas de cobertura dos intervalos de confiança obtidos por aproximação quadrática da verossimilhança para diferentes tamanhos de amostra e níveis de dispersão.}\label{fig:coverage-plot}
+\end{figure}
+
+
 
 Na \Cref{fig:coverage-plot} são apresentadas as taxas de cobertura
 empíricas dos intervalos de confiança assintóticos, baseados na matriz
@@ -1271,17 +1399,27 @@ correlação. As correlações são praticamente zero em todos os casos,
 evidenciando a ortogonalidade do modelo COM-Poisson
 reparametrizado.
 
-<<ortho-plot, results="asis", fig.height=4.5, fig.width=9, fig.cap="Correlações empíricas entre os estimadores dos parâmetros de regressão e dispersão para cada tamanho de amostra e nível de dispersão.">>=
+\begin{figure}[!htb]
 
-include_graphics("images/ortho-plot-1")
+{\centering \includegraphics[width=\textwidth]{images/ortho-plot-1} 
 
-@
+}
 
-<<ortho-surf, results="asis", fig.height=5, fig.width=9, fig.cap="Gráficos de contorno das superfícies de deviance sob a parametrização original e proposta para quatro conjunto de dados simulados de tamanho 1000. As elipses representam as regiões de confiança de 90, 95 and 99\\%, as linhas tracejadas são as estimativas de máxima verossimilhança e os pontos são os valores dos parâmetros usados na simulação.">>=
+\caption[Correlações empíricas entre os estimadores dos parâmetros de regressão e dispersão para cada tamanho de amostra e nível de dispersão]{Correlações empíricas entre os estimadores dos parâmetros de regressão e dispersão para cada tamanho de amostra e nível de dispersão.}\label{fig:ortho-plot}
+\end{figure}
 
-include_graphics("images/ortho-surf-1")
 
-@
+
+\begin{figure}[!htb]
+
+{\centering \includegraphics[width=\textwidth]{images/ortho-surf-1} 
+
+}
+
+\caption[Gráficos de contorno das superfícies de deviance sob a parametrização original e proposta para quatro conjunto de dados simulados de tamanho 1000]{Gráficos de contorno das superfícies de deviance sob a parametrização original e proposta para quatro conjunto de dados simulados de tamanho 1000. As elipses representam as regiões de confiança de 90, 95 and 99\%, as linhas tracejadas são as estimativas de máxima verossimilhança e os pontos são os valores dos parâmetros usados na simulação.}\label{fig:ortho-surf}
+\end{figure}
+
+
 
 Para ilustrar a ortogonalidade no modelo COM-Poisson$_\mu$, são
 apresentados na \Cref{fig:ortho-surf} os gráficos de contornos da
