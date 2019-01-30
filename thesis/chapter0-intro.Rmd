@@ -9,7 +9,7 @@ trap, etc.  Since the seminal paper of @Nelder1972, where the class of
 the generalized linear models (GLMs) was introduced, a Poisson
 regression model has been often used for the analysis of count
 data. This model provides a suitable strategy for the analysis of count
-data and an efficient Newton scoring algorithm that can be used for
+data and an efficient Fisher scoring algorithm that can be used for
 fitting.
 
 In spite of the advantages of the Poisson regression model, the Poisson
@@ -23,7 +23,7 @@ and overdispersion, respectively.  While using the Poisson regression
 model to non-equidispersed count data can give consistent parameter
 estimates, the associated standard errors are inconsistently estimated,
 which in turn can lead to misleading inferences
-[@Winkelmann1995; @Bonat2018].
+[@Winkelmann1994; @Bonat2018].
 
 In practice, overdispersion is widely reported in the literature and may
 occur due to the absence of relevant covariates, heterogeneity of
@@ -37,11 +37,11 @@ deal with underdispersed count data. Possible explanatory mechanisms
 leading to underdispersion may be related to the underlying stochastic
 process generating the count data.  For example, when the time between
 events is not exponentially distributed, the number of events can be
-over or underdispersed; a process that motivated the class of duration
-dependence models [@Winkelmann1995].  Another possible explanation for
-underdispersion is when the responses correspond to order statistics of
-component observations, such as maxima of Poisson distributed counts
-[@Steutel1989].
+over- or underdispersed; a process that motivated the duration
+dependence in count-data models [@Winkelmann1995].  Another possible
+explanation for underdispersion is when the responses correspond to
+order statistics of component observations, such as maxima of Poisson
+distributed counts [@Steutel1989].
 
 Strategies for constructing alternative count distributions are related
 to the causes of the non-equidispersion. Specifically for
@@ -59,23 +59,27 @@ overdispersed count data [@Zeviani2014]. The COM-Poisson distribution,
 is obtained by a generalization of the Poisson distribution that allows
 for a non-linear decrease in the ratios of successive probabilities
 [@Shmueli2005] and can be seen as a particular case of the weigthed
-Poisson distribution [@DelCastillo1998]. Related to negative binomial
-distribution, the generalized Poisson is obtained as a limiting form of
-generalized negative binomial distribution [@Consul1973]. A
-comprehensive discussion on other generalizations of the Poisson
-distribution can be found in @Winkelmann2008.
+Poisson distribution [@DelCastillo1998]. The discretization process can
+also be used to derive flexible discrete distributions, such as the
+discrete Weibull distribution [@Nakagawa1975; @Klakattawi2018]. Related
+to negative binomial distribution, the generalized Poisson is obtained
+as a limiting form of generalized negative binomial distribution
+[@Consul1973]. The double exponential family and the particular double
+Poisson [@Efron1986] can model equi-, under- and overdispersion in count
+data, as well. A comprehensive discussion on other generalizations of
+the Poisson distribution can be found in @Winkelmann2008.
 
-The classical regression model for the models from the exponential
-family (generalized linear models) and for the aforementioned models is
-linked to the mean (or expectation-related) parameter. Thereby, the
-variance of the response variable is completely specified by the
-variance function (be it known or not). However, this assumption cannot
-be reasonable. For example, when there is an effect of a covariate
-(treatment, dose, etc.) in both expectation and dispersion of
-count. @Smyth1988 shows how to include a linear predictor for the
+The standard regression model for the models from the exponential family
+(generalized linear models) and for the aforementioned models is linked
+to the mean (or expectation-related) parameter. Thereby, the variance of
+the response variable is completely specified by the variance function
+(be it known or not). However, this assumption cannot be reasonable. For
+example, when there is an effect of a covariate (treatment, dose, etc.)
+in both expectation and dispersion of the count random
+variable. @Smyth1988 shows how to include a linear predictor for the
 dispersion as well as for the mean in the generalized linear models. In
 his paper, Smyth illustrates this with continuous data, but for discrete
-data, his proposal can be extended by using quasi-likelihoods estimation
+data, his proposal can be extended by using quasi-likelihood estimation
 methods [@Wedderburn1974; @Nelder1987]. For count data, a full
 parametric approach is presented by @Rigby2005 using the so-called
 generalized additive models for location, scale, and shape (GAMLSS).
@@ -88,12 +92,12 @@ challenges for analysis are presented. Chapter \@ref(chapter1-reparcmp)
 is devoted to present and study our novel reparametrization of
 COM-Poisson models. An overview and comparison of some flexible
 probability distributions for count data are addressed in Chapter
-\@ref(chapter2-models).  In Chapter \@ref(chapter3-cmpvarying) we
+\@ref(chapter2-models).  In Chapter \@ref(chapter3-cmpvarying), we
 consider varying dispersion in the reparametrized COM-Poisson models
 where the mean and the dispersion parameters may be allowed to depend on
 covariates. Final considerations are given in Chapter
 \@ref(chapterX-final).
 
-<!-- \section*{References} -->
-<!-- \vspace{-1cm} -->
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

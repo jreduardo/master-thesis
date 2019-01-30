@@ -143,7 +143,7 @@ xy2 <-
            data = soybean_summary)
 
 print(xy1, position = c(0, 0, 0.63, 1), more = TRUE)
-print(xy2, position = c(0.63, 0, .98, 0.98), more = FALSE)
+print(xy2, position = c(0.65, 0, .98, 0.98), more = FALSE)
 
 #-----------------------------------------------------------------------
 # Descriptive analysis of the nitrofen data set
@@ -225,7 +225,7 @@ nitrofen_summary %>%
                "Sample DI")) %>%
     xtable(caption = cap,
            label = "tab:chap0-table-nitrofen",
-           digits = 4,
+           digits = c(0, 2, 0, 2, 4, 4),
            align = "cccccc") %>%
     print.xtable(size = "normalsize")
 
@@ -309,7 +309,7 @@ sitophilus_summary %>%
                "Sample DI")) %>%
     xtable(caption = cap,
            label = "tab:chap0-table-sitophilus",
-           digits = 4,
+           digits = c(0, 2, 0, 2, 4, 4),
            align = "clcccc") %>%
     print.xtable(size = "normalsize",
                  table.placement = "htb")

@@ -51,31 +51,31 @@ deficit. As potassium is a nutrient involved in the water balance in
 plant, by hyphotesis, a good supply of potassium avoids to reduce
 production.
 
-To evaluate the effects of K doses and soil humidity levels on soybean
-production, @Serafim2012 conducted a $5\times 3$ factorial experiment in
-a randomized complete block design with 5 replicates. Five different
-potassium doses (0, 0.3, 0.6, 1.2 and 1.8 $\times$ 100mg dm$^{-3}$) were
-applied to the soil and soil moisture levels were controlled at (37.5,
-50, and 62.5\%) . The experiment was carried out in a greenhouse and the
-experimental units were pots with two plants in each. The count
-responses measured were the total number of bean seeds per pot and the
-number of viable pods.
+To evaluate the effects of potassium doses and soil humidity levels on
+soybean production, @Serafim2012 conducted a $5\times 3$ factorial
+experiment in a randomized complete block design with 5 replicates. Five
+different potassium doses (0, 0.3, 0.6, 1.2 and 1.8 $\times$ 100mg
+dm$^{-3}$) were applied to the soil and soil moisture levels were
+controlled at (37.5, 50, and 62.5\%) . The experiment was carried out in
+a greenhouse and the experimental units were pots with two plants in
+each. The count responses measured were the total number of bean seeds
+per pot and the number of pods.
 
-```{r chap0-plot-soy, fig.width=8.5, fig.height=4.5, fig.cap="(a) Number of bean seeds and number of viable pods produced for each moisture level and each potassium dose (solid lines represent loess curves) and (b) sample variance against the sample mean of the five replicates for each combination of moisture level and potassium dose (dotted line is the identity line and solid line is the least-squares line)."}
+```{r chap0-plot-soy, fig.width=8.5, fig.height=4.5, fig.cap="(a) Number of bean seeds and number of pods produced for each moisture level and each potassium dose (solid lines represent loess curves) and (b) sample variance against the sample mean of the five replicates for each combination of moisture level and potassium dose (dotted line is the identity line and solid line is the least-squares line)."}
 ```
 
 Figure \@ref(fig:chap0-plot-soy)(a) shows the number of bean seeds and
-the number of viable pods recorded for each combination of potassium
-dose and moisture level; it is important to note the indication of a
-quadratic effect of the potassium levels for both counts, as indicated
-by the smoothers. For the number of bean seeds, most points in the
-sample variance \textit{versus} sample means dispersion diagram
+the number of pods recorded for each combination of potassium dose and
+moisture level; it is important to note the indication of a quadratic
+effect of the potassium levels for both counts, as indicated by the
+smoothers. For the number of bean seeds, most points in the sample
+variance \textit{versus} sample means dispersion diagram Figure
 \@ref(fig:chap0-plot-soy)(b) are above the identity line, suggesting
 overdispersion (block effect not yet removed). However, for the number
-of viable pods, there are points above and below the identity line --
-that leads to least-squares line very similar to the identity
-line, suggesting that the equidispersion assumption is suitable for this
-count.
+of pods, there are points above and below the identity line -- that
+leads to least-squares line very similar to the identity line,
+suggesting that the equidispersion assumption can be suitable, if the
+experimental conditions are not related to the dispersion.
 
 ## Assessing toxicity of nitrofen in aquatic systems ## {#chap0-nitrofen}
 
@@ -84,8 +84,8 @@ broad-leaved and grass weeds in cereals and rice. Although it is
 relatively non-toxic to adult mammals, nitrofen is a significant
 tetragen and mutagen. It is also acutely toxic and reproductively toxic
 to cladoceran zooplankton. Nitrofen is no longer in commercial use in
-the U.S., having been the first pesticide to be withdrawn due to
-tetragenic effects [@Bailer1994].
+the United States, having been the first pesticide to be withdrawn due
+to tetragenic effects [@Bailer1994].
 
 This data set comes from an experiment to measure the reproductive
 toxicity of the herbicide, nitrofen, on a species of zooplankton
@@ -174,6 +174,6 @@ variances per block on the logarithm scale. All sample variances are
 much smaller than their sample means, even on the logarithm scale,
 indicating a strong evidence of underdispersion.
 
-<!-- \section*{References} -->
-<!-- \vspace{-1cm} -->
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

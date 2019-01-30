@@ -28,8 +28,7 @@ through a consideration of dispersion, zero-inflation and heavy tail
 indexes, together with the results of data analysis, show the
 flexibility over standard approaches.  The computational routines for
 fitting the original and reparameterized versions of the COM-Poisson
-regression model and data sets are available in the supplementary
-material.
+regression model and data sets are available in appendix.
 \vspace*{0.3cm}
 
 **Keywords:** COM-Poisson, Count data, Likelihood inference,
@@ -39,7 +38,8 @@ material.
 
 ## Introduction ## {#chap1-introduction}
 
-The COM-Poisson distribution includes the Poisson and geometric
+The COM-Poisson distribution is a two-parameter generalization of the
+Poisson distribution that includes the Poisson and geometric
 distributions as special cases, as well as the Bernoulli distribution as
 a limiting case. It can deal with both under- and overdispersed count
 data.  Some recent applications of the COM-Poisson distribution include
@@ -74,9 +74,10 @@ such as the Poisson and negative binomial regression models.
 Furthermore, our novel COM-Poisson parametrization is computationally
 simpler than the strategy proposed by @Huang2017, since it does not
 require any numerical method for solving non-linear equations. Also, we
-show that attractive properties like the orthogonality between
-dispersion and regression parameters and consistency and asymptotic
-normality of the maximum likelihood estimators are retained.
+show that attractive properties like the orthogonality
+[@Ross1970; @Cox1987] between dispersion and regression parameters and
+consistency and asymptotic normality of the maximum likelihood
+estimators are retained.
 
 This chapter is organized as follows. In Section \@ref(chap1-background)
 we present the COM-Poisson distribution and the approach proposed by
@@ -91,7 +92,7 @@ approximate orthogonality are assessed in Section
 the application of the new COM-Poisson regression model with the
 analysis of three data sets. We provide an `R` implementation for the
 COM-Poisson and reparameterized COM-Poisson regression models, together
-with the analyzed data sets, in the supplementary
+with the analyzed data sets, in the appendix and online
 material^[Available on http://www.leg.ufpr.br/~eduardojr/papercompanions].
 
 ## Background ## {#chap1-background}
@@ -101,7 +102,7 @@ terms of the ratio between the probabilities of two consecutive events
 by adding an extra dispersion parameter [@Sellers2010].  Let $Y$ be
 a COM-Poisson random variable, then
 $$\frac{\Pr(Y=y-1)}{\Pr(Y=y)} = \frac{y^\nu}{\lambda}$$ while for the
-Poisson distribution this ratio is $\frac{y}{\lambda}$ corresponding to
+Poisson distribution this ratio is $y/\lambda$ corresponding to
 $\nu=1$.  This allows the COM-Poisson distribution to deal with
 non-equidispersed count data.  The probability mass function of the
 COM-Poisson distribution is given by
@@ -111,7 +112,7 @@ COM-Poisson distribution is given by
   \qquad y = 0, 1, 2, \ldots,
 \end{equation}
 where $\lambda > 0$, $\nu \geq 0$ and
-$Z(\lambda, \nu) = \sum_{j=0}^\infty \frac{\lambda^j}{(j!)^\nu}$ is a
+$Z(\lambda, \nu) = \sum_{j=0}^\infty \lambda^j/(j!)^\nu$ is a
 normalizing constant that depends on both parameters.
 
 The $Z(\lambda, \nu)$ series diverges theoretically only when $\nu=0$
@@ -155,7 +156,7 @@ divergent$^{*}$ denotes a mathematically divergent series; and
 divergent$^{**}$ a numerically divergent series.
 \end{table}
 
-In the first line of Table \ref{tab:chap1-convergenceZ} we have
+In the first line of Table \ref{tab:chap1-convergenceZ}, we have
 mathematically divergent series, because $\sum_{j=0}^\infty\lambda^j$ is
 divergent when $\lambda \geq 1$.  In other cases the series diverges
 numerically, due to the computational storage limitation.  For both
@@ -174,10 +175,10 @@ COM-Poisson distribution can be approximated by
   \textrm{and} \qquad
   \textrm{Var}(Y) \approx \frac{\lambda^{1/\nu}}{\nu}\,,
 \end{equation}
-with greatest accuracy for $\nu \leq 1$ or $\lambda > 10$. The authors
-also argue that the mean-variance relationship can be approximated as
-$\textrm{Var}(Y) \approx\frac{1}{\nu}\text{E}(Y)$.  In Section
-\@ref(chap1-reparametrization), we assess the accuracy of these
+with greatest accuracy for $\nu \leq 1$ or $\lambda > 10^\nu$. The
+authors also argue that the mean-variance relationship can be
+approximated as $\textrm{Var}(Y) \approx \text{E}(Y)/\nu$. In
+Section \@ref(chap1-reparametrization), we assess the accuracy of these
 approximations.
 
 The COM-Poisson regression model was proposed by @Sellers2010, using
@@ -186,7 +187,7 @@ model is defined as $\log(\lambda_i) = \bm{x}_i^\top \bm{\beta}$ and the
 relationship between E$(Y_i)$ and $\bm{x}_i$ is modelled indirectly.
 @Huang2017 shows how to model directly the expectation of the
 COM-Poisson distribution in a suitable reparametrization. From
-Equation \ref{eqn:chap1-pmf-cmp}, Huang notes that the parameter
+Equation (\ref{eqn:chap1-pmf-cmp}), Huang notes that the parameter
 $\lambda$ is given, as a function of $\mu$ and $\nu$, by the solution to
 \begin{equation*}
   \sum_{j=0}^{\infty} (j - \mu) \frac{\lambda^j}{(j!)^\nu} = 0\,.
@@ -202,7 +203,7 @@ approach.
 ## Reparametrization ## {#chap1-reparametrization}
 
 The proposed reparametrization of COM-Poisson models is based on the
-mean approximation (Equation \ref{eqn:chap1-mean-approx}). We introduce
+mean approximation (Equation (\ref{eqn:chap1-mean-approx})). We introduce
 a new parameter $\mu$, using this approximation,
 \begin{equation}
   \label{eqn:chap1-repar-cmp}
@@ -214,12 +215,12 @@ a new parameter $\mu$, using this approximation,
 The dispersion parameter is taken on the log scale for computational
 convenience, thus $\phi = \log(\nu)$, $\phi \in \mathbb{R}$. The
 interpretation of $\phi$ is the same as the $\nu$, but simply on another
-scale. For $\phi < 0$ and $\phi > 0$ we have the overdispersed and
-underdispersed cases, respectively.  When $\phi=0$ we have the Poisson
+scale. For $\phi < 0$ and $\phi > 0$ we have the over- and
+underdispersion, respectively.  When $\phi=0$, we have the Poisson
 distribution as a special case.
 
 In order to assess the accuracy of the moment approximations (Equation
-\@ref(eqn:chap1-mean-approx)), Figure \@ref(fig:chap1-approx-plot)
+(\@ref(eqn:chap1-mean-approx))), Figure \@ref(fig:chap1-approx-plot)
 presents the errors for (a) expectation ($\mu - \text{E}(Y)$) and (b)
 variance ($\mu \exp(-\phi) - \text{Var}(Y)$). In both cases
 $\text{E}(Y)$ and Var$(Y)$ were computed numerically using 500
@@ -243,7 +244,7 @@ as opposed to the regions gives by @Shmueli2005 ($\phi \leq 0$ and $\mu
 
 The results presented in Figure \ref{fig:chap1-approx-plot}(a) support
 the proposed reparametrization. Replacing $\lambda$ and $\nu$ as
-functions of $\mu$ and $\phi$ in Equation \ref{eqn:chap1-pmf-cmp}, the
+functions of $\mu$ and $\phi$ in Equation (\ref{eqn:chap1-pmf-cmp}), the
 reparametrized distribution takes the form
 \begin{equation}
   \label{eqn:chap1-pmf-cmpmu}
@@ -268,7 +269,7 @@ interest in practice.
 
 In order to explore the flexibility of the COM-Poisson model to deal
 with real count data, we compute indexes for dispersion (DI),
-zero-inflation (ZI) and heavy-tail (HI), which are respectively given by
+zero-inflation (ZI) and heavy-tail (HT), which are respectively given by
 \begin{equation*}
 \text{DI} = \frac{\text{Var}(Y)}{\text{E}(Y)}, \quad
 \text{ZI} = 1 + \frac{\log \Pr(Y = 0)}{\text{E}(Y)}
@@ -334,7 +335,7 @@ following form,
 \end{equation}
 where $\mu_i = \exp(\bm{x}_i^\top\bm{\beta})$, with
 $\bm{x}_i^\top = (x_{i1},\, x_{i2},\, \ldots,\, x_{ip})$ is a vector of
-known covariates for the $i$-th observation, and $(\bm{\beta},\, \phi)
+known covariates for the $i$th observation, and $(\bm{\beta},\, \phi)
 \in \mathbb{R}^{p+1}$. The normalizing constant $Z(\mu_i, \phi)$ is
 given by
 \begin{equation}
@@ -344,25 +345,26 @@ given by
   \frac{1}{(j!)^{e^\phi}} \right ].
 \end{equation}
 The evaluation of the log-likelihood function for each observation
-involves the computation of the infinite series (Table
-\autoref{eqn:chap1-infseries}).  Thus, the fitting procedure is
+involves the computation of the infinite series ( Equation
+(\ref{eqn:chap1-infseries})).  Thus, the fitting procedure is
 computationally expensive for regions of the parameter space where the
 convergence of the infinite sum is slow.
 
 Parameter estimation requires the numerical maximization of Equation
-\ref{eqn:chap1-ll-rcmp}. Since the derivatives of $\ell$ cannot be
-obtained in closed forms, we use the `BFGS` algorithm [@Nocedal1995] as
-implemented in the function `optim()` in `R` [@Rcore2017]. Standard
-errors for the regression coefficients are obtained based on the
-observed information matrix $\mathcal{I}(\bm{\theta})$, where
-$\mathcal{I}(\bm{\theta}) = -\mathcal{H}(\bm{\theta})$ (Hessian matrix)
-is computed numerically by central finite differences. Standard errors
-for $\hat{\eta}_i = \log(\hat{\mu}_i)$ and hence confidence intervals
-are obtained by using the delta method [@Pawitan2001, p.89].
+(\ref{eqn:chap1-ll-rcmp}). Since the derivatives of $\ell$ cannot be
+obtained in closed forms, we compute them numerically. We use the `BFGS`
+algorithm [@Nocedal2006] as implemented in the function `optim()` in `R`
+[@Rcore2017]. Standard errors for the regression coefficients are
+obtained based on the observed information matrix
+$\mathcal{I}(\bm{\theta})$, where $\mathcal{I}(\bm{\theta}) =
+-\mathcal{H}(\bm{\theta})$ (Hessian matrix) is computed numerically by
+central finite differences. Standard errors for $\hat{\eta}_i =
+\log(\hat{\mu}_i)$ and hence confidence intervals are obtained by using
+the delta method [@Pawitan2001, p.89].
 
 Parameter estimation for the COM-Poisson regression model in the
 original parametrization is analogous to that presented for the
-COM-Poisson$_\mu$ distribution, however, it uses \ref{eqn:chap1-ll-rcmp}
+COM-Poisson$_\mu$ distribution, however, it uses (\ref{eqn:chap1-ll-rcmp})
 re-expressed in terms of $\lambda$. Here, even for the standard
 COM-Poisson distribution, the dispersion parameter is taken on the log
 scale to avoid numerical issues.
@@ -377,7 +379,7 @@ using the function `glm(..., family = quasipoisson)`.
 
 ## Simulation study ## {#chap1-simulation-study}
 
-In this section we report a simulation study to assess the properties of
+In this section, we report a simulation study to assess the properties of
 the maximum likelihood estimators, the approximate parameter
 orthogonality of the reparametrized model, as well as the flexibility of
 the COM-Poisson regression model to deal with non-equidispersed count
@@ -385,9 +387,9 @@ data.
 
 We considered average counts varying from $3$ to $27$ arising from a
 regression model with a continuous and a categorical covariate. The
-continuous covariate~($\bm{x}_1$) was generated as a linearly increasing
+continuous covariate ($\bm{x}_1$) was generated as a linearly increasing
 sequence from $0$ to $1$ with length equal to the sample size.
-Similarly, the categorical covariate~($\bm{x}_2$) was generated as a
+Similarly, the categorical covariate ($\bm{x}_2$) was generated as a
 sequence of three values each one repeated $n/3$ times (rounding up when
 required), where $n$ denotes the sample size. The parameter $\mu$ of the
 reparametrized COM-Poisson random variable is given by $\bm{\mu} =
@@ -453,7 +455,7 @@ counts.
 
 To check the orthogonality property we compute the covariance matrix
 between maximum likelihood estimators $\hat{\bm{\theta}} =
-(\hat{\bm{\beta}}, \phi)$, obtained from the observed information
+(\hat{\bm{\beta}}, \hat{\phi})$, obtained from the observed information
 matrix, Cov$(\hat{\bm{\theta}}) = \mathcal{I}^{-1}(\bm{\theta})$. Figure
 \ref{fig:chap1-ortho-plot} shows the correlation between the regression
 and dispersion parameter estimators for each simulation scenario, on the
@@ -494,7 +496,7 @@ analysis. For the analyses as alternative models we considered the
 standard Poisson regression model, the COM-Poisson model in the two
 forms (original and new parametrization), and the quasi-Poisson
 regression model.  The data sets and `R` code for their analysis
-are available as supplementary material.
+are available in the appendix.
 
 ### Artificial defoliation in cotton phenology ###
 
@@ -503,8 +505,8 @@ Following @Zeviani2014, the linear predictor is given by $\eta_{ij} =
 where $\eta_{ij} = \log(\lambda_{ij})$ for the original COM-Poisson and
 $\eta_{ij} = \log(\mu_{ij})$ for COM-Poisson$_\mu$. The parameter
 $\mu_{ij}$ is the (approximated) expected number of cotton bolls for the
-$i$-th defoliation level ($i=$ 1: 0\%, 2: 25\%, 3: 50\%, 4: 75\% e 5:
-100\%) and $j$-th growth stage ($j$ = 1: vegetative, 2: flower bud, 3:
+$i$th defoliation level ($i=$ 1: 0\%, 2: 25\%, 3: 50\%, 4: 75\% e 5:
+100\%) and $j$th growth stage ($j$ = 1: vegetative, 2: flower bud, 3:
 blossom, 4: boll, 5: boll open), i.e. we have a different second order
 effect of defoliation at each growth stage. The parameter estimates and
 goodness-of-fit measures for the Poisson, COM-Poisson,
@@ -554,8 +556,8 @@ goodness-of-fit measures (log-likelihood, AIC and BIC) are quite similar
 for the COM-Poisson and COM-Poisson$_\mu$ models. This suggests that the
 reparametrization does not change the model fit, as is to be expected.
 The Poisson model is clearly unsuitable, being overly conservative, due
-to the overestimated standard errors.  The difference in terms of
-$-2\times$log-likelihood value from the Poisson to the COM-Poisson$_\mu$
+to the overestimated standard errors.  The difference in terms of minus
+twice log-likelihood value from the Poisson to the COM-Poisson$_\mu$
 model is $94.811$ for one additional parameter, which confirms the
 significantly improved fit of the COM-Poisson$_{\mu}$ model.  Finally,
 the estimated value of the dispersion parameter $\hat{\phi} = 1.582$
@@ -573,12 +575,12 @@ is a probability distribution associated to the counts, while the
 quasi-Poisson model is based only on second-moment assumptions.
 
 Figure \ref{fig:chap1-pred-cotton} presents the observed and fitted
-values with confidence intervals (95\%) as a function of the defoliation
+values with 95\% confidence intervals as a function of the defoliation
 level for each growth stage. The fitted values are the same for the
 Poisson and COM-Poisson$_{\mu}$ models, however, the confidence
 intervals are larger for the Poisson model because of the inappropriate
 equidispersion assumption.  The results from the COM-Poisson$_{\mu}$
-model are consistent with those from the Gamma-Count model
+model are consistent with those from the Gamma-count model
 [@Zeviani2014], Poisson-Tweedie [@Bonat2018] and the alternative
 parametrization of the COM-Poisson distribution proposed by @Huang2017.
 All of these models indicated underdispersion and significant effects of
@@ -644,13 +646,13 @@ $$
   \beta_{1}\texttt{K}_k + \beta_{2}\texttt{K}_k^2 +
   \beta_{3j}\texttt{K}_k
 $$
-where $\gamma_i$ is the effect of $i$-th block ($i=$1: block II, 2:
-block III, 3: block IV and 4: block V), $\tau_j$ is the effect of $j$-th
-moisture level ($j=$1: 50\% and 2: 62.5\%), $\beta_{1}$ and $\beta_{2}$
+where $\gamma_i$ is the effect of $i$th block ($i=1$: block II, 2:
+block III, 3: block IV and 4: block V), $\tau_j$ is the effect of $j$th
+moisture level ($j=1$: 50\% and 2: 62.5\%), $\beta_{1}$ and $\beta_{2}$
 give the baseline quadratic response over potassium levels \texttt{K}
-($k=$1: 0.0, 2: 0.3, 3: 0.6, 4: 1.2, 5: 1.8 100mg dm$^{-3}$) and
+($k=1$: 0.0, 2: 0.3, 3: 0.6, 4: 1.2, 5: 1.8 100mg dm$^{-3}$) and
 $\beta_{3j}$ is interaction of the first order potassium effect
-(\texttt{K}) for the $j$-th moisture level (\texttt{umid}); The
+(\texttt{K}) for the $j$th moisture level (\texttt{umid}); The
 predictor $\eta_{ijk}$ is $\log(\lambda_{ijk})$ for the original
 COM-Poisson and $\log(\mu_{ijk})$ for COM-Poisson$_\mu$. Table
 \ref{tab:chap1-coef-soy} presents the estimates, ratio between estimate
@@ -698,7 +700,7 @@ $\phi$ & -- & -- & $-$0.7785 & $-$4.7208 & $-$0.7821 & $-$4.7371 & -- & -- \\
 The results in Table \ref{tab:chap1-coef-soy} show that the two
 parametrizations of the COM-Poisson model presented very similar
 goodness-of-fit measures and a better fit than the Poisson model. The
-$-2\times$difference between the log-likelihoods of the Poisson and
+minus twice difference between the log-likelihoods of the Poisson and
 COM-Poisson models was $29.697$ on 1 degree of freedom, indicating that
 $\phi$ is significantly different from zero. The estimate of $\phi$
 ($-0.782$) indicates overdispersion, corroborating the descriptive
@@ -717,9 +719,9 @@ at $700$.  To reach convergence the \texttt{BFGS} algorithm evaluated
 the log-likelihood function 264 times when using the original
 parametrization of the COM-Poisson distribution and only 20 times with
 the new parametrization.  In terms of computational time, for 50
-repetitions of the fit, the proposed reparametrization was, on average,
-$110\%$ faster than the original one.  This is probably due to the
-better behaviour of the log-likelihood function as well as more relevant
+repetitions, the proposed reparametrization was, on average, $110\%$
+faster to fit than the original one.  This is probably due to the better
+behaviour of the log-likelihood function as well as more relevant
 initial values from the Poisson fit. In Table \ref{tab:chap1-corr-soy},
 we present the empirical correlations between the regression and
 dispersion parameter estimates. Again, the correlations are close to
@@ -753,7 +755,7 @@ COM-Poisson & $-$0.2276 & 0.2629 & $-$0.4578 & $-$0.0095 &  &  &  \\
 \endgroup
 \end{table}
 
-The observed and fitted counts for each humidity level with confidence
+The observed and fitted counts for each moisture level with confidence
 intervals are shown in Figure \ref{fig:chap1-pred-soy}. The fitted
 values are identical for the Poisson and COM-Poisson$_{\mu}$ models,
 leading to the same conclusions. On the other hand, confidence intervals
@@ -765,24 +767,17 @@ which again shows the already highlighted similarity between these
 approaches, however only the COM-Poisson model$_{\mu}$ corresponds to a
 fully specified probability model.
 
-```{r chap1-pred-soy, results="asis", fig.height=3.8, fig.width=8, fig.cap="Observed bean seeds counts as functions of potassium doses and soil humidity levels with fitted curves and confidence intervals (95\\%)."}
+```{r chap1-pred-soy, results="asis", fig.height=3.8, fig.width=8, fig.cap="Observed bean seeds counts as functions of potassium doses and soil moisture levels with fitted curves and confidence intervals (95\\%)."}
 knitr::include_graphics("chapter1-figure/pred-soy-1.pdf")
 ```
 
 ### Assessing toxicity of nitrofen in aquatic systems ###
 
-Nitrofen is a herbicide that was used extensively for the control of
-broad-leaved and grass weeds in cereals and rice. Although it is
-relatively non-toxic to adult mammals, nitrofen is a significant
-tetragen and mutagen. It is also acutely toxic and reproductively toxic
-to cladoceran zooplankton. Nitrofen is no longer in commercial use in
-the U.S., having been the first pesticide to be withdrawn due to
-tetragenic effects [@Bailer1994].
-
 This data set comes from an completely randomized experiment to measure
 the reproductive toxicity of the herbicide nitrofen on a species of
 zooplankton (Section \ref{chap0-nitrofen}). Here, we consider three
 models with linear predictors,
+\vspace{.2cm}
 \begin{tabular}{ll}
   Linear:     & $\eta_i = \beta_0 + \beta_1 \texttt{dose}_i$,\\
   Quadratic: & $\eta_i = \beta_0 + \beta_1 \texttt{dose}_i +
@@ -790,6 +785,7 @@ models with linear predictors,
   Cubic:     & $\eta_i = \beta_0 + \beta_1 \texttt{dose}_i +
                \beta_2 \texttt{dose}_i^2 + \beta_3 \texttt{dose}_i^3$,
 \end{tabular}
+\vspace{.2cm}
 \noindent
 where $\eta_i = \log(\lambda_i)$ for the original COM-Poisson and
 $\eta_i = \log(\mu_i)$ for COM-Poisson$_\mu$.
@@ -963,8 +959,8 @@ different levels of dispersion, as well as the properties of the maximum
 likelihood estimators. The results of our simulation study suggested
 that the maximum likelihood estimators of the regression and dispersion
 parameters are unbiased and consistent.  The empirical coverage rates of
-the confidence intervals computed based on the asymptotic distribution
-of the maximum likelihood estimators are close to the nominal level for
+the confidence intervals, computed based on the asymptotic distribution
+of the maximum likelihood estimators, are close to the nominal level for
 sample sizes greater than $100$.  The worst case scenario is when we
 have a small sample size and strongly overdispersed counts.  In general,
 we recommend the use of the asymptotic confidence intervals for
@@ -984,9 +980,8 @@ In general, the results presented by the reparametrized COM-Poisson
 models were satisfactory and comparable to the conventional approaches.
 Therefore, its use in the analysis of count data is encouraged. The
 computational routines for fitting the original and reparametrized
-COM-Poisson regression models are available in the supplementary
-material.
+COM-Poisson regression models are available in the appendix.
 
-<!-- \section*{References} -->
-<!-- \vspace{-1cm} -->
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

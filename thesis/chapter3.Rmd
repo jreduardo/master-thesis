@@ -14,8 +14,8 @@ estimators. The results from our simulation study show that the maximum
 likelihood estimators are unbiased and consistent for both mean and
 dispersion regression parameters. The application of the COM-Poisson
 models with varying dispersion is illustrated with the analysis of two
-experimental data. The computational routines for fitting the models and
-the datasets are available in the appendix.
+experimental datasets. The computational routines for fitting the models
+and the datasets are available in the appendix.
 \vspace*{0.3cm}
 
 **Keywords:** COM-Poisson distribution, Double generalized linear
@@ -25,22 +25,23 @@ the datasets are available in the appendix.
 
 ## Introduction ## {#chap3-introduction}
 
-The classical linear (Gaussian) models are based on the assumption of
+The standard Gaussian linear models are based on the assumption of
 variance homogeneity [@Aitkin1987]. Generalized linear models relax this
 assumption by assuming the observations distributed according to some
 distribution in the exponential family [@Nelder1972]. A key feature of
 exponential family distribution is the so-called mean-variance
 relationship, i.e. the variance is a deterministic function of the mean
-$V(Y) = \phi V(\mu)$. The main examples are $V(\mu) = \mu(1-\mu)$ for
-the binomial distribution, $V(\mu) = \mu$ for the Poisson distribution,
-$V(\mu) = \mu^2$ for the gamma distribution and $V(\mu) = \mu^3$ for the
-inverse-Gaussian distribution [@McCullagh1989]. This allows modeling
-specific heterogeneity by assuming an appropriate distribution. However,
-once the mean-variance relationship is specified, the variance is
-assumed known up to a constant of proportionality, the dispersion
-parameter $\phi$. To ensure more flexibility in the analysis of
-non-Gaussian heterogeneous data, we explore methods to model dispersion
-depending on covariates. We focus on count data only.
+$\text{Var}(Y) = \phi V(\mu)$. The main examples are $V(\mu) =
+\mu(1-\mu)$ for the binomial distribution, $V(\mu) = \mu$ for the
+Poisson distribution, $V(\mu) = \mu^2$ for the gamma distribution and
+$V(\mu) = \mu^3$ for the inverse-Gaussian distribution
+[@McCullagh1989]. This allows modeling specific heterogeneity by
+assuming an appropriate distribution. However, once the mean-variance
+relationship is specified, the variance is assumed known up to a
+constant of proportionality, the dispersion parameter $\phi$. To ensure
+more flexibility in the analysis of non-Gaussian heterogeneous data, we
+explore methods to model dispersion depending on covariates. We focus on
+count data only.
 
 Modeling dispersion depending on covariates in the analysis of count
 data has not been much explored in the literature. The class of double
@@ -65,14 +66,14 @@ parameters of the distribution can be depended on covariates, and (iii)
 the systematic relationship between covariates and parameters can be
 parametric (linear predictor) or nonparametric (smooth) functions.
 
-In this chapter, we propose to jointly model the mean and the dispersion
+In this chapter, we propose to jointly model the mean and dispersion
 based on the COM-Poisson distribution. This approach is very similar to
 the GAMLSS, however, we develop and explore our own estimation
 methods. This approach allows data exhibit under- and overdispersion
 depending on experimental conditions.
 
 This chapter is organized as follows. In Section \@ref(chap3-dglm), we
-briefly describe and commente the double generalized linear models. The
+briefly describe and discuss the double generalized linear models. The
 newly proposed COM-Poisson models is considered in Section
 \@ref(chap3-cmpreg). In Section \@ref(chap3-estimation-and-inference),
 we present estimation and inference for the COM-Poisson regression model
@@ -102,20 +103,19 @@ g(\mu_i) = \eta_i = \bm{x}_i^\top \bm{\beta}
 \text{Var}(Y_i)=\phi V(\mu_i),
 $$
 where $g(.)$ is a suitable link function and $V(.)$ is the variance
-function. The DGLMs generalize the GLM to allow the dispersion parameter
-varying across observations, $\text{Var}(Y_i)=\phi_i V(\mu_i)$. The
-model for dispersion is specified by
+function. The DGLMs generalize the GLMs to allow the dispersion
+parameter varying across observations, $\text{Var}(Y_i)=\phi_i
+V(\mu_i)$. The model for dispersion is specified by
 $$
 \text{E}(d_i) = \phi_i, \quad
 h(\phi_i) = \xi_i = \bm{z}_i^\top \bm{\gamma}
 \quad\text{and}\quad
 \text{Var}(d_i)=\tau V_d(\phi_i),
 $$
-
 where $d_i$ is a suitable statistic chosen as a measure of dispersion,
 $h(.)$ is the dispersion link function and $V_d(.)$ is the dispersion
 variance function. The commom choice for $d_i$ is the deviance
-components from the mean submodel. Based on asymptotic distribution
+components from the mean model. Based on asymptotic distribution
 of $d_i$, a gamma model with $V_d(\phi_i) = 2\phi_i^2$ is a suitable
 natural choice for the dispersion model.
 
@@ -141,7 +141,7 @@ scale, and shape (GAMLSS) [@Rigby2005]. It is important to note that the
 DGLMs for discrete data are not a particular case of GAMLSS. Although
 both can model mean and dispersion jointly in a similar way, the GAMLSS
 require a two-parameter distribution for the response. In this chapter,
-we compare the proposed COM-Poisson model with varying dispersion with a
+we compare the proposed COM-Poisson model varying dispersion with a
 GAMLSS based on the double Poisson distribution [@Efron1986; @Zou2013]
 and a DGLM Poisson.
 
@@ -164,7 +164,7 @@ successive probabilities, $\Pr(Y = y - 1)/\Pr(Y = y) = y^\nu/\lambda$.
 
 The parameter $\nu$ is the dispersion parameter with a clear
 interpretation; overdispersion for $0 < \nu < 1$ and underdispersion
-for $\nu>1$.  When $\nu=1$ the Poisson distribution results as a
+for $\nu>1$.  When $\nu=1$, the Poisson distribution results as a
 special case. On the other hand, the parameter $\lambda$ has no clear
 interpretation, unless for $\nu=1$, and it is strongly related to
 $\nu$. To circumvent this problem, @RibeiroJr2018 propose a
@@ -178,7 +178,7 @@ $$
 $$
 the authors showed that the new parametrization has good properties for
 estimation and inference and proposed a regression model on approximated
-mean. In this paper, we propose to allow both $\mu$ and $\phi$
+mean. In this paper, we propose to allow both $\mu$ and $\nu$
 parameters depending on covariates.
 
 Let $y_i$, $i=1,2,\ldots,n$ be a set of independents realizations of
@@ -201,8 +201,8 @@ double generalized linear approach, both extend the generalized linear
 models to model the dispersion as well as the mean. However, COM-Poisson
 with varying dispersion is a fully parametric model that has the
 advantages of allowing inference, obtaining predictions for
-probabilities and facilitating generalizations such as random effects or
-modeling of censored data.
+probabilities and facilitating generalizations such as random effects
+and modeling of censored data.
 
 ## Estimation and inference ## {#chap3-estimation-and-inference}
 
@@ -218,11 +218,11 @@ is given by
   \right \},
 \end{equation}
 where $\mu_i = \exp(\bm{x}_i^\top \bm{\beta})$, $\nu_i =
-\exp(\bm{x}_i^\top \bm{\gamma})$, and $Z(\mu_i, \nu_i)$ is a normalizing
+\exp(\bm{z}_i^\top \bm{\gamma})$, and $Z(\mu_i, \nu_i)$ is a normalizing
 constant computed for the parameters $\mu_i$ and $\nu_i$.
 
 Parameter estimation requires the numerical maximization of Equation
-\@ref(eqn:ll-cmpvarying). Since the derivatives of $\ell$ cannot be
+(\@ref(eqn:ll-cmpvarying)). Since the derivatives of $\ell$ cannot be
 obtained in closed forms, we compute them by central finite differences
 using the Richardson method as implemented in package `numDeriv`
 [@numDeriv-pkg] for the statistical software `R` [@Rcore2018]. Based on
@@ -283,8 +283,8 @@ $\bm{V}_{\gamma|\beta} = \bm{V}_{\gamma} - \bm{V}_{\gamma\beta}
   \bm{V}_{\beta}^{-1} \bm{V}_{\beta\gamma}$.
 Since $\bm{\beta}$ and $\bm{\gamma}$ were found to be nearly orthogonal,
 $\bm{V}_{\beta\gamma} = \bm{V}_{\gamma\beta}^\top \approx \bm{0}$, hence
-in this case, $\bm{V}_{\beta|\gamma} = \bm{V}_{\beta}$ and
-$\bm{V}_{\gamma|\beta} = \bm{V}_{\gamma}$, in other words, inference
+$\bm{V}_{\beta|\gamma} \approx \bm{V}_{\beta}$ and
+$\bm{V}_{\gamma|\beta} \approx \bm{V}_{\gamma}$, in other words, inference
 based on the conditional log-likelihood and inference based on the marginal
 log-likelihood is the same.
 
@@ -320,7 +320,7 @@ coefficients were fixed at the values, $\beta_0 = 2, \beta_1 = 0.5,
 dispersion. Figure \@ref(fig:chap3-justpars) shows the parameter space
 evaluated by this simulation study. With this simulation design, we are
 able to assess the properties of the parameter estimators in situation
-of high an low counts and under- and overdispersion.
+of high and low counts and equi-, under-, and overdispersion.
 
 ```{r chap3-justpars, results="asis", fig.width=8.5, fig.height=4, fig.cap="Values for the mean (left) and for the dispersion (right) according to the regression models adopted."}
 knitr::include_graphics("chapter3-figure/justpars-1")
@@ -335,7 +335,7 @@ standard error. The scales are standardized for each parameter by
 dividing the average bias by the average standard error obtained for the
 sample of size $50$. The results show that for both estimation methods
 the expected bias and the standard error tend to 0 as the sample size
-increases. Thus, this shows the impartiality, consistency, and symmetry
+increases. Thus, this shows the unbiasedness, consistency, and symmetry
 of the empirical distribution of the maximum likelihood estimators using
 both strategies.
 
@@ -349,7 +349,7 @@ simulated data set. The results are shown in Figure
 \@ref(fig:chap3-loglik-plot). The maximized log-likelihood obtained
 using the strategy (b) is always smaller than that obtained considering
 the strategy (a). This is expected since in strategy (b) we do not refit
-the mean regression parameters. However, the likelihoods values are very
+the mean regression parameters. However, the likelihoods values are
 similar between the two strategies, showing that the estimates of the
 Poisson model are very close to the genuine mean regression maximum
 likelihood estimates of the COM-Poisson.
@@ -362,8 +362,8 @@ The computational times to fit the models using the both strategies are
 shown in Table \@ref(tab:chap3-timestofit). As highlighted in the
 previous section, we expect the strategy (b) to be faster, since the
 maximization is done in a smaller dimension. The results show that the
-estimation by using the strategy (a) takes around 30\% more time than
-using the strategy (b).
+estimation by using the strategy (a) takes, on average, around 30\% more
+time than using the strategy (b).
 
 \begin{table}[ht]
 \centering
@@ -441,7 +441,7 @@ GLM Poisson models.
 
 \begin{table}[ht]
   \centering
-  \caption{Nitrofen data: Bromelia data: goodness-of-fit measures (deviance and AIC) and model comparisons.}
+  \caption{Nitrofen data: goodness-of-fit measures (deviance and AIC) and model comparisons.}
   \label{tab:chap3-anova}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccrl}
     \toprule
@@ -513,7 +513,7 @@ The estimated parameters, their associated standard errors and
 individual Wald tests are presented in Table
 \@ref(tab:chap3-coef-table-nitrofen) for COM-Poisson model. We fitted
 the models using the strategy (a), for that reason the parameter
-estimates for mean structure are slightly different for the considered
+estimates for mean structure are slightly different for the different
 predictors. For the dispersion structure, there is no evidence to keep
 the quadratic term, the Wald's statistics is equals to $-1.63$
 ($p$-value $=0.1034$).
@@ -532,6 +532,10 @@ overdispersed.
 knitr::include_graphics("chapter3-figure/fitted-curves-nitrofen-1")
 ```
 
+```{r fitted-moments-nitrofen, results="asis", out.width="75%", fig.width=7, fig.height=4, fig.cap="Expected values and variances obtained from the fitted models with linear and quadratic predictors for the dispersion. The points are the sample means and sample variances, respectively."}
+knitr::include_graphics("chapter3-figure/fitted-moments-nitrofen-1")
+```
+
 The expected values and variances for nitrofen doses between 0 and
 3.1$\mu$g$/10^2$litre, obtained from the fitted models with linear and
 quadratic predictors for the dispersion, are presented in Figure
@@ -539,22 +543,18 @@ quadratic predictors for the dispersion, are presented in Figure
 adopted for the mean is not the saturated one, the fitted curve almost
 interpolates the sample averages. The predicted variances show
 interesting behavior. Note that these curves are nonlinear functions of
-$mu_i$ and $nu_i$, so a linear predictor of $\nu_i$ does not imply a
+$\mu_i$ and $\nu_i$, so a linear predictor of $\nu_i$ does not imply a
 linear curve here. The model with a linear predictor for the dispersion
 does not fit the sample variances for the doses 1.6 and
 2.35$\mu$g$/10^2$litre well. The model with a quadratic predictor fits
 these variances better, however, produces uncommon behavior after
 2.35$\mu$g$/10^2$litre.
 
-```{r fitted-moments-nitrofen, results="asis", out.width="75%", fig.width=7, fig.height=4, fig.cap="Expected values and variances obtained from the fitted models with linear and quadratic predictors for the dispersion. The points are the sample means and sample variances, respectively."}
-knitr::include_graphics("chapter3-figure/fitted-moments-nitrofen-1")
-```
-
 ## Analysis of soybean experiment ##
 
 In this second application, we analyze the data resulting from a
 $5\times3$ factorial experiment conducted in a randomized complete block
-design, see section \@ref(chap0-soy). In this experiment, we have two
+design, see Section \@ref(chap0-soy). In this experiment, we have two
 counting responses recorded, number of grains and number of pods. Here
 we focus on analyzing the number of pods and consider the following
 predictors for mean and dispersion
@@ -574,7 +574,7 @@ In Table \@ref(tab:chap3-anova-soybean), we present the goodness-of-fit
 measures (minus twice log-likelihood and Akaike information criterion)
 together with the corresponding likelihood ratio tests between the
 current model (moisture + K) and the reduced models for dispersion:
-$\gamma_1=0$ (moisture effect) andx $\alpha_j = \alpha$ (constant). The
+$\gamma_1=0$ (moisture effect) and $\alpha_j = \alpha$ (constant). The
 log-likelihood achieved for the COM-Poisson, double Poisson and double
 generalized linear Poisson models are practically the same for all three
 predictors for dispersion. The results show a significant improvement in
@@ -631,7 +631,7 @@ the reduced model $\gamma_1=0$, the fitted dispersions values for each
 moisture level are $\hat{\nu}_{\text{37.5\%}}=0.701$,
 $\hat{\nu}_{\text{50.0\%}}=0.742$, and
 $\hat{\nu}_{\text{63.5\%}}=1.99$. The point estimates indicate
-overdispersion for the first two and underdispersion for the latter.
+overdispersion for the two first and underdispersion for the latter.
 
 \begin{table}[ht]
 \centering
@@ -671,7 +671,7 @@ overdispersion for the first two and underdispersion for the latter.
 The 95\% confidence intervals for the dispersion components are shown in
 Figure \@ref(fig:profile-plot-soybean). The intervals are obtained by
 working with the profile deviance function with respect to each
-component. The results indicate neither under- nor overdispersion for
+$\alpha_j$. The results indicate neither under- nor overdispersion for
 moisture levels $37.5$\% and $50$\%. For the level $63.5$\%, there is
 evidence for underdispersion, although the lower bound is close to zero.
 
@@ -703,7 +703,7 @@ explored here.
 ## Final remarks ## {#chap3-final-remarks}
 
 In this paper, COM-Poisson models with varying dispersion were proposed
-for joint modeling mean and dispersion in the analysis of counts with
+for jointly modeling mean and dispersion in the analysis of counts with
 different levels of dispersion. This class of models allows modeling the
 dispersion depending on covariates. The parameters are estimated by the
 maximum likelihood method and inferences are made based on the
@@ -712,7 +712,7 @@ asymptotic distributions of the estimators.
 We carried out a simulation study to assess the properties of the
 maximum likelihood estimators obtained by two proposed strategies. The
 results of our simulation study suggested that the maximum likelihood
-estimators of the mean and dispersion regression parameters are unbiased
+estimators for the mean and dispersion regression parameters are unbiased
 and consistent. The comparison of the strategies for maximum likelihood
 estimation indicate that using the strategy (a) (maximization of
 conditional likelihood) reduces the fitting times and leads to
@@ -730,11 +730,11 @@ generalized linear models and GALMSS based on double Poisson
 distribution.
 
 For future work, simulation studies are necessary in order to evaluate
-the properties of the estimators and the robustness of the model. In
-addition, as an improvement in the case study analysis, considering
-nonlinear predictors for the mean can be useful in order to avoid the
-use of high-order polynomials and to impose biological restrictions.
+the robustness of the model. In addition, as an improvement in the case
+study analysis, considering nonlinear predictors for the mean can be
+useful in order to avoid the use of high-order polynomials and to impose
+biological restrictions.
 
-<!-- \section*{References} -->
-<!-- \vspace{-1cm} -->
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]

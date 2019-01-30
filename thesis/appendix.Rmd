@@ -2,8 +2,8 @@
 
 \addtotoc{chapter}{Appendix}
 
-\section*{\texttt{R} packages and computational routines}
-\addtotoc{section}{\texttt{R} packages and computational routines}
+\section*{Appendix A: \texttt{R} packages and computational routines}
+\addtotoc{section}{Appendix A: \texttt{R} packages and computational routines}
 
 In this dissertation, we implemented two packages, `cmpreg` and` flexcm`
 for the statistical software `R` @Rcore2018. The packages are available
@@ -29,8 +29,8 @@ packages. All datasets are included in the packages.
 #-----------------------------------------------------------------------
 # Install packages from GitHub (devtools is needed)
 #-----------------------------------------------------------------------
-devtools::install_github("jreduardo/flexcm")
-devtools::install_github("jreduardo/cmpreg")
+devtools::install_github("jreduardo/flexcm@v0.0.1")
+devtools::install_github("jreduardo/cmpreg@v0.1.0")
 
 #-----------------------------------------------------------------------
 # Analysis of Sitophilus experiment (Section 4.5.1)

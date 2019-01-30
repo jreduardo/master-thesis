@@ -47,6 +47,6 @@ Chapter 3. A related work can be found in @Brooks2017, @Lee2006 and
 @Rigby2005. Finally, taking advantage of the fully parametric
 specification, censoring can be incorporated easily in these models.
 
-<!-- \section*{References} -->
-<!-- \vspace{-1cm} -->
+\section*{References}
+\vspace{-1cm}
 \printbibliography[segment=\therefsegment,heading=subbibliography,title={\numberline{}References}]
