@@ -5,8 +5,58 @@
 
 \thispagestyle{empty}
 
-%%%%%%%%%%
+%-------------------------------------------
+% Capa 0 (capa som logo da ESALQ)
+%-------------------------------------------
+\newgeometry{top=0cm, bottom=0cm, left=-1.5cm, right=0cm}
+
+\begin{tikzpicture}[remember picture, overlay]
+    \draw node[fill=covercolor, rectangle,
+               minimum height=60cm,
+               minimum width=9.45cm] at
+    (current page.north west) {};
+    \node[opacity=1,inner sep=0pt] at
+    (2.4,-2.9) {
+      \includegraphics[scale=0.23]{latex/logo-esalq}
+    };
+\end{tikzpicture}
+
+\vspace{1.7cm}
+\hspace{5.9cm}
+\begin{minipage}{13cm}
+  \raggedright
+  \arialfont
+
+  {\fontsize{20}{20}\selectfont\color{gray}
+    University of São Paulo}\\[0.1cm]
+  {\fontsize{16}{16}\selectfont\color{gray}
+    ``Luiz de Queiroz'' College of Agriculture}\\
+  \vspace{2.9cm}
+
+  {\fontsize{22}{22}\selectfont \TituloDoTrabalho}
+  \vspace{2.8cm}
+
+  {\fontsize{20}{20}\selectfont \Autor}
+  \vspace{13.8cm}
+
+  Dissertation presented to obtain the degree of Master in Science\\[-.1cm]
+  Area: Statistics and Agricultural Experimentation\\[-.1cm]
+  Piracicaba, 2018
+\end{minipage}
+\restoregeometry
+
+%-------------------------------------------
+% Blank page
+%-------------------------------------------
+\newpage
+\thispagestyle{empty}
+\phantom{ôlas}
+
+%-------------------------------------------
 % Capa 1
+%-------------------------------------------
+\cleardoublepage
+\thispagestyle{empty}
 
 \begin{center}
   { \fontsize{14}{14} \sffamily \bfseries
@@ -15,7 +65,6 @@
     \CENA
   }
 \end{center}
-
 
 \vfill % Joga o cabeçalho no topo da página
 
@@ -59,15 +108,16 @@
 
 \end{center}
 
-%%%%%%%%%
+%-------------------------------------------
 % Página em branco, sem numeração
+%-------------------------------------------
 \newpage
 \thispagestyle{empty}
 \phantom{ôlas}
 
-
-%%%%%%%%%%
+%-------------------------------------------
 % Página de rosto, com orientador
+%-------------------------------------------
 \cleardoublepage
 \pagenumbering{arabic}  % reinicia a numeração de página
 \thispagestyle{empty} % Não mostra o número na Página de Rosto

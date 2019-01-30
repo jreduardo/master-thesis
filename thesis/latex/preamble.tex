@@ -16,9 +16,17 @@
 \newcolumntype{M}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
+% New font family to cover page
+\newfontfamily\arialfont{Arial}
+
 % For graphics and floats enviroments
 \usepackage{graphicx}
 \usepackage{float}
+
+% Tikz and color to cover page
+\usepackage{tikz}
+\usepackage{xcolor}
+\definecolor{covercolor}{RGB}{197,219,191}
 
 \usepackage{lastpage}
 \usepackage{tocloft}
