@@ -38,6 +38,8 @@
 *-blx.aux
 *-blx.bib
 *.brf
+*.idx
+*.sav
 
 ## Emacs backup files
 .#*
