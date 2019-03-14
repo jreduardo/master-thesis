@@ -10,13 +10,14 @@ library(forcats)
 library(lattice)
 library(latticeExtra)
 
+library(xtable)
 source("script-helper0.R")
 
 #-----------------------------------------------------------------------
 # Descriptive analysis of the cotton bools data set
 ## ---- chap0-plot-cotton
 
-cotton <- read_delim("data/cotton.txt", delim = "\t") %>%
+cotton <- read_delim("../data/cotton.txt", delim = "\t") %>%
     mutate(est = fct_inorder(factor(est)))
 cotton
 
@@ -68,7 +69,7 @@ print(xy2, position = c(0.6, 0, 1, 0.98), more = FALSE)
 ## ---- chap0-plot-soy
 
 # Load data
-soybean <- read_delim("data/soybean.txt", delim = "\t") %>%
+soybean <- read_delim("../data/soybean.txt", delim = "\t") %>%
     mutate(umid = factor(umid)) %>%
     slice(-74)
 soybean
@@ -149,7 +150,7 @@ print(xy2, position = c(0.65, 0, .98, 0.98), more = FALSE)
 ## ---- chap0-plot-nitrofen
 
 # Load data
-nitrofen <- read_delim("data/nitrofen.txt", delim = "\t") %>%
+nitrofen <- read_delim("../data/nitrofen.txt", delim = "\t") %>%
     mutate(dose = dose/100)
 nitrofen
 
@@ -199,7 +200,7 @@ print(xy2, position = c(0.55, 0, 1, 1), more = FALSE)
 ## ---- chap0-table-nitrofen
 
 # Load data
-nitrofen <- read_delim("data/nitrofen.txt", delim = "\t") %>%
+nitrofen <- read_delim("../data/nitrofen.txt", delim = "\t") %>%
     mutate(dose = dose/100)
 # nitrofen
 
@@ -233,7 +234,7 @@ nitrofen_summary %>%
 ## ---- chap0-plot-sitophilus
 
 # Load data
-sitophilus <- read_delim("data/sitophilus.txt", delim = "\t") %>%
+sitophilus <- read_delim("../data/sitophilus.txt", delim = "\t") %>%
     mutate(extract = factor(extract, levels = c("Control", "Leaf",
                                                 "Branch", "Seed")))
 sitophilus
@@ -280,7 +281,7 @@ print(xy2, position = c(0.55, 0, 1, 1), more = FALSE)
 ## ---- chap0-table-sitophilus
 
 # Load data
-sitophilus <- read_delim("data/sitophilus.txt", delim = "\t") %>%
+sitophilus <- read_delim("../data/sitophilus.txt", delim = "\t") %>%
     mutate(extract = factor(extract, levels = c("Control", "Leaf",
                                                 "Branch", "Seed")))
 # sitophilus
@@ -317,7 +318,7 @@ sitophilus_summary %>%
 # Descriptive analysis of the nitrofen data set
 ## ---- chap0-plot-bromelia
 
-bromelia <- read_delim("data/bromelia.txt", delim = "\t") %>%
+bromelia <- read_delim("../data/bromelia.txt", delim = "\t") %>%
     mutate(treat = fct_relevel(factor(treat), "Xaxim"))
 bromelia
 

@@ -80,7 +80,7 @@ xyplot(ncap ~ des | est,
        xlab = "Níveis de desfolha artificial",
        ylab = "Número de capulhos",
        spread = 0.05,
-       panel = cmpreg::panel.beeswarm)
+       panel = panel.beeswarm)
 
 ## ---- desc-cotton2
 cotton <- read_delim("../data/cotton.txt", delim = "\t") %>%
@@ -105,7 +105,7 @@ xy1 <- xyplot(ncap ~ des | est,
               ylab = "Number of bolls produced",
               sub = "(a)",
               spread = 0.05,
-              panel = cmpreg::panel.beeswarm)
+              panel = panel.beeswarm)
 
 lim <- extendrange(unlist(cotton_summary[, c("me", "va")]))
 xy2 <- xyplot(va ~ me,
@@ -146,7 +146,7 @@ xyplot(ngra + nvag ~ K | umid,
            divide = 1,
            lines = list(pch = pchs[1:2], lty = ltys[1:2]),
            text = list(c("Nº de grãos",
-                         "Nº de vagens viáveis"))),
+                         "Nº de vagens"))),
        layout = c(NA, 1),
        strip = strip.custom(factor.levels = fvls))
 
@@ -179,7 +179,7 @@ xy1 <- xyplot(ngra + nvag ~ K | umid,
                   divide = 1,
                   lines = list(pch = pchs[1:2], lty = ltys[1:2]),
                   text = list(c("Number of grains",
-                                "Number of viable pods"))),
+                                "Number of pods"))),
               strip = strip.custom(factor.levels = fvls))
 
 lim <- extendrange(unlist(soybean_summary[, c("me", "va")]))
@@ -194,7 +194,7 @@ xy2 <- xyplot(va ~ me | var,
               layout = c(NA, 2),
               strip = strip.custom(
                   factor.levels = c("Number of grains",
-                                    "Number of viable pods")
+                                    "Number of pods")
               ),
               panel = function(...) {
                   panel.xyplot(...)
@@ -274,18 +274,15 @@ xyplot(nseizw ~ week | trt,
 comps <- c("Casca de Pinus", "Casca de Eucaliptos", "Coxim",
            "Fibra de Coco", "Xaxim")
 bromelia <- read_delim("../data/bromelia.txt", delim = "\t") %>%
-    mutate(time  = factor(c(rep(c(1:6), each = 20))),
-           tim   = rep(c(4, 173, 229, 285, 341, 435), each = 20),
-           treat = factor(rep(c(1:5), each = 4, times = 6)),
-           block = factor(rep(c(1:4), times = 30)),
-           ybar  = y / n) %>%
-    mutate(treat = factor(treat, labels = comps))
+    mutate(treat = factor(treat, labels = comps),
+           block = factor(block)) %>%
+    mutate()
 
 # Visualize profiles
 bromelia_summary <- bromelia %>% group_by(treat, time) %>%
-    summarise(ave = mean(ybar), var = var(ybar))
+  summarise(ave = mean(nleaves), var = var(nleaves))
 
-xy1 <- xyplot(ybar ~ time | treat,
+xy1 <- xyplot(nleaves ~ time | treat,
               groups = block,
               type = c("g", "l"),
               xlab = "Tempo (dias)",
@@ -304,8 +301,8 @@ xy1 <- xyplot(ybar ~ time | treat,
            lwd = 2,
            data = bromelia_summary)
 
-lim <- extendrange(unlist(log(bromelia_summary[, c("ave", "var")])))
-xy2 <- xyplot(log(var) ~ log(ave),
+lim <- extendrange(unlist(log(bromelia_summary[, c("ave", "var")] + 0.1)))
+xy2 <- xyplot(log(var + 0.1) ~ log(ave),
               xlim = lim,
               ylim = lim,
               type = c("g", "p", "r"),
