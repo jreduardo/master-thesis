@@ -1,0 +1,1332 @@
+%-----------------------------------------------------------------------
+%                              Eduardo E. R. Junior <edujrrib@gmail.com>
+%                          leg.ufpr.br/~eduardojr · github.com/jreduardo
+%                                                2019-Feb-16 · SP/Brazil
+%-----------------------------------------------------------------------
+\documentclass[11pt]{beamer}
+
+%-----------------------------------------------------------------------
+% Layout/style settings
+%-----------------------------------------------------------------------
+
+% --------------------------------------------
+% General packages
+\usepackage[british]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+
+% --------------------------------------------
+% Fonts
+\usepackage{lmodern}
+\usepackage{mathptmx}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+\newcommand{\myfont}{\fontfamily{ppl}\selectfont}
+
+% --------------------------------------------
+% Colors
+\definecolor{url}{HTML}{000080}
+\definecolor{run}{HTML}{4A0082}
+\definecolor{mycol}{HTML}{6180A6}
+
+% --------------------------------------------
+% Theme
+\usetheme{Boadilla}
+\usefonttheme{serif}
+\useoutertheme{infolines}
+
+% Slide title
+\setbeamercolor{structure}{fg=mycol}
+\setbeamercolor{author}{fg=black!60}
+\setbeamercolor{institute}{fg=black!60}
+\setbeamercolor{date}{fg=black!60}
+\setbeamercolor{block title}{bg=gray!20, fg=mycol}
+
+% Footline
+\setbeamercolor{title in head/foot}{bg=white, fg=mycol}
+\setbeamercolor{author in head/foot}{parent=title in head/foot}
+\setbeamercolor{date in head/foot}{parent=title in head/foot}
+\setbeamercolor{section in head/foot}{parent=title in head/foot}
+\setbeamercolor{subsection in head/foot}{parent=title in head/foot}
+
+% Fonts
+\setbeamerfont{title}{series=\bfseries\myfont, size=\fontsize{17}{17}}
+\setbeamerfont{frametitle}{series=\bfseries\myfont}
+
+% Layout
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle}[default][center]
+\setbeamertemplate{frametitle}[default][center]
+\setbeamertemplate{title page}[rounded=false, shadow=true]
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{frametitle continuation}{\gdef\beamer@frametitle{}}
+
+% Outline
+\setbeamertemplate{section in toc}{
+  {\color{mycol} \bfseries\inserttocsectionnumber.}~
+  {\leftskip=0.5em\color{black}\inserttocsection\par}
+}
+\setbeamertemplate{subsection in toc}{
+  {\color{mycol!80}
+  \bfseries\inserttocsectionnumber.\inserttocsubsectionnumber}~
+  \leftskip=2em{\color{black}\inserttocsubsection\par}
+}
+
+% Footline (definition)
+\makeatletter
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[
+      wd=0.3\paperwidth, ht=2.25ex, dp=1ex, right]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\centering
+      \myfont\insertshortauthor{}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[
+      wd=0.6\paperwidth, ht=2.25ex, dp=1ex, left]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\hspace*{1ex}
+      \myfont\insertshorttitle{}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[
+      wd=0.1\paperwidth, ht=2.25ex, dp=1ex, right]{date in head/foot}%
+      \myfont Slide~~\textbf{\insertframenumber{}}\hspace*{4ex}
+    \end{beamercolorbox}
+  }%
+  \vskip0pt%
+}
+\makeatother
+
+% Init section and subsection slides
+\AtBeginSection[]{
+  \begingroup
+  \setbeamercolor{background canvas}{bg=mycol!90}
+  \begin{frame}[c, plain, noframenumbering]
+    \begin{center}
+      \textcolor{white}{\thesection} \\ \vspace{0.3cm}
+      \parbox{0.6\textwidth}{
+        \centering
+        \textcolor{white}{\huge \bf\myfont\insertsection}}\\
+    \end{center}
+  \end{frame}
+  \endgroup
+}
+\AtBeginSubsection{
+  \begingroup
+  \setbeamercolor{background canvas}{bg=mycol!80}
+  \begin{frame}[c, plain, noframenumbering]
+    \begin{center}
+      \textcolor{white}{\thesection.\thesubsection} \\ \vspace{0.3cm}
+      \parbox{0.6\textwidth}{
+        \centering \textcolor{white!80}{\large \insertsection}\\
+        \centering \textcolor{white}{\huge \bf\myfont \insertsubsection}}\\
+    \end{center}
+  \end{frame}
+  \endgroup
+}
+
+% --------------------------------------------
+% Math packages
+\usepackage{bm}
+\usepackage{mathtools}
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+
+% --------------------------------------------
+% For tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage[bottom]{footmisc}
+\usepackage{threeparttable}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+% --------------------------------------------
+% For figures
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+% --------------------------------------------
+% Hyper links/references
+\usepackage{hyperref}
+\hypersetup{
+  unicode=true,
+  pdftitle={Contributions to the analysis of dispersed count data},
+  pdfauthor={Eduardo Elias Ribeiro Junior},
+  colorlinks,
+  allcolors=.,
+  urlcolor=url,
+  runcolor=run}
+
+% --------------------------------------------
+% For captions
+\usepackage{caption}
+\captionsetup{
+  justification=raggedright,
+  singlelinecheck=false,
+  font=footnotesize
+}
+
+% --------------------------------------------
+% For references
+\usepackage{natbib}
+\bibliographystyle{apalike}
+
+% --------------------------------------------
+% Metadata
+
+\title[Contributions to the analysis of dispersed count data]{
+  Contributions to the analysis of\\ dispersed count data}
+
+\author[Eduardo E. Ribeiro Jr]{
+  Eduardo Elias Ribeiro Junior\\
+  Advisor: PhD. Clarice Garcia Borges Demétrio
+}
+
+\institute[ESALQ-USP]{
+  University of São Paulo\\
+  Luiz de Queiroz College of Agriculture\\
+  Graduate Program in Statistics and Agricultural Experimentation
+}
+
+\date{\footnotesize \today \\[0.2cm]
+  \href{mailto:jreduardo@usp.br}{\tt jreduardo@usp.br} |
+  \href{mailto:edujrrib@gmail.com}{\tt edujrrib@gmail.com}
+}
+
+%-----------------------------------------------------------------------
+% Body text of slides
+%-----------------------------------------------------------------------
+
+<<setup, include=FALSE>>=
+library(knitr)
+# knit_theme$set(knit_theme$get("biogoo")) # Light
+knit_theme$set(knit_theme$get("clarity"))
+opts_chunk$set(echo = FALSE,
+               out.width = "\\textwidth",
+               fig.align = "center",
+               size = "footnotesize")
+@
+
+\begin{document}
+
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}[noframenumbering]{Outline}
+  \vspace{-0.5cm}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introduction and motivation}
+
+%-------------------------------------------
+\begin{frame}{Artificial defoliation in cotton phenology}
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \begin{figure}
+        \vspace{-.3cm}
+        \includegraphics[scale=0.25]{./slides-image/defoliation}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      {\bf Aim:} to assess the effects of five defoliation levels on the
+      bolls produced at five growth stages;\\[0.2cm]
+      {\bf Design:} factorial 5 $\times$ 5, with 5 replicates;\\[0.2cm]
+      {\bf Experimental unit:} a plot with 2 plants;\\[0.2cm]
+      {\bf Factors:}
+      \begin{itemize} \small
+        \item Artificial defoliation (\texttt{des}):
+        \item Growth stage (\texttt{est}):
+      \end{itemize}\vspace{0.1cm}
+      {\bf Response variable:} Total number of cotton bolls;\\
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}{Artificial defoliation in cotton phenology}
+
+<<desc-cotton, fig.width=9, fig.height=5.8, fig.cap="">>=
+include_graphics("./slides-figure/desc-cotton-1.pdf")
+@
+\end{frame}
+
+%-------------------------------------------
+\begin{frame}{Alternative substrats for bromeliad production}
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+      \vspace{-.4cm}
+      \begin{figure}
+        \includegraphics[width=4cm]{./slides-image/bromeliad}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      {\bf Aim:} find an alternative substrate to replace Xaxim for
+      the bromeliad production;\\[0.2cm]
+      {\bf Design:} logitudinal experiment (6 dates) in a randomized
+      complete block design (4 blocks);\\[0.2cm]
+      {\bf Experimental unit:} a plot with eight plants
+      (initially);\\[0.2cm]
+      {\bf Factors:}
+      \begin{itemize} \small
+        \item alternative substrates (\texttt{treat}).
+      \end{itemize}\vspace{0.1cm}
+      {\bf Response variable:} Total number of leaves per plot at
+      each date (days after planting)\\
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Alternative substrats for bromeliad production}
+
+<<desc-bromelia, fig.width=9, fig.height=5.8, fig.cap="">>=
+include_graphics("./slides-figure/desc-bromelia-1.pdf")
+@
+\end{frame}
+
+%-------------------------------------------
+\begin{frame}{Toxicity of nitrofen in aquatic systems}
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+      \vspace{-.2cm}
+      \begin{figure}
+        \includegraphics[width=4cm]{./slides-image/zooplankton}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      {\bf Aim:} measure the reproductive toxicity of the herbicide
+      nitrofen on a species of zooplankton
+      (\textit{Ceriodaphnia dubia});\\[0.2cm]
+      {\bf Design:} completely randomized design, with 10
+      replicates;\\[0.2cm]
+      {\bf Experimental unit:} zooplankton animal;\\[0.2cm]
+      {\bf Factors:}
+      \begin{itemize} \small
+        \item herbicide nitrofen: 5 doses (\texttt{dose});
+      \end{itemize}\vspace{0.1cm}
+      {\bf Response variable:} Total number of live offspring;\\
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Toxicity of nitrofen in aquatic systems}
+<<desc-nitrofen, results="asis", fig.width=8, fig.height=3.5, fig.cap="(a) Number of live offsprings observed for each dose and (b) sample mean against sample variance.">>=
+include_graphics("./slides-figure/desc-nitrofen-1")
+@
+\end{frame}
+
+\begin{frame}{Standard analysis}
+
+  \begin{itemize}
+    \item[] {\bf GLM framework \citep{Nelder1972}}
+    \item Provide suitable distribution for counting random variables;
+    \item Efficient algorithm for estimation and inference;
+    \item Implemented in many software.
+      \vspace{0.3cm}
+    \item[] {\bf Poisson model}
+    \item Relationship between mean and variance,
+      $\text{E}(Y)=\text{Var}(Y)$;
+      \vspace{0.3cm}
+    \item[] {\bf Features of most count data}
+    \item Overdispersion (more common),
+      $\text{Var}(Y)>\text{E}(Y)$
+    \item Underdispersion (less common),
+      $\text{Var}(Y)<\text{E}(Y)$
+  \end{itemize}
+
+  \begin{block}{\centering Main objective}
+    \centering
+    Explore novel modeling approaches for the analysis of dispersed
+    count data.
+  \end{block}
+\end{frame}
+
+\section{Reparametrization of COM-Poisson regression models}
+
+%--------------------------------------------
+\begin{frame}{COM-Poisson distribution}
+  \begin{itemize}
+    \itemsep7.5pt\parskip0pt\parsep0pt
+  \item Probability mass function \citep{Shmueli2005} takes the form
+    \begin{equation*} \small
+    \label{eqn:pmf-cmp}
+    \Pr(Y = y) =
+    \frac{\lambda^y}{(y!)^\nu Z(\lambda, \nu)}\,,
+    \quad Z(\lambda, \nu) = \sum_{j=0}^\infty
+    \frac{\lambda^j}{(j!)^\nu}\,,
+    \quad \text{where}\,\,
+    \left\{\begin{matrix}\lambda>0,\\\nu \geq 0\end{matrix}\right.;
+  \end{equation*}
+  \item Moments are not available in closed form;
+  \item Expectation and variance can be closely approximated by
+    \begin{equation*}
+      \label{eqn:mean-aprox}
+      \text{E}(Y) \approx \lambda^{1/\nu} - \frac{\nu - 1}{2\nu} \qquad
+      \textrm{and} \qquad
+      \text{Var}(Y) \approx \frac{\lambda^{1/\nu}}{\nu}
+    \end{equation*}
+    with accurate approximations for $\nu \leq 1$ or $\lambda > 10^\nu$
+    \citep{Shmueli2005, Sellers2012}.
+  \item This distribution can handle under- ($\nu>1$), over- ($0<\nu<1$)
+    and equidispersion ($\nu=1$).
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{COM-Poisson regression models}
+  \begin{itemize}
+  \item[] {\bf Model definition}
+  \item Modelling the relationship between
+    $\text{E}(Y_i)$ and $\bm{x}_i$ indirectly
+    \citep{Sellers2010}; \\[-0.5cm]
+    \begin{align*}
+      Y_i \mid & \,\bm{x}_i \sim
+                 \textrm{COM-Poisson}(\lambda_i,\, \nu) \\
+               &\eta(\text{E}(Y_i \mid \bm{x}_i)) =
+                 \log(\lambda_i) = \bm{x}_i^\top\bm{\beta} &
+    \end{align*}
+  \end{itemize}
+  \vspace{0.3cm}
+
+  \begin{itemize}
+  \item[] {\bf Main goals}
+  \item Study distribution properties in terms of i) real count data
+    analysis and ii) inference aspects.
+  \item Propose a reparametrization of COM-Poisson distribution, using
+    the approximated mean.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Reparametrized COM-Poisson}
+  \begin{itemize}
+  \item[] {\bf Reparametrization}
+  \item Introduced new parameter $\mu$, using the mean
+    approximation\\[-0.2cm]
+    \begin{equation*}
+      \label{eqn:repar-cmp}
+      \mu = \lambda^{1/\nu} - \frac{\nu - 1}{2\nu}
+      \quad \Rightarrow \quad
+      \lambda = \left (\mu +
+        \frac{(\nu - 1)}{2\nu} \right )^\nu;
+    \end{equation*}
+  \item Precision parameter is taken on the log scale to avoid
+    restrictions on the parameter space\\[-0.3cm]
+    $$\phi = \log(\nu) \Rightarrow \phi \in \mathbb{R};$$
+    Under- ($\phi>0$), over- ($\phi<0$) and equidispersion ($\phi=0$).
+    \\[0.3cm]
+  \item[] {\bf Probability mass function}
+  \item Replacing $\lambda$ and $\nu$ as function of $\mu$ and $\phi$ in
+    the pmf of COM-Poisson\\[-0.2cm]
+    \begin{equation*}
+      \label{eqn:pmf-cmpmu}
+      \Pr(Y=y \mid \mu, \phi) =
+      \left ( \mu +\frac{ e^\phi-1}{2e^\phi} \right )^{ye^\phi}
+      \frac{(y!)^{-e^\phi}}{Z(\mu, \phi)}.
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Study of the moments approximations}
+
+<<approx-plot, fig.height=3, fig.width=6, out.width=".9\\textwidth", fig.cap="Errors for the approximation of the (a) expectation and (b) variance. Dotted lines represent the restriction for suitable approximations given by \\cite{Shmueli2005}.">>=
+include_graphics("./slides-figure/approx-plot-1.pdf")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{COM-Poisson$_\mu$ regression models}
+  \begin{itemize}
+  \item[] Let $y_i$ a set of independent observations from the
+    COM-Poisson and
+    $\bm{x}_i^\top = (x_{i1},\, x_{i2},\, \ldots,\, x_{ip})$ is a
+    vector of known covariates, $i=1,2,\ldots,n$.
+    \vspace{0.3cm}
+
+  \item[] {\bf Model definition}
+  \item Modelling relationship between (approximate) $\text{E}(Y_i)$ and
+    $\bm{x}_i$
+    directly
+    \begin{equation*}
+      Y_i \mid \,\bm{x}_i \sim \textrm{COM-Poisson}_\mu(\mu_i,\, \phi),
+      \quad \log(\mu_i) = \bm{x}_i^\top\bm{\beta}
+    \end{equation*}
+    \vspace{-0.2cm}
+  \item[] {\bf Estimation}
+  \item Parameter estimates are obtained by numerical maximization of
+    the log-likelihood function,
+    $\ell = \ell(\bm{\beta},\, \phi \mid \bm{y})$ (by BFGS algorithm);
+  \item The Hessian matrix is obtained numerically by
+    finite differences (Richardson method);
+  \item Inferences are based on the standard asymptotic likelihood
+    theory.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Simulation study}
+
+  \begin{itemize}
+  \item[] \textbf{Objective}
+  \item Assess the properties of maximum likelihood estimators and
+    orthogonality in the reparametrized model.\\[.2cm]
+  \item[] \textbf{Simulation}
+  \item Counts generated according to a regression model with continuous
+    and categorical covariates;
+  \item Different dispersion scenarios: strong overdispersion,
+    overdispersion equidispersion, and underdispersion.
+  \item Different sample sizes $n=50, 100, 300,$ and $1000$.\\[.2cm]
+  \item[] \textbf{Results}
+  \item MLE's for regression parameters are unbiased and consistent;
+  \item MLE for dispersion parameter is asymptotically unbiased and
+    consistent;
+  \item Empirical correlations between MLE's for regression and
+    dispersion parameters are close to zero.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Simulation study: orthogonality property}
+\vspace{.3cm}
+<<ortho-surf, fig.height=5, fig.width=9, fig.cap="Deviance surfaces contour plots for simulated dataset ($n=1000$) with $\\mu=5$. The ellipses are confidence regions (90, 95 and 99\\%).">>=
+include_graphics("./slides-figure/ortho-surf-1")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Cotton boll analysis: model specification}
+
+  {\bf Linear predictor:}
+  \begin{itemize}
+    \item $\log(\mu_{ij}) = \beta_0 + \beta_{1j} \textrm{def}_i +
+      \beta_{2j} \textrm{def}_i^2$\\[0.1cm]
+    {\small
+    $i$ varies in the levels of artificial defoliation;\\
+    $j$ varies in the levels of growth stages.}
+  \end{itemize}
+
+  \vspace{0.5cm}
+
+  {\bf Alternative models:}
+  % {\bf Modelling strategies:}
+  \begin{itemize}
+    \item Poisson ($\mu_{ij}$)
+    \item COM-Poisson ($\lambda_{ij}\,,\,\phi$)
+    \item COM-Poisson$_\mu$ ($\mu_{ij}\,,\,\phi$)
+    \item Quasi-Poisson (Var$(Y_{ij})=\sigma\text{E}(Y_{ij})$)
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Cotton boll analysis: parameter estimates}
+
+  \begin{table}[!ht]
+    \centering \scriptsize
+    \caption{Parameter estimates (Est) and ratio between estimate and
+      standard error (SE).}
+    \vspace{-0.2cm}
+    \label{tab:coef-cotton}
+    \begin{tabular}{lrrrrrrrr}
+      \toprule
+      & \multicolumn{2}{c}{Poisson} &
+                                      \multicolumn{2}{c}{COM-Poisson} &
+                                                                        \multicolumn{2}{c}{COM-Poisson$_\mu$} &
+                                                                                                                \multicolumn{2}{c}{Quasi-Poisson} \\
+      \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+      % latex table generated in R 3.4.4 by xtable 1.8-2 package
+      % Tue Jun 26 13:34:54 2018
+      & Est & Est/SE & Est & Est/SE & Est & Est/SE & Est & Est/SE \\
+      \midrule
+      \rowcolor{mycol!30}
+      $\phi\,,\,\sigma$ &  &  & 1.585 & 12.417 & 1.582 & 12.392 & 0.241 &  \\
+      $\beta_0$ & 2.190 & 34.572 & 10.897 & 7.759 & 2.190 & 74.640 & 2.190 & 70.420 \\
+      $\beta_{11}$ & 0.437 & 0.847 & 2.019 & 1.770 & 0.435 & 1.819 & 0.437 & 1.726 \\
+      $\beta_{12}$ & 0.290 & 0.571 & 1.343 & 1.211 & 0.288 & 1.223 & 0.290 & 1.162 \\
+      $\beta_{13}$ & $-$1.242 & $-$2.058 & $-$5.750 & $-$3.886 & $-$1.247 & $-$4.420 & $-$1.242 & $-$4.192 \\
+      $\beta_{14}$ & 0.365 & 0.645 & 1.595 & 1.298 & 0.350 & 1.328 & 0.365 & 1.314 \\
+      $\beta_{15}$ & 0.009 & 0.018 & 0.038 & 0.035 & 0.008 & 0.032 & 0.009 & 0.036 \\
+      $\beta_{21}$ & $-$0.805 & $-$1.379 & $-$3.725 & $-$2.775 & $-$0.803 & $-$2.961 & $-$0.805 & $-$2.809 \\
+      $\beta_{22}$ & $-$0.488 & $-$0.861 & $-$2.265 & $-$1.805 & $-$0.486 & $-$1.850 & $-$0.488 & $-$1.754 \\
+      $\beta_{23}$ & 0.673 & 0.989 & 3.135 & 2.084 & 0.679 & 2.135 & 0.673 & 2.015 \\
+      $\beta_{24}$ & $-$1.310 & $-$1.948 & $-$5.894 & $-$3.657 & $-$1.288 & $-$4.095 & $-$1.310 & $-$3.967 \\
+      $\beta_{25}$ & $-$0.020 & $-$0.036 & $-$0.090 & $-$0.076 & $-$0.019 & $-$0.074 & $-$0.020 & $-$0.074 \\
+      \specialrule{0.01em}{0.3em}{0.3em}
+      LogLik & \multicolumn{2}{c}{$-255.803$} & \multicolumn{2}{c}{$-208.250$} & \multicolumn{2}{c}{$-208.398$} & \multicolumn{2}{c}{$  -$}\\
+      AIC & \multicolumn{2}{c}{$533.606$} & \multicolumn{2}{c}{$440.500$} & \multicolumn{2}{c}{$440.795$} & \multicolumn{2}{c}{$  -$}\\
+      BIC & \multicolumn{2}{c}{$564.718$} & \multicolumn{2}{c}{$474.440$} & \multicolumn{2}{c}{$474.735$} & \multicolumn{2}{c}{$  -$} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Cotton boll analysis: fitted curves}
+
+<<pred-cotton, fig.height=3.5, fig.width=8.5, fig.cap="Fitted curves with 95\\% confidence intervals as functions of the defoliation level for each growth stage.">>=
+include_graphics("slides-figure/pred-cotton-1")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Concluding remarks}
+  \textbf{Summary of the proposed reparametrization}
+  \begin{itemize}
+  \item Full parametric approach;
+  \item Simple transformation of the parameter space;
+  \item Leads to orthogonality of the parameters for most of the
+    parameter space:\\
+    - Faster for fitting,\\
+    - Better computational and asymptotic normal-based inference;
+  \item Allows interpretation of the coefficients directly.
+  \end{itemize}
+  \vspace{.2cm}
+
+  \textbf{Current work}
+  \begin{itemize}
+    \item Simulation study to assess model robustness against
+      distribution miss specification;
+    \item Assess theoretical approximations for $Z(\lambda, \nu)$
+      (or $Z(\mu, \phi)$), in order to avoid the selection of sum's
+      upper bound;
+    \item Propose a mixed GLM based on the COM-Poisson$_\mu$ model.
+  \end{itemize}
+\end{frame}
+
+\section{A review of flexible models for dispersed count data}
+
+%--------------------------------------------
+\begin{frame}{Proposing of alternative models}
+
+  Examples of Poisson process failures \citep{Hinde1998}:
+  \begin{itemize}
+  \item Variability of experimental material (random-effects);
+  \item Aggregate level data (compound distributions);
+  \item Non-constancy of the hazard function of waiting times
+    (duration dependence);
+  \end{itemize}
+  \vspace{0.3cm}
+
+  We shall present the genesis and definition of models:
+  \begin{itemize}
+    \item COM-Poisson;
+    \item Gamma-count;
+    \item Discrete Weibull;
+    \item Generalized Poisson;
+    \item Double Poisson;
+    \item Poisson-Tweedie.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{COM-Poisson (CMP)}
+
+  \begin{itemize}
+  \item Belongs to the family of weighted Poisson distributions (WPD)
+    \citep{DelCastillo1998},
+    \begin{equation*}
+      \label{eqn:chap2-pmf-wpd}
+      \Pr(Y = y) = \frac{\exp(-\lambda)\lambda^y}{
+        y!}\frac{w(y)}{\text{E}_\lambda[w(Y)]} , \quad y \in \mathbb{N},
+    \end{equation*}
+    \begin{itemize}
+    \item $\text{E}_\lambda(\cdot)$ denotes the mean value with respect
+      to the Poisson($\lambda$) distribution;
+    \end{itemize}
+  \item COM-Poisson: $w(y) \equiv w(y, \nu) = (y!)^{1-\nu}$,
+    for $\nu \geq 0$.
+  \item Can model over- ($0<\nu<1$) and underdisperion ($\nu>1$);
+  \item Special cases:\\
+    - Poisson distribution, $\nu=1$;\\
+    - Geometric distribution when $\nu=0$ and $\lambda<1$
+    ($\Pr(Y=y) = \lambda^y(1-\lambda)$);\\
+    - Bernoulli distribution, limiting case $\nu\to \infty$, with
+    probability of success equal to $\lambda/(\lambda+1)$.
+  \item Mean and variance cannot be solved in closed form;
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Gamma-count (GCT)}
+  \begin{itemize}
+  \item Arises from the renewal process \citep{Winkelmann1995}. Let
+    \begin{itemize}
+    \item $\tau_k>0$ be waiting times between $(k-1)$ and $k$-th events;
+    \item $\vartheta_n=\sum_{k=1}^n\tau_k$ be a arrive time of $n$-th
+      event;
+    \item $Y_T$ be the total of events in the interval $(0,T)$.
+    \end{itemize}
+    \begin{equation*}
+      \begin{aligned}
+        Y_T &< y \iff \vartheta_y \geq T \\
+        \Pr(Y_T < y) &= \Pr(\vartheta_y \geq T) = 1 - \text{F}_{\vartheta_y}(T), \\
+        \Pr(Y_T = y) &= \Pr(Y_T < y) - \Pr(Y_T < y + 1) \\
+        \Pr(Y_T = y) &= \text{F}_{\vartheta_y}(T) -
+        \text{F}_{\vartheta_{y+1}}(T),
+      \end{aligned}
+    \end{equation*}
+  \item Gamma-count assumes
+    $\tau_k\overset{\textit{\tiny iid}}{\sim} \text{Gamma}(\alpha,
+    \beta)\implies \vartheta_n \sim \text{Gamma}(y\alpha, \beta)$,
+    $$\Pr(Y = y) = G(y\alpha, \kappa\alpha) -
+    G((y+1)\alpha, \kappa\beta),\quad \kappa = \beta/\alpha .$$
+  \item Can model over- ($0<\alpha<1$) and underdisperion ($\alpha>1$);
+  \item Reduces to Poisson distribution when $\nu=1$;\\
+  \item Mean and variance cannot be solved in closed form.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Discrete Weibull (DWe)}
+  \begin{itemize}
+  \item Comes from a discretization process. Let T a continuous variable
+    $$
+    P(Y=y) = \int_{y}^{y+1} f_{T}(t)d t
+    $$
+    \item The discrete Weibull (type 1) \citep{Nakagawa1975} assumes
+      $T \sim \text{Weibull}(\lambda, \rho)$, hence
+    $$
+    \Pr(Y = y) = F_T(y+1) - F_T(y)
+    = q^{y^\rho} - q^{(y+1)^\rho}, \quad q = e^{-\lambda} \in (0,1)
+    $$
+  \item Mean and variance cannot be solved in closed form.
+  \item Special cases:\\
+    - Geometric distribution when $\rho=1$ (discrete exponential);\\
+    - Discrete Rayleigh when $\rho=2$.
+  \item There is no easy interpretation of $\rho$ and $p$ (neither
+    approximately nor asymptotically).
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Generalized Poisson (GPo)}
+
+  \begin{itemize}
+  \item Resulting from the limiting form of the generalized negative
+    binomial distribution \citep{Consul1973}.
+  \item The mean-parametrized p.m.f is given by
+    $$
+    \Pr(y) = \left ( \frac{\mu}{1+\sigma \mu} \right )^y
+    \frac{(1+\sigma y)^{y-1}}{y!}
+    \exp \left [ - \mu \frac{(1 + \sigma y)}{( 1 + \sigma \mu)}
+    \right ],
+    $$
+    The parameter constraint is
+      $\sigma > \text{min}(-1/y, -1/\mu)$, when $\sigma<0$.
+  \item Mean and variance has closed forms
+    $$
+    \text{E}(Y) = \mu\quad \text{and}\quad
+    \text{Var}(Y) = \mu (1 + \mu\sigma)^2.
+    $$
+  \item Can model over- ($\sigma>0$) and underdisperion
+    ($\text{min}(-1/y, -1/\mu)<\sigma<0$);
+  \item Reduces to Poisson distribution when $\sigma=0$.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Double Poisson (DPo)}
+  \begin{itemize}
+  \item This distribution is based on the double exponential family
+    \citep{Efron1986}.
+  \item A random variable $Y$ double Poisson distributed has the
+    p.m.f. given by
+    $$
+    \Pr(Y=y) = \sqrt{\varphi ^{-1}}\exp\left( -\frac{\mu}{\varphi
+      }\right) \left ( \frac{\exp(-y) y^y}{y!} \right ) \left ( \frac{e
+        \mu}{y} \right )^{y/\varphi } \frac{1}{K(\mu,\varphi )},
+    $$
+    where $\mu>0$, $\varphi >0$ and $K(\mu, \varphi )$ is calculated as
+    $$
+    K(\mu,\varphi ) = \sum_{j=0}^{\infty} \sqrt{\varphi ^{-1}}\exp\left(
+      -\frac{\mu}{\varphi }\right) \left ( \frac{\exp(-j) j^j}{j!}
+    \right ) \left ( \frac{e \mu}{j} \right )^{j/\varphi }.
+    $$
+  \item Mean and variance have no closed forms, but it can be
+    approximated by
+    $$
+    \text{E}(Y) \approx \mu\quad \text{and}\quad
+    \text{Var}(Y) \approx \phi\mu.
+    $$
+  \item Can model over- ($\phi>1$) and underdisperion ($0<\phi<1$).
+  \item Reduces to Poisson distribution when $\phi=1$.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Poisson-Tweedie (PTw)}
+  \begin{itemize}
+  \item The Poisson-Tweedie is a general case of the Poisson mixture
+    models (or two-stage models) \citep{Jorgensen1997}.
+  \item It is a three-parameter family of distributions given by
+    $$
+    Y \mid Z \sim \text{Po}(Z) \quad \text{with } \quad
+    Z \sim \text{Tw}_p(\mu, \omega),
+    $$
+    where $\omega>0$ and $p \in (-\infty ,0] \cup [1,\infty)$.
+  \item P.m.f cannot be written in a closed form, apart from the special
+    case negative binomial distribution $p=2$.
+   \item Mean and variance has closed forms
+    $$
+    \text{E}(Y) = \mu\quad \text{and}\quad
+    \text{Var}(Y) = \mu(1+\omega\mu^{p-1}).
+    $$
+  \item Several special cases;
+  \item Can model only overdispersion (full parametric approach).
+  \item Extended to model underdispersion, when specified using only
+    second-order moments assumptions \citep{Bonat2018}.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Summary of count models}
+  \begin{table}[ht]
+    \renewcommand{\arraystretch}{.9}
+    \centering \scriptsize
+    \begin{tabularx}{\textwidth}{m{1.1cm}CCCC}
+      \toprule
+      & CMP$(\mu_i, \nu)$ &
+        GCT$(\kappa_i, \alpha)$ &
+        DWe$(q_i, \rho)$ \\
+      \hline
+      \makecell[l]{Linear \\[-.8mm] predictor} &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $\log(\kappa_i) = \bm{x}_i^\top \bm{\beta} $ &
+      $\log(-\log(q_i)) = \bm{x}_i^\top \bm{\beta}$ \\
+      \makecell[l]{Dispersion \\[-.8mm] parameter} &
+      \makecell{$\log(\nu)$; $\nu > 0$} &
+      \makecell{$\log(\alpha)$; $\alpha > 0$} &
+      \makecell{$\log(\rho)$; $\rho>0$} \\
+      Expectation &
+      $\approx \mu_i$ &
+      $\overset{a}{\approx} \kappa_i$ &
+      --- \\
+      Variance &
+      $\approx \mu_i / \nu$ &
+      $\overset{a}{\approx} \kappa_i / \alpha$ &
+      --- \\[0.1cm]
+      \makecell[l]{Dispersion \\[-.8mm] index (DI)} &
+      $\approx 1 / \nu$ &
+      $\overset{a}{\approx} 1 / \alpha$ &
+      --- \\
+      \midrule
+    \end{tabularx}\\[-0.17cm]
+    \begin{tabularx}{\textwidth}{m{1.1cm}CCCC}
+      \toprule
+      & GPo$(\mu_i, \sigma)$ &
+        DPo$(\mu_i, \phi)$ &
+        PTw$_p(\mu_i, \omega)$ \\
+      \hline
+      \makecell[l]{Linear \\[-.8mm] predictor} &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ &
+      $\log(\mu_i) = \bm{x}_i^\top \bm{\beta}$ \\
+      \makecell[l]{Dispersion \\[-.8mm] parameter} &
+      \makecell{$\sigma$; $\sigma > c^*$} &
+      \makecell{$\log(\varphi)$; $\varphi > 0$} &
+      \makecell{$\omega$ \\ $\omega > 0$} \\
+      Expectation &
+      $\mu_i$ &
+      $\approx \mu_i$ &
+      $\mu_i$ \\
+      Variance &
+      $\mu_i (1 + \sigma\mu_i)^2$ &
+      $\approx \varphi \mu_i$ &
+      $\mu_i (1 + \omega\mu_i^{p-1})$ \\[0.1cm]
+      \makecell[l]{Dispersion \\[-.8mm] index (DI)} &
+      $(1 + \sigma\mu_i)^2$ &
+      $\approx \varphi$ &
+      $1 + \omega\mu_i^{p-1}$ \\
+      \bottomrule
+    \end{tabularx}
+    \scriptsize \raggedright
+    $c^* = \text{min}[ -\text{max}(y_i^{-1}),
+    -\text{max}(\mu_i^{-1})]$;\; $\overset{a}{\approx}$ asymptotically
+    when $T \to \infty$.
+  \end{table}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Comparing distributions}
+
+  \vspace{.2cm}
+<<plot-dispersion-index, fig.width=9, fig.height=6, fig.cap="Dispersion index as function of expected values by different scenarios with $\\text{E}(Y)=10$.">>=
+include_graphics("slides-figure/plot-dispersion-index-1")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Bromeliad data analysis: model specification}
+
+  \vspace{.2cm}
+  \textbf{Linear predictors:}\\[.2cm]
+  \begin{tabular}{ll}
+    Varying $\beta_0$:
+    & $\eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
+      \beta_1 \texttt{x}_{1k} + \beta_2 \texttt{x}_{2k}$\\
+    Varying $\beta_0$ and $\beta_1$:
+    & $\eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
+      (\beta_1 + \delta_{1j}) \texttt{x}_{1k} +
+      \beta_2 \texttt{x}_{2k}$\\
+    Varying $\beta_0$, $\beta_1$ and $\beta_2$:
+    & $\eta_{ijk} = \beta_0 + \gamma_i + \tau_j +
+      (\beta_1 + \delta_{1j}) \texttt{x}_{1k} +
+      (\beta_2 + \delta_{2j}) \texttt{x}_{2k},$\\[.2cm]
+  \end{tabular}
+  {\small
+    $i$, $j$, and $k$ refers to block, treatment and time,
+    respectively.\\
+    $\texttt{x}_{1k}$ and $\texttt{x}_{2k}$ are orthogonal lineas and
+    quadratic polynomials of \texttt{dose}.  }
+  \vspace{.5cm}
+
+  \textbf{Results of full parametric models:}
+  \vspace{-.2cm}
+  \begin{center}
+    \scriptsize
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{1\textwidth}{m{1.8cm}XXXXX}
+      \toprule
+      & \multicolumn{5}{c}{Minus twice log-likelihood $(\#p)$}\\
+      \cmidrule(lr){2-6}
+      Term varying & CMP & GCT & DWe & GPo & DPo \\
+      \midrule
+      Intercept ($\beta_{0j}$) & $169.50$ $(11)^{\text{a}}$ & $168.16$ $(11)^{\text{a}}$ & $178.03$ $(11)^{\text{a}}$ & $216.90$ $(11)^{\text{a}}$ & $169.71$ $(11)^{\text{a}}$ \\
+      Slope ($\beta_{1j}$) & $143.93$ $(15)^{\text{a}}$ & $143.15$ $(15)^{\text{a}}$ & $150.53$ $(15)^{\text{a}}$ & $211.34$ $(15)$ & $144.03$ $(15)^{\text{a}}$ \\
+      Quadratic ($\beta_{2j}$) & $135.97$ $(19)$ & $136.30$ $(19)$ & $144.57$ $(19)$ & $209.98$ $(19)$ & $135.98$ $(19)$ \\
+      \bottomrule
+    \end{tabularx}
+    \scriptsize \raggedright
+    \hspace*{0.2cm}$^\text{a}$ indicates the coefficients are significantly different from 0 in the
+    likelihood ratio test at 5\% level.
+  \end{center}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Bromeliad data analysis: fitted curves}
+
+<<fitted-plot-bromelia, fig.width=9, fig.height=4.5, fig.cap="(a)Fitted values with 95\\% confidence bands for all models and (b) Fitted curves for each treatment considering the CMP model.">>=
+include_graphics("slides-figure/fitted-plot-bromelia-1")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Bromeliad data analysis: compare confidence bands}
+
+<<compare-bands-bromelia, fig.width=7, fig.height=5.5, out.width=".85\\textwidth", fig.cap="">>=
+include_graphics("slides-figure/compare-bands-bromelia-1")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Concluding remarks}
+  \textbf{Summary of the comparing distributions}
+  \begin{itemize}
+  \item CMP, GCT and DPo models are are practically indistinguishable in
+    terms of mean-variance relationship;
+  \item PTw can model zero-inflated data without a hurdle/zero-inflation
+    component;
+  \item GPo is not recommended to model strong underdispersion;
+  \item Original parametrization of DWe is not suitable for regression
+    modelling.
+  \item It is difficult to fit PTw models to equidispersed
+    data.
+  \end{itemize}
+  \vspace{.2cm}
+
+  \textbf{Future work}
+  \begin{itemize}
+    \item Explore the ``capacity'' of the models;
+    \item Propose a new parametrization for DWe model.
+  \end{itemize}
+\end{frame}
+
+\section{COM-Poisson models with varying dispersion}
+
+% --------------------------------------------
+\begin{frame}{Standard regression models}
+  \textbf{Generalized Linear Models} (GLM) \citep{Nelder1972}:\\[0.1cm]
+
+  Let $(y_i, \bm{x}_i)$ where $y_i's$ are iid realizations of $Y_i$
+  according to the exponential family (\text{EF}) distribution. The GLM
+  is specified as follow
+  $$
+  \begin{gathered}
+    Y_i \sim \text{EF}(\mu_i, \phi)\\
+    g(\mu_i) = \bm{x}_i^\top \bm{\beta}
+  \end{gathered} \quad \Longrightarrow \quad
+  \begin{aligned}
+    &\text{E}(Y_i)=\mu_i\\
+    &\text{Var}(Y_i)=\phi V(\mu_i).
+  \end{aligned}
+  $$
+  \vspace{0.4cm}
+
+  \textbf{Main limitations} \citep{Smyth1988}
+  \begin{itemize}
+  \item The exponential family is often restrictive (variance
+    function);
+  \item The only choice for count data analysis is the Poisson
+    distribution;
+  \item Only the mean parameter is allowed to depend on covariates.
+  \end{itemize}
+\end{frame}
+
+% --------------------------------------------
+\begin{frame}{Regression models for mean and dispersion}
+
+  Let $y_i$ a set of indepent observations from the COM-Poisson model
+  and $\bm{x}_i, \bm{z}_i$ vectors of known covariates.\\
+  \vspace{.5cm}
+
+  \textbf{COM-Poisson with varying dispersion}
+  \begin{gather*}
+    Y_i\mid \bm{x}_i\,\, \sim \text{CMP}_\mu(\mu_i, \nu_i), \\
+             \eta_i = g(\mu_i) = \bm{x}_i^\top \bm{\beta}, \\
+             \xi_i = h(\nu_i) = \bm{z}_i^\top \bm{\gamma},
+  \end{gather*}
+  \begin{itemize}
+  \item $\bm{\beta}$ ($1 \times p$) and $\bm{\gamma}$ ($1\times q$) are
+    the parameters to be estimated;\\
+  \item $g(.)$ and $h(.)$ are suitable link functions (we used the
+    logarithm for both).
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Estimation and inference}
+
+  \textbf{Log-likelihood function}\\[-0.4cm]
+  $$
+  \ell(\bm{\beta}, \bm{\gamma} ; \bm{y}) = \sum_{i=1}^{n} \left \{
+    \nu_i\log \left ( \mu_i + \frac{\nu_i-1}{2\nu_i}\right ) -
+    \nu_i \log(y_i) - \log[Z(\mu_i, \nu_i)],
+  \right \}
+  $$
+  {\small
+    where $\mu_i = g^{-1}(\bm{x}_i^\top \bm{\beta})$ and
+    $\nu_i = g^{-1}(\bm{z}_i^\top \bm{\gamma})$}\\[.5cm]
+
+  \textbf{Maximizing the log-likelihood function}
+  \begin{itemize}
+  \item[(a)] \textit{joint} strategy: obtain $\hat{\bm{\beta}}$ and
+    $\hat{\bm{\gamma}}$ jointly by maximizing
+    $\ell(\bm{\beta}, \bm{\gamma})$;
+  \item[(b)] \textit{two-stages} strategy: fix $\hat{\bm{\beta}}$ at the
+    MLE of Poisson model and obtain
+    $\hat{\bm{\gamma}}$ by maximizing
+    $\ell(\bm{\gamma}\mid \bm{\beta} = \hat{\bm{\beta}})$ and then
+    estimate the Hessian matrix.
+  \end{itemize}
+  \vspace{.5cm}
+
+  \textbf{Standard errors of $\hat{\mu}_i$ and $\hat{\nu}_i$}
+  \begin{itemize}
+  \item  Obtained based on observed information matrix:
+    $$
+    \text{Var}(\hat{\eta}_i) = \bm{x}_i^\top
+    \bm{V}_{\beta|\gamma}\bm{x}_i
+    \quad\text{and}\quad
+    \text{Var}(\hat{\xi}_i) = \bm{z}_i^\top
+    \bm{V}_{\gamma|\beta}\bm{z}_i
+    $$
+  \end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------------------
+\begin{frame}{Simulation study}
+
+  \begin{itemize}
+  \item Assess the properties of maximum likelihood estimators under the
+    two proposed strategies.\\[.2cm]
+  \item[] \textbf{Simulation}
+  \item Counts generated according to a regression model with continuous
+    and categorical covariates for mean and dispersion parameters;
+  \item Different sample sizes $n=50, 100, 300,$ and $1000$.
+  \end{itemize}
+
+<<justpars, fig.width=8.5, fig.height=4, out.width=".8\\textwidth", fig.cap="">>=
+include_graphics("slides-figure/justpars-1")
+@
+
+\end{frame}
+
+%-----------------------------------------------------------------------
+\begin{frame}{Simulation study: results}
+
+<<bias-plot, fig.width=9, fig.height=4, fig.cap="Distributions of standardized bias and confidence intervals.">>=
+include_graphics("slides-figure/bias-plot-1")
+@
+
+\vspace{-.5cm}
+\begin{itemize}
+\item Estimation by using the strategy (a) takes, on average, around
+  30\% more time than using the strategy (b).
+\end{itemize}
+
+\end{frame}
+
+%-----------------------------------------------------------------------
+\begin{frame}{Nitrofen data analysis: model specification}
+
+  \vspace{.2cm}
+  \textbf{Linear predictors:}
+  \begin{tabular}{ll}
+  \textit{For mean} & \\
+    \qquad Cubic: & $\log(\mu_{ij}) = \beta_0 + \beta_1 \texttt{dose}_i +
+                  \beta_2 \texttt{dose}_i^2 + \beta_3 \texttt{dose}_i^3$\\[0.3cm]
+  \textit{For dispersion} & \\
+    \qquad Constant:  & $\log(\nu_{ij}) = \gamma_0$,\\
+    \qquad Linear:    & $\log(\nu_{ij}) = \gamma_0 + \gamma_1 \texttt{x}_{1i}$,\\
+    \qquad Quadratic: & $\log(\nu_{ij}) = \gamma_0 + \gamma_1 \texttt{x}_{1i} +
+                  \gamma_2 \texttt{x}_{2i}^2$ e\\
+    \qquad Cubic:     & $\log(\nu_{ij}) = \gamma_0 + \gamma_1 \texttt{x}_{1i} +
+                  \gamma_2 \texttt{x}_{2i}^2 + \gamma_3 \texttt{x}_{3i}^3$,\\[.3cm]
+  \end{tabular}
+
+  {\small $i$ and $j$ refers to nitrofen concentration levels and
+    repetitions,
+    respectively.\\
+    $\bm{\texttt{x}}_1$, $\bm{\texttt{x}}_2$ and $\bm{\texttt{x}}_3$ are
+    the orthogonal linear, quadratic and cubic polynomials of the
+    \texttt{dose}.}
+  \vspace{.3cm}
+
+  \textbf{Alternative models:}
+  \begin{itemize}
+  \item COM-Poisson with varying dispersion,
+  \item DGLM-Poisson (fitted by
+    $\texttt{\small dglm::dglm(..., family=poisson)}$)
+  \item Double Poisson (fitted by
+    $\texttt{\small galmss::gamlss(..., family=DPO)}$)
+  \end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------------------
+\begin{frame}{Nitrofen data analysis: model comparisons}
+
+  \begin{table}[ht]
+    \centering \scriptsize
+    \renewcommand{\arraystretch}{0.8}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccrl}
+      \toprule
+      &     & \multicolumn{4}{c}{COM-Poisson} \\
+      \cmidrule(lr){3-6}
+      & G.l & Deviance & AIC & $\rchi^2$ & $\Pr(>\rchi^2$) \\
+      \midrule
+      Constant & 45 & 288.127 & 298.127 &  &  \\
+      Linear & 44 & 274.111 & 286.111 & 14.0164 & 0.0002 \\
+      Quadratic & 43 & 270.493 & 284.493 & 3.6179 & 0.0572 \\
+      Cubic & 42 & 269.503 & 285.503 & 0.9898 & 0.3198 \\
+      \bottomrule
+    \end{tabular*}\\[0.15cm]
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccrl}
+      &     & \multicolumn{4}{c}{double Poisson (\texttt{GAMLSS})} \\
+      \cmidrule(lr){3-6}
+      & G.l & Deviance & AIC & $\rchi^2$ & $\Pr(>\rchi^2$) \\
+      \midrule
+      Constant & 45 & 288.181 & 298.181 &  &  \\
+      Linear & 44 & 273.530 & 285.530 & 14.6512 & 0.0001 \\
+      Quadratic & 43 & 271.204 & 285.204 & 2.3256 & 0.1273 \\
+      Cubic & 42 & 269.201 & 285.201 & 2.0031 & 0.1570 \\
+      \bottomrule
+    \end{tabular*}\\[0.15cm]
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccrl}
+      &     & \multicolumn{4}{c}{double GLM Poisson (\texttt{DGLM})} \\
+      \cmidrule(lr){3-6}
+      & G.l & Deviance & AIC & $\rchi^2$ & $\Pr(>\rchi^2$) \\
+      \midrule
+      Constant & 45 & 287.690 & 297.690 &  &  \\
+      Linear & 44 & 272.634 & 284.634 & 15.0565 & 0.0001 \\
+      Quadratic & 43 & 269.997 & 283.997 & 2.6368 & 0.1044 \\
+      Cubic & 42 & 268.165 & 284.165 & 1.8317 & 0.1759 \\
+      \bottomrule
+    \end{tabular*}
+    \scriptsize \raggedright
+    Deviance is computed as minus twice log-likelihood
+  \end{table}
+\end{frame}
+
+%-----------------------------------------------------------------------
+\begin{frame}{Nitrofen data analysis: fitted curves}
+
+<<fitted-curves-nitrofen, fig.width=7, fig.height=4, fig.cap="Fitted values for mean and dispersion parameters with confidence bands and fitted variances">>=
+include_graphics("slides-figure/fitted-curves-nitrofen-1")
+@
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}{Concluding remarks}
+  \textbf{Summary of the proposed COM-Poisson with varying dispersion}
+  \begin{itemize}
+  \item Allow to jointly model mean and dispersion depending on
+    covariates;
+  \item Results are competitive to the DGLM-Poisson and double Poisson
+    approaches;
+  \item For small sample sizes, it is recommended to obtain the MLE's
+    based on the full likelihood, strategy (a);
+  \item Otherwise, for large samples, the strategy (b) (maximize the
+    conditional likelihood) is faster and the properties are retained.
+  \end{itemize}
+  \vspace{.2cm}
+
+  \textbf{Future work}
+  \begin{itemize}
+  \item Explore the the properties of the maximum likelihood estimators
+    (coverage rate, type I errors, and misspecification);
+  \item Implement a two-step approach for fitting COM-Poisson models.
+  \end{itemize}
+\end{frame}
+
+\section{Final considerations}
+
+\begin{frame}
+
+  \textbf{Summary of this thesis}
+  \begin{itemize}
+  \item We reviewed and compared several mechanisms leading to under-
+    and overdispersion for count data;
+  \item We proposed and explored a novel parametrization of the
+    COM-Poisson models;
+  \item And we extended the model to allow mean and dispersion depending
+    on covariates.
+  \item All methodology is illustrated with case studies;
+  \item Codes and data are available for reproducibility.
+  \end{itemize}
+  \vspace{.3cm}
+
+  \textbf{Possible extensions}
+  \begin{itemize}
+  \item Allow nonlinear predictors for the mean of dispersed count data;
+  \item Incorporate random-effects to model the correlation of the count
+    data besides the marginal over-/underdispersion.
+  \item Explore the flexible count model to analyze censored count data.
+  \end{itemize}
+
+\end{frame}
+
+\section{Additional results}
+
+%--------------------------------------------
+\begin{frame}{Publications}
+  We had two papers accepted for publication related to this thesis:
+
+  \begin{itemize}
+  \item Luyts, M., G. Molenberghs, G. Verbeke, K. Matthijs,
+    \textbf{E. E. Ribeiro Jr}, C. G. B. Demétrio, and J. Hinde
+    (2018). ``A Weibull-count approach for handling under- and
+    overdispersed longitudinal/clustered data
+    structures''. \textit{Statistical Modelling}, online.
+    \url{https://doi.org/10.1177/1471082X18789992}.  \vspace{.2cm}
+  \item \textbf{Ribeiro Jr, E. E.}, W. M. Zeviani, W. H. Bonat,
+    C. G. B. Demétrio, and J. Hinde (2018).  ``Reparametrization of
+    COM-Poisson Regression Models with Applications in the Analysis of
+    Experimental Data''. \textit{Statistical Modelling}, to appear.
+  \end{itemize}
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}[fragile]{R packages}
+
+  We developed two \texttt{R} packages (available on GitHub) related to
+  this thesis:
+  \begin{itemize}
+  \item \texttt{\bf cmpreg}: To fit the reparametrized (and original)
+    version of COM-Poisson models with varying dispersion;
+  \item \texttt{\bf flexcm}: To fit flexible count models (CMP, GCT, DWe,
+    GPo, DPo, and PTw$^*$).
+  \end{itemize}
+  \vspace{.3cm}
+
+  Features:
+  \begin{itemize}
+  \item Functions to computate the normalizing constant are written in
+    \texttt{C++}, so the computations are reasonably fast.
+  \item There are methods to perform Wald and likelihood ratio tests,
+    predict new data, profile likelihood, and more.
+  \item All data sets are avaliable in packages.
+  \item Still in development.
+  \end{itemize}
+
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}[fragile]{R packages}
+
+<<package-example, echo=TRUE, eval=FALSE>>=
+
+# Install
+devtools::install_github("jreduardo/cmpreg")
+devtools::install_github("jreduardo/flexcm")
+
+# Fit COM-Poisson with varying dispersion
+cmpreg::cmp(formula  = count ~ x1 + x2 + x3.
+            dformula = ~ x1,
+            data     = dataset)
+
+# Fit flexible models
+#   - model = "compoisson"
+#   - model = "discreteweibull"
+#   - model = "generalizedpoisson"
+#   - model = "doublepoisson"
+#   - model = "poissontweedie"
+flexcm::flexcm(formula = count ~ x1 + x2 + x3,
+               model   = "gammacount",
+               data    = dataset)
+
+@
+
+\end{frame}
+
+\section*{Bibliography}
+\begin{frame}[allowframebreaks]{References}
+  \small
+  \vspace*{-0.5cm}
+  \bibliography{../bibliography}
+\end{frame}
+
+\section*{}
+\begingroup
+\setbeamercolor{background canvas}{bg=mycol}
+\begin{frame}[c, plain, noframenumbering]
+  \centering
+  \large \myfont
+  \bfseries
+  \color{white}
+  \includegraphics[height=2cm,valign=c]{./slides-image/github-logo}
+
+  \vspace{.5cm}
+  All source files of this thesis are available on GitHub\\
+  \url{https://github.com/jreduardo/master-thesis}\\
+  \url{http://www.leg.ufpr.br/~eduardojr}
+  % \begin{columns}[c]
+  %   \color{white}
+  %   \column{.1\linewidth}
+  %   \begin{flushright}
+  %     \includegraphics[height=1cm,valign=c]{./slides-image/github-logo}
+  %   \end{flushright}
+  %   \column{.8\linewidth}
+  %   \hspace*{-0.7cm} \bf All source files for this thesis
+  %   are available on GitHub\\
+  %   \hspace*{-0.7cm} \href{https://github.com/jreduardo/master-thesis}{\color{gray!50}\tt https://github.com/jreduardo/master-thesis}
+  % \end{columns}
+\end{frame}
+\endgroup
+
+\end{document}
+
+
+
+% --------------------------------------------
