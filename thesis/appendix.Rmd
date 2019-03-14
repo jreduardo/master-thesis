@@ -5,9 +5,11 @@
 \section*{Appendix A: \texttt{R} packages and computational routines}
 \addtotoc{section}{Appendix A: \texttt{R} packages and computational routines}
 
-In this dissertation, we implemented two packages, `cmpreg` and` flexcm`
-for the statistical software `R` @Rcore2018. The packages are available
-on GitHub and are still under development.
+In this dissertation, we implemented two packages,
+`cmpreg`^[https://github.com/jreduardo/cmpreg] and
+`flexcm`^[https://github.com/jreduardo/flexcm] for the statistical
+software `R` [@Rcore2018]. The packages are available on GitHub and are
+still under development.
 
 The `cmpreg` package includes functions to fit COM-Poisson models using
 the parametrization proposed in Chapter 1. In this package, we can
@@ -53,7 +55,7 @@ names(models) <- c("CMP", "GCT", "DWe", "GPo", "DPo", "PTw")
 # Methods for objects for the class 'flexcm'
 lapply(models, print)
 lapply(models, summary)
-lapply(models, lrtest)
+lapply(models, equitest)
 lapply(models, logLik)
 lapply(models, AIC)
 lapply(models, fitted)
@@ -90,7 +92,6 @@ modelscmp <-
     lapply(formulas, function(form) {
         cmp(novos ~ dose + I(dose^2) + I(dose^3),
             dformula = form,
-            strategy = "joint",
             data = nitrofen)
     })
 
@@ -116,11 +117,18 @@ modelsglm <-
 # Methods for objects of class 'cmpreg'
 lapply(modelscmp, summary)
 lapply(modelscmp, logLik)
-anova(modelscmp)
+lrtest(modelscmp) # or anova(modelscmp)
 
 # Some type of residuals
 model <- modelscmp[[2]]
 plot(fitted(model), residuals(model))
 plot(fitted(model), residuals(model, type = "pearson"))
+
+# Prediction with confidence intervals
+newdf <- nitrofen[c(1, 11, 21, 31), -2, drop = FALSE]
+predict(object = model,
+        newdata = newdf,
+        what = "all",
+        type = "response")
 
 ```

@@ -3,7 +3,8 @@
 In this chapter, we present a number of data sets to illustrate some
 scientific and statistical issues which arise from count data. These
 data sets will be used throughout the text for illustration of the
-proposed methodology.
+proposed methodologies. All data sets are available in the packages
+`cmpreg` and `flexcm` for the software `R` [@Rcore2018].
 
 ```{r chapter0}
 knitr::read_chunk("script-chapter0.R")
@@ -23,7 +24,7 @@ recovery of cotton plants (_Gossypium hirsutum_) in terms of production,
 randomized design with five replicates. The experimental unity was a pot
 with two plants and it was recorded the number of cotton bolls at five
 artificial defoliation levels (0%, 25%, 50%, 75%, and 100%) and five
-growth stages: vegetative, flower-bud, blossom, fig and cotton boll.
+growth stages: vegetative, flower-bud, blossom, boll and boll open.
 
 ```{r chap0-plot-cotton, fig.width=9, fig.height=4, fig.cap="(a) Number of bolls produced for each artificial defoliation level and each growth stage (solid lines represent loess curves) and (b) sample variance against the sample mean of the five replicates for each combination of defoliation level and growth stage (dotted line is the identity line and solid line is the least square line)."}
 ```
@@ -35,28 +36,28 @@ stage. Figure \@ref(fig:chap0-plot-cotton)(b) show that all sample
 variances are smaller than the sample means, suggesting underdispersion.
 
 Alternatives analysis of this data have been proposed in the
-literature. @Zeviani2014 analyzed it using the Gamma-Count
+literature. @Zeviani2014 analyzed it using the Gamma-count
 distribution. @Bonat2018 used this data for illustrating the extended
 Poisson-Tweedie model. @Huang2017 and @RibeiroJr2018 analyzed it by
 using different mean-parametrizations of the COM-Poisson model.
 
-## Soil moisture and potassium doses on soybean culture ## {#chap0-soy}
+## Soil moisture and potassium fertilization on soybean culture ## {#chap0-soy}
 
 In this second example we consider a study of potassium doses and soil
 moisture levels on soybean (\emph{Glicine Max}) production. The tropical
 soils are usually poor in potassium (K) and demand potassium
-fertilization when cultivated with soybean to obtain satisfactory
-yields. Soybean production is affected by long exposition to water
-deficit. As potassium is a nutrient involved in the water balance in
-plant, by hyphotesis, a good supply of potassium avoids to reduce
-production.
+fertilization to obtain satisfactory yields when cultivated
+soybean. Furthermore, soybean production is affected by long exposition
+to water deficit. As potassium is a nutrient involved in the water
+balance in plant, by hyphotesis, a good supply of potassium avoids to
+reduce production.
 
 To evaluate the effects of potassium doses and soil humidity levels on
 soybean production, @Serafim2012 conducted a $5\times 3$ factorial
 experiment in a randomized complete block design with 5 replicates. Five
 different potassium doses (0, 0.3, 0.6, 1.2 and 1.8 $\times$ 100mg
 dm$^{-3}$) were applied to the soil and soil moisture levels were
-controlled at (37.5, 50, and 62.5\%) . The experiment was carried out in
+controlled at (37.5, 50, and 62.5\%). The experiment was carried out in
 a greenhouse and the experimental units were pots with two plants in
 each. The count responses measured were the total number of bean seeds
 per pot and the number of pods.
@@ -68,8 +69,7 @@ Figure \@ref(fig:chap0-plot-soy)(a) shows the number of bean seeds and
 the number of pods recorded for each combination of potassium dose and
 moisture level; it is important to note the indication of a quadratic
 effect of the potassium levels for both counts, as indicated by the
-smoothers. For the number of bean seeds, most points in the sample
-variance \textit{versus} sample means dispersion diagram Figure
+smoothers. For the number of bean seeds, most points in Figure
 \@ref(fig:chap0-plot-soy)(b) are above the identity line, suggesting
 overdispersion (block effect not yet removed). However, for the number
 of pods, there are points above and below the identity line -- that
@@ -77,12 +77,12 @@ leads to least-squares line very similar to the identity line,
 suggesting that the equidispersion assumption can be suitable, if the
 experimental conditions are not related to the dispersion.
 
-## Assessing toxicity of nitrofen in aquatic systems ## {#chap0-nitrofen}
+## Toxicity of nitrofen in aquatic systems ## {#chap0-nitrofen}
 
 Nitrofen is a herbicide that was used extensively for the control of
 broad-leaved and grass weeds in cereals and rice. Although it is
 relatively non-toxic to adult mammals, nitrofen is a significant
-tetragen and mutagen. It is also acutely toxic and reproductively toxic
+teratogen and mutagen. It is also acutely toxic and reproductively toxic
 to cladoceran zooplankton. Nitrofen is no longer in commercial use in
 the United States, having been the first pesticide to be withdrawn due
 to tetragenic effects [@Bailer1994].
@@ -92,10 +92,10 @@ toxicity of the herbicide, nitrofen, on a species of zooplankton
 (_Ceriodaphnia dubia_). Fifty animals were randomized into
 batches of ten and each batch was put in a solution with a measured
 concentration of nitrofen ($0, 0.8, 1.6, 2.35$ and $3.10$
-$\mu$g$/10^2$litre) (\texttt{dose}). Subsequently, the number of live
+$\mu$g$/100$litre) (\texttt{dose}). Subsequently, the number of live
 offspring was recorded.
 
-```{r chap0-plot-nitrofen, include=FALSE, fig.width=9, fig.height=4, out.width="95%", fig.cap="(a) Number of live offspring observed for each nitrofen concentration level (solid lines represent loess curves) and (b) sample variance against sample mean of the 10 replicates for each concentration level (dotted line is the identity line, solid line is the least-squares line and the values between parentheses are the concentration levels)."}
+```{r chap0-plot-nitrofen, include=FALSE, fig.width=9, fig.height=4, out.width="95%", fig.cap="(a) Number of live offspring observed for each nitrofen concentration level (solid lines represent loess curves) and (b) sample variance against sample mean of the 10 replicates for each concentration level (dotted line is the identity line and the values between parentheses are the concentration levels)."}
 ```
 
 ```{r chap0-table-nitrofen, results="asis"}
@@ -115,7 +115,7 @@ results.
 ```{r chap0-plot-nitrofen, fig.width=8, fig.height=3.5, out.width="90%", fig.cap="(a) Number of live offsprings observed for each nitrofen concentration level and (b) scatterplot of the sample means against sample variances (dotted line is the identity line and solid line is the least-squares line)."}
 ```
 
-## Evaluation of \textit{Annona mucosa} for control of \textit{Sitophilus zeamaus} ## {#chap0-sitophilus}
+## \textit{Annona mucosa} in control of stored maize peast ## {#chap0-sitophilus}
 
 New control methods are necessary for stored grain pest management
 programs due to both the widespread problems of insecticide-resistance
@@ -155,8 +155,8 @@ the cultivation of bromeliads, orchids, and other epiphytes
 conducted in a greenhouse in four blocks design with objective of
 evaluate five different recipients of alternative substrates for
 bromeliads [@Kanashiro2008]. All treatments contained peat and perlite
-and differed in the third component: _Pinus_ bark, _Eucalyptus_ bark,
-Coxim, coconut fiber and Xaxim. The variable of interest was the
+and are differed in the third component: _Pinus_ bark, _Eucalyptus_
+bark, Coxim, coconut fiber and Xaxim. The variable of interest was the
 number of leaves per experimental unit (pot with initially eight
 plants), which was registered at 4, 173, 229, 285, 341, and 435 days
 after planting.

@@ -21,8 +21,8 @@ biblatexoptions:
   - maxbibnames=99
   - maxcitenames=3
   - dashed=false
-link-citations: yes
-colorlinks: no
+link-citations: true
+colorlinks: false
 esalq-informations: ./latex/informations.tex
 esalq-cover: ./latex/cover.tex
 esalq-record: ./latex/record.tex
@@ -84,7 +84,7 @@ opts_chunk$set(
 Em diversos estudos agrícolas e biológicos, a variável resposta é um
 número inteiro não negativo que desejamos explicar ou analisar em termos
 de um conjunto de covariáveis. Diferentemente do modelo linear
-Gaussiano, a variável de resposta é discreta com distribuição de
+Gaussiano, a variável resposta é discreta com distribuição de
 probabilidade definida apenas em valores do conjunto dos naturais. O
 modelo Poisson é o modelo padrão para dados em forma de contagens. No
 entanto, as suposições desse modelo forçam que a média seja igual a
@@ -100,8 +100,7 @@ discreto, Poisson generalizado, duplo Poisson e Poisson-Tweedie, foi
 revisado e comparado, considerando os índices de dispersão, inflação de
 zero e cauda pesada, juntamente com os resultados de análises de
 dados. As rotinas computacionais desenvolvidas nesta dissertação foram
-organizadas em dois pacotes do R disponíveis no GitHub.
-\vspace*{0.3cm}
+organizadas em dois pacotes `R` disponíveis no GitHub.  \vspace*{0.3cm}
 
 **Keywords:** Dados de contagens, Dispersão variável, Inferência baseada
   em verossimilhança, Modelos probabilísticos discretos, Subdispersão,
@@ -129,7 +128,7 @@ discrete Weibull, generalized Poisson, double Poisson and
 Poisson-Tweedie, was reviewed and compared, considering the dispersion,
 zero-inflation, and heavy tail indexes, together with the results of
 data analyzes. The computational routines developed in this dissertation
-were organized in two R packages available on GitHub.
+were organized in two `R` packages available on GitHub.
 \vspace*{0.3cm}
 
 **Keywords:** Count data, Discrete probability models, Likelihood-based

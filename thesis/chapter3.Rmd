@@ -27,34 +27,33 @@ and the datasets are available in the appendix.
 
 The standard Gaussian linear models are based on the assumption of
 variance homogeneity [@Aitkin1987]. Generalized linear models relax this
-assumption by assuming the observations distributed according to some
-distribution in the exponential family [@Nelder1972]. A key feature of
-exponential family distribution is the so-called mean-variance
-relationship, i.e. the variance is a deterministic function of the mean
-$\text{Var}(Y) = \phi V(\mu)$. The main examples are $V(\mu) =
-\mu(1-\mu)$ for the binomial distribution, $V(\mu) = \mu$ for the
-Poisson distribution, $V(\mu) = \mu^2$ for the gamma distribution and
-$V(\mu) = \mu^3$ for the inverse-Gaussian distribution
-[@McCullagh1989]. This allows modeling specific heterogeneity by
-assuming an appropriate distribution. However, once the mean-variance
-relationship is specified, the variance is assumed known up to a
-constant of proportionality, the dispersion parameter $\phi$. To ensure
-more flexibility in the analysis of non-Gaussian heterogeneous data, we
-explore methods to model dispersion depending on covariates. We focus on
-count data only.
+assumption by assuming the observations come from some distribution in
+the exponential family [@Nelder1972]. A key feature of exponential
+family distribution is the so-called mean-variance relationship,
+i.e. the variance is a deterministic function of the mean $\text{Var}(Y)
+= \phi V(\mu)$. The main examples are $V(\mu) = \mu(1-\mu)$ for the
+binomial distribution, $V(\mu) = \mu$ for the Poisson distribution,
+$V(\mu) = \mu^2$ for the gamma distribution and $V(\mu) = \mu^3$ for the
+inverse-Gaussian distribution [@McCullagh1989]. This allows modeling
+specific heterogeneity by assuming an appropriate distribution. However,
+once the mean-variance relationship is specified, the variance is
+assumed to be known up to a constant of proportionality, the dispersion
+parameter~$\phi$. To ensure more flexibility in the analysis of
+non-Gaussian heterogeneous data, we explore methods to model dispersion
+depending on covariates. We focus on count data only.
 
 Modeling dispersion depending on covariates in the analysis of count
 data has not been much explored in the literature. The class of double
 generalized linear models [@Smyth1988; @McCullagh1989; @Smyth1999] can
 be used to do it. This class was widely explored for continuous
 data. @Smyth1988 discussed this class using a double generalized linear
-model based on the gamma distribution. The adjusted method for
+model based on the gamma distribution. Adjusted likelihood methods for
 estimation and inference are presented by @Smyth1999. @Paula2013b
-discussed diagnostics for this class and used a gamma distributed data
-as an application. @Andersen2017 extended the double generalized linear
-model by considering compound Poisson distributions. Related to discrete
-data, @Vieira2011 proposed a Bayesian analysis of the double generalized
-linear models for binomial data.
+discussed diagnostics for this class and used a assumed gamma
+distributed data as an application. @Andersen2017 extended the double
+generalized linear model by considering compound Poisson
+distributions. Related to discrete data, @Vieira2011 proposed a Bayesian
+analysis of the double generalized linear models for binomial data.
 
 Another approach that has gained momentum in the last decade is the
 generalized additive models for location, shape, and scale (GAMLSS)
@@ -85,7 +84,8 @@ with double generalized linear models and GAMLSS approach. Finally,
 concluding remarks close the chapter in Section
 \@ref(chap3-final-remarks). We provide an `R` implementation for fitting
 the COM-Poisson models with varying dispersion, together with the
-analyzed data sets, in the appendix.
+analyzed data sets, ins the package `cmpreg`. Illustrative codes are
+presented in the appendix.
 
 ## Double generalized linear models ## {#chap3-dglm}
 
@@ -200,9 +200,8 @@ The COM-Poisson model with varying dispersion is quite similar to the
 double generalized linear approach, both extend the generalized linear
 models to model the dispersion as well as the mean. However, COM-Poisson
 with varying dispersion is a fully parametric model that has the
-advantages of allowing inference, obtaining predictions for
-probabilities and facilitating generalizations such as random effects
-and modeling of censored data.
+advantages of allowing predictions for probabilities and generalizations
+such as random effects and modeling of censored data.
 
 ## Estimation and inference ## {#chap3-estimation-and-inference}
 
@@ -547,10 +546,10 @@ $\mu_i$ and $\nu_i$, so a linear predictor of $\nu_i$ does not imply a
 linear curve here. The model with a linear predictor for the dispersion
 does not fit the sample variances for the doses 1.6 and
 2.35$\mu$g$/10^2$litre well. The model with a quadratic predictor fits
-these variances better, however, produces uncommon behavior after
-2.35$\mu$g$/10^2$litre.
+these variances better, however, it produces rather strange behavior for
+values greater than 2.35$\mu$g$/10^2$litre.
 
-## Analysis of soybean experiment ##
+### Analysis of soybean experiment ###
 
 In this second application, we analyze the data resulting from a
 $5\times3$ factorial experiment conducted in a randomized complete block
@@ -721,7 +720,7 @@ likelihood). However, studies regarding the coverage rate of confidence
 intervals and the evaluation of type 1 errors in hypothesis testing are
 necessary.
 
-The methodology is applied to analyze two count datasets provided by
+The methodology is applied to analyze two count datasets obtained from
 planned experiments. We compared the COM-Poisson models with double
 generalized linear models and GAMLSS approach. The proposal presented
 improvements in terms of fitting data when compared to the conventional

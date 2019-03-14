@@ -128,7 +128,7 @@ xy2 <-
            scales = "free",
            strip = strip.custom(
                factor.levels = c("Number of bean seeds",
-                                 "Number of viable pods")
+                                 "Number of pods")
            ),
            panel = function(subscripts, x, y, ...) {
                panel.xyplot(subscripts = subscripts, x, y, ...)
@@ -136,8 +136,7 @@ xy2 <-
                panel.abline(a = 0, b = 1, lty = 2)
            },
            prepanel = function(x, y, subscripts) {
-               rr <- extendrange(c(x[subscripts],
-                                   y[subscripts]))
+               rr <- extendrange(c(x, y))
                list(xlim = rr, ylim= rr)
            },
            data = soybean_summary)
@@ -181,7 +180,7 @@ xy2 <-
     xyplot(va ~ me,
            xlim = lim,
            ylim = lim,
-           type = c("g", "p", "r"),
+           type = c("g", "p"),
            sub = "(b)",
            xlab = "Sample mean",
            ylab = "Sample variance",
